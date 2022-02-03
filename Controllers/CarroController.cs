@@ -5,26 +5,28 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Final_Plataformas_De_Desarrollo.Data;
 using Final_Plataformas_De_Desarrollo.Models;
 
-namespace Final_Plataformas_De_Desarrollo.Data
+namespace Final_Plataformas_De_Desarrollo.Controllers
 {
-    public class CategoriasController : Controller
+    public class CarroController : Controller
     {
         private readonly MyContext _context;
 
-        public CategoriasController(MyContext context)
+        public CarroController(MyContext context)
         {
             _context = context;
         }
 
-        // GET: Categorias
+        // GET: Carro
         public async Task<IActionResult> Index()
         {
-            return View(await _context.categorias.ToListAsync());
+            var myContext = _context.carros.Include(c => c.usuario);
+            return View(await myContext.ToListAsync());
         }
 
-        // GET: Categorias/Details/5
+        // GET: Carro/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +34,42 @@ namespace Final_Plataformas_De_Desarrollo.Data
                 return NotFound();
             }
 
-            var categoria = await _context.categorias
-                .FirstOrDefaultAsync(m => m.idCategoria == id);
-            if (categoria == null)
+            var carro = await _context.carros
+                .Include(c => c.usuario)
+                .FirstOrDefaultAsync(m => m.idCarro == id);
+            if (carro == null)
             {
                 return NotFound();
             }
 
-            return View(categoria);
+            return View(carro);
         }
 
-        // GET: Categorias/Create
+        // GET: Carro/Create
         public IActionResult Create()
         {
+            ViewData["idUsuario"] = new SelectList(_context.usuarios, "idUsuario", "apellido");
             return View();
         }
 
-        // POST: Categorias/Create
+        // POST: Carro/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("idCategoria,nombre")] Categoria categoria)
+        public async Task<IActionResult> Create([Bind("idCarro,idUsuario")] Carro carro)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(categoria);
+                _context.Add(carro);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(categoria);
+            ViewData["idUsuario"] = new SelectList(_context.usuarios, "idUsuario", "apellido", carro.idUsuario);
+            return View(carro);
         }
 
-        // GET: Categorias/Edit/5
+        // GET: Carro/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +77,23 @@ namespace Final_Plataformas_De_Desarrollo.Data
                 return NotFound();
             }
 
-            var categoria = await _context.categorias.FindAsync(id);
-            if (categoria == null)
+            var carro = await _context.carros.FindAsync(id);
+            if (carro == null)
             {
                 return NotFound();
             }
-            return View(categoria);
+            ViewData["idUsuario"] = new SelectList(_context.usuarios, "idUsuario", "apellido", carro.idUsuario);
+            return View(carro);
         }
 
-        // POST: Categorias/Edit/5
+        // POST: Carro/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("idCategoria,nombre")] Categoria categoria)
+        public async Task<IActionResult> Edit(int id, [Bind("idCarro,idUsuario")] Carro carro)
         {
-            if (id != categoria.idCategoria)
+            if (id != carro.idCarro)
             {
                 return NotFound();
             }
@@ -96,12 +102,12 @@ namespace Final_Plataformas_De_Desarrollo.Data
             {
                 try
                 {
-                    _context.Update(categoria);
+                    _context.Update(carro);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoriaExists(categoria.idCategoria))
+                    if (!CarroExists(carro.idCarro))
                     {
                         return NotFound();
                     }
@@ -112,10 +118,11 @@ namespace Final_Plataformas_De_Desarrollo.Data
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(categoria);
+            ViewData["idUsuario"] = new SelectList(_context.usuarios, "idUsuario", "apellido", carro.idUsuario);
+            return View(carro);
         }
 
-        // GET: Categorias/Delete/5
+        // GET: Carro/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +130,31 @@ namespace Final_Plataformas_De_Desarrollo.Data
                 return NotFound();
             }
 
-            var categoria = await _context.categorias
-                .FirstOrDefaultAsync(m => m.idCategoria == id);
-            if (categoria == null)
+            var carro = await _context.carros
+                .Include(c => c.usuario)
+                .FirstOrDefaultAsync(m => m.idCarro == id);
+            if (carro == null)
             {
                 return NotFound();
             }
 
-            return View(categoria);
+            return View(carro);
         }
 
-        // POST: Categorias/Delete/5
+        // POST: Carro/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var categoria = await _context.categorias.FindAsync(id);
-            _context.categorias.Remove(categoria);
+            var carro = await _context.carros.FindAsync(id);
+            _context.carros.Remove(carro);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoriaExists(int id)
+        private bool CarroExists(int id)
         {
-            return _context.categorias.Any(e => e.idCategoria == id);
+            return _context.carros.Any(e => e.idCarro == id);
         }
     }
 }
