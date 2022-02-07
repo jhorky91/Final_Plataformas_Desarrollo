@@ -1,24 +1,34 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-@model IEnumerable<Final_Plataformas_De_Desarrollo.Models.Producto>
+@using Microsoft.AspNetCore.Http;
+@using Newtonsoft.Json;
+@model IEnumerable<Final_Plataformas_De_Desarrollo.Models.Producto>;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <h4>@ViewData["Login"]</h4>
-    <hr />
+    @if (JsonConvert.DeserializeObject<Account>(HttpContextAccessor.HttpContext.Session.GetString("SighIn")).signIn)
+    {
+        <h3 class="display-4">Welcome </h3>
 
-    <div class="container">
-        <div class="row">
-            @foreach (var prod in Model)
-            {
-                <div class="col-md-4">
-                    <label>
-                        @prod.nombre
-                    </label>
-                </div>
-            }
+        <hr />
+
+        <div class="container">
+            <div class="row">
+                @foreach (var prod in Model)
+                {
+                    <div class="col-md-4">
+                        <label>
+                            @prod.nombre
+                        </label>
+                    </div>
+                }
+            </div>
         </div>
-    </div>
-
+    }
+    else
+    {
+        <h4>Se caduco la sesion, vuelva a iniciar</h4>
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Iniciar Sesion</a>
+    }
 </div>

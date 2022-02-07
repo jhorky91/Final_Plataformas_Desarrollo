@@ -8,6 +8,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace Final_Plataformas_De_Desarrollo.Controllers
 {
@@ -24,6 +26,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         public IActionResult Login()
         {
             //ViewData["Login"] = "ERROR";
+            HttpContext.Session.SetString("SighIn", JsonConvert.SerializeObject(new Account()));
             return View();
         }
 
@@ -40,13 +43,29 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                 }
                 else 
                 {
-                    
+                    //TempData["Login"] = true;
+                    //TempData.Keep("Login");
+                    //HttpContext.Session.SetString("SighIn", JsonConvert.SerializeObject(usuario));
+                    Account a = new Account();
+                    a.name = usuario.nombre;
+                    a.rol = usuario.rol;
+                    a.signIn = true;
+                    HttpContext.Session.SetString("SighIn", JsonConvert.SerializeObject(a));
                     return RedirectToAction("Index");
                 }
             }
            
             return RedirectToAction("Login"); 
         }
+
+        //CERRAR SESION
+        public IActionResult CerrarSesion()
+        {
+            //TempData["Login"] = null;
+            HttpContext.Session.SetString("SighIn", JsonConvert.SerializeObject(new Account()));
+            return RedirectToAction("Login");
+        }
+
         //CLIENTE
         public IActionResult Index()
         {
@@ -54,6 +73,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             var productos = _context.productos;
             return View(productos);
         }
+
         //ADMIN
         public IActionResult Admin()
         {

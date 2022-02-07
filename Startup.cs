@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Http;
 
 namespace Final_Plataformas_De_Desarrollo
 {
@@ -29,6 +29,16 @@ namespace Final_Plataformas_De_Desarrollo
 
             services.AddDbContext<Data.MyContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("MyContext")));
+            
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
+                //options.Cookie.HttpOnly = true;
+                //options.Cookie.IsEssential = true;
+            });
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +60,8 @@ namespace Final_Plataformas_De_Desarrollo
             app.UseRouting();
 
             app.UseAuthorization();
+            
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
