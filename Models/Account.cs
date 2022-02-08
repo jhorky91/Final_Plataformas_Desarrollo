@@ -8,8 +8,10 @@ namespace Final_Plataformas_De_Desarrollo.Models
     public class Account
     {
         public string name;
+        public int id;
         public bool signIn;
         public int rol;
+
 
         public Account() 
         {

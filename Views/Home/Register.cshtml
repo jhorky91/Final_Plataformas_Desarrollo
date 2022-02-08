@@ -1,0 +1,64 @@
+﻿@model RegisterViewModel;
+@{
+
+    ViewData["Title"] = "Register";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h3>Registrarse</h3>
+                </div>
+                <img src="~/images/login.png" class="mx-auto w-25" />
+                <div class="card-body">
+                    <form asp-controller="Home" asp-action="Registrarse" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <input asp-for="Input.DNI" class="form-control" placeholder="Ingese su Dni" autofocus />
+                            <span asp-validation-for="Input.DNI" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Input.Nombre" class="form-control" placeholder="Ingrese su Nombre" autofocus />
+                            <span asp-validation-for="Input.Nombre" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Input.Apellido" class="form-control" placeholder="Ingrese su Apellido" autofocus />
+                            <span asp-validation-for="Input.Apellido" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Input.Email" class="form-control" placeholder="Ingrese el Email"/>
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Input.Password" class="form-control" placeholder="Ingrese su Password" />
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Input.CUIT_CUIL" class="form-control" placeholder="Ingrese su Cuit/Cuil"/>
+                            <span asp-validation-for="Input.CUIT_CUIL" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Input.Rol" class="form-control"/>
+                            <span asp-validation-for="Input.Rol" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <span class="text-danger">
+                                @Html.DisplayFor(lvm => lvm.ErrorMessage)
+                            </span>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-block">Registrarse</button>
+                        <div class="card-footer d-flex justify-content-center">
+                            ¿Ya te registraste? <a class="nav-link text-danger" asp-area="" asp-controller="Home" asp-action="Login">
+                                Iniciar Sesión
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

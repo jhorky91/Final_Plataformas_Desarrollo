@@ -16,10 +16,11 @@ namespace Final_Plataformas_De_Desarrollo.Models
 
         public class InputModel 
         { 
-            [Required]
+            [Required(ErrorMessage = "El campo DNI es obligatorio.")]
+            [DataType(DataType.Text)]
             public int DNI { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "El campo Password es obligatorio.")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
         

@@ -27,31 +27,61 @@
                 @*if (TempData["Login"] != null)*@
                 @if (JsonConvert.DeserializeObject<Account>(HttpContextAccessor.HttpContext.Session.GetString("SighIn")).signIn)
                 {
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Shop">Listado de Productos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Contacto</a>
-                            </li>
-                        </ul>
 
 
-                    </div>
+                    @if (JsonConvert.DeserializeObject<Account>(HttpContextAccessor.HttpContext.Session.GetString("SighIn")).rol != 1)
+                    {
 
-                    <a class="btn btn-outline-success my-2 my-sm-0" asp-area="" asp-controller="Home" asp-action="CerrarSesion">Logout</a>
+
+                        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Shop">Listado de Productos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Contacto</a>
+                                </li>
+                            </ul>
+
+
+                        </div><a class="btn btn-outline-success my-2 my-sm-0" asp-area="" asp-controller="Home" asp-action="CerrarSesion">Logout</a>
+                    }
+                    else
+                    {
+                        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Producto">Producto</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Categoria">Categoria</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Usuario">Usuario</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Carro">Carro</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Compra">Compra</a>
+                                </li>
+                            </ul>
+
+
+                        </div>
+
+                        <a class="btn btn-outline-success my-2 my-sm-0" asp-area="" asp-controller="Home" asp-action="CerrarSesion">Logout</a>
+
+                    }
                 }
-            </div>
 
-        </nav>
-    </header>
 
-    <div class="container">
+            </div></nav></header><div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

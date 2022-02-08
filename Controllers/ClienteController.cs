@@ -11,12 +11,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Final_Plataformas_De_Desarrollo.Controllers
 {
-    public class AdminController : Controller
+    public class ClienteController : Controller
     {
-        private readonly ILogger<AdminController> _logger;
+        private readonly ILogger<ClienteController> _logger;
         private readonly MyContext _context;
 
-        public AdminController(ILogger<AdminController> logger, MyContext context)
+        public ClienteController(ILogger<ClienteController> logger, MyContext context)
         {
             _logger = logger;
             _context = context;
@@ -25,26 +25,6 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         public IActionResult Index()
         {
             return View();
-        }
-        public IActionResult Producto()
-        {
-            return RedirectToAction("Index", "Producto");
-        }
-        public IActionResult Categoria()
-        {
-            return RedirectToAction("Index", "Categoria");
-        }
-        public IActionResult Usuario()
-        {
-            return RedirectToAction("Index", "Usuario");
-        }
-        public IActionResult Carro()
-        {
-            return RedirectToAction("Index", "Carro");
-        }
-        public IActionResult Compra()
-        {
-            return RedirectToAction("Index", "Compra");
         }
 
 

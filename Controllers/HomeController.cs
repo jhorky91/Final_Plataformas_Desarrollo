@@ -39,6 +39,12 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             {
                 if (usuario.rol == 1)
                 {
+                    Account a = new Account();
+                    a.name = usuario.nombre;
+                    a.id = usuario.idUsuario;
+                    a.rol = usuario.rol;
+                    a.signIn = true;
+                    HttpContext.Session.SetString("SighIn", JsonConvert.SerializeObject(a));
                     return RedirectToAction("Index", "Admin");
                 }
                 else 
@@ -48,14 +54,33 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                     //HttpContext.Session.SetString("SighIn", JsonConvert.SerializeObject(usuario));
                     Account a = new Account();
                     a.name = usuario.nombre;
+                    a.id = usuario.idUsuario;
                     a.rol = usuario.rol;
                     a.signIn = true;
                     HttpContext.Session.SetString("SighIn", JsonConvert.SerializeObject(a));
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index","Cliente");
                 }
             }
            
             return RedirectToAction("Login"); 
+        }
+
+        public async Task<IActionResult> Registrarse(RegisterViewModel model)
+        {
+            Usuario u = new Usuario();
+            u.dni   =   model.Input.DNI;
+            u.nombre  =  model.Input.Nombre;
+            u.apellido = model.Input.Apellido;
+            u.mail  = model.Input.Email;
+            u.password = model.Input.Password;
+            u.cuit_cuil = model.Input.CUIT_CUIL;
+            u.rol = model.Input.Rol;
+            
+
+
+
+
+            return RedirectToAction("Login");
         }
 
         //CERRAR SESION
@@ -74,8 +99,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             return View(productos);
         }
 
-        //ADMIN
-        public IActionResult Admin()
+        //REGISTRO
+        public IActionResult Register()
         {
             return View();
         }
