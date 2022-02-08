@@ -31,7 +31,16 @@
                 @Html.DisplayNameFor(model => model.cuit_cuil)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.rol)
+                @Html.DisplayNameFor(model => model.esAdmin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.esEmpresa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.intentos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.bloqueado)
             </th>
             <th></th>
         </tr>
@@ -58,7 +67,16 @@
                 @Html.DisplayFor(modelItem => item.cuit_cuil)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.rol)
+                @Html.DisplayFor(modelItem => item.esAdmin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.esEmpresa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.intentos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bloqueado)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.idUsuario">Edit</a> |

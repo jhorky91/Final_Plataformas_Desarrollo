@@ -10,66 +10,43 @@
     <div class="row">
         <div class="col-md-4 mx-auto">
             <div class="card text-center">
-                <div class="card-header">
+                @*<div class="card-header">
                     <h3>Iniciar Sesión</h3>
-                </div>
+                </div>*@
                 <img src="~/images/login.png" class="mx-auto w-25" />
                 <div class="card-body">
-                    <form asp-controller="Home" asp-action="IniciarSesion" method="post">
-                        <div asp-validation-summary="All" class="text-danger"></div>
-                        <div class="form-group">
-                            <input asp-for="Input.DNI" class="form-control" placeholder="Ingese su Dni" autofocus />
-                            <span asp-validation-for="Input.DNI" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <input asp-for="Input.Password" class="form-control" placeholder="Ingrese su Password" />
-                            <span asp-validation-for="Input.Password" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <span class="text-danger"> 
-                                @Html.DisplayFor(lvm => lvm.ErrorMessage)
-                            </span>
-                        </div>
-                        <button type="submit" class="btn btn-success btn-block">Iniciar Sesión</button>
-                        <div class="card-footer d-flex justify-content-center">
-                            ¿No creaste tu cuenta? <a class="nav-link text-danger" asp-area="" asp-controller="Home" asp-action="Register">
-                                Registrate
-                            </a>
-                        </div>
-                    </form>
+                    <section>
+                        <form asp-controller="Home" asp-action="IniciarSesion" method="post">
+                            <div class="form-group">
+                                <input asp-for="Input.DNI" class="form-control" placeholder="Ingese su Dni" autofocus />
+                                <span asp-validation-for="Input.DNI" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Input.Password" class="form-control" placeholder="Ingrese su Password" />
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <span class="text-danger">
+                                    @Html.DisplayFor(lvm => lvm.ErrorMessage)
+                                </span>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-block">Iniciar Sesión</button>
+                            <div class="card-footer d-flex justify-content-center">
+                                ¿No creaste tu cuenta? <a class="nav-link text-danger" asp-area="" asp-controller="Home" asp-action="Register">
+
+                                    Registrate
+                                </a>
+                            </div>
+                        </form>
+                    </section>
+                    <label id="indexMessage" class="error">@Html.DisplayFor(lvm => lvm.ErrorMessage)</label>
                 </div>
+                
             </div>
         </div>
 
     </div>
 </div>
-
-
-
-@*<div class="text-center">
-        <center>
-            <section>
-                <form asp-controller="Home" asp-action="IniciarSesion" method="post">
-                    <h4>Iniciar sesion</h4>
-                    <h4>@ViewData["Login"]</h4>
-                    <hr />
-                    <div asp-validation-summary="All" class="text-danger"></div>
-
-                    <div class="form-group text-left">
-                        <label asp-for="Input.DNI"></label>
-                        <input asp-for="Input.DNI" class="form-control" />
-                        <span asp-validation-for="Input.DNI" class="text-danger"></span>
-                    </div>
-                    <div class="form-group text-left">
-                        <label asp-for="Input.Password"></label>
-                        <input asp-for="Input.Password" class="form-control" />
-                        <span asp-validation-for="Input.Password" class="text-danger"></span>
-                    </div>
-                    <div>
-                        <button type="submit" class="btn btn-default">Iniciar sesion</button>
-                    </div>
-                </form>
-            </section>
-            <label id="indexMessage" class="error">@Html.DisplayFor(lvm => lvm.ErrorMessage)</label>
-        </center>
-    </div>*@
+@section Scripts{ 
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

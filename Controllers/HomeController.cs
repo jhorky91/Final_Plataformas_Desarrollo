@@ -37,12 +37,12 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             
             if (usuario != null && usuario.password == model.Input.Password)
             {
-                if (usuario.rol == 1)
+                if (usuario.esAdmin)
                 {
                     Account a = new Account();
                     a.name = usuario.nombre;
                     a.id = usuario.idUsuario;
-                    a.rol = usuario.rol;
+                    a.esAdmin  = usuario.esAdmin;
                     a.signIn = true;
                     HttpContext.Session.SetString("SighIn", JsonConvert.SerializeObject(a));
                     return RedirectToAction("Index", "Admin");
@@ -55,7 +55,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                     Account a = new Account();
                     a.name = usuario.nombre;
                     a.id = usuario.idUsuario;
-                    a.rol = usuario.rol;
+                    a.esAdmin = usuario.esAdmin;
                     a.signIn = true;
                     HttpContext.Session.SetString("SighIn", JsonConvert.SerializeObject(a));
                     return RedirectToAction("Index","Cliente");
@@ -64,6 +64,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
            
             return RedirectToAction("Login"); 
         }
+
+
 
         public async Task<IActionResult> Registrarse(RegisterViewModel model)
         {
@@ -74,7 +76,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             u.mail  = model.Input.Email;
             u.password = model.Input.Password;
             u.cuit_cuil = model.Input.CUIT_CUIL;
-            u.rol = model.Input.Rol;
+            //agregar esAdmin y es Empresa
             
 
 
@@ -91,13 +93,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             return RedirectToAction("Login");
         }
 
-        //CLIENTE
-        public IActionResult Index()
-        {
-            //ViewData["Login"] = true;
-            var productos = _context.productos;
-            return View(productos);
-        }
+
 
         //REGISTRO
         public IActionResult Register()

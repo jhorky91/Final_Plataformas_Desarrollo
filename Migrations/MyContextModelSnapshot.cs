@@ -639,10 +639,22 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
+                    b.Property<bool>("bloqueado")
+                        .HasColumnType("bit");
+
                     b.Property<long>("cuit_cuil")
                         .HasColumnType("bigint");
 
                     b.Property<int>("dni")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("esAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("esEmpresa")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("intentos")
                         .HasColumnType("int");
 
                     b.Property<string>("mail")
@@ -657,9 +669,6 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
-                    b.Property<int>("rol")
-                        .HasColumnType("int");
-
                     b.HasKey("idUsuario");
 
                     b.ToTable("Usuario");
@@ -669,34 +678,43 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                         {
                             idUsuario = 1,
                             apellido = "Admin",
+                            bloqueado = false,
                             cuit_cuil = 34865218L,
                             dni = 123456,
+                            esAdmin = true,
+                            esEmpresa = false,
+                            intentos = 0,
                             mail = "admin@gmail.com",
                             nombre = "Admin",
-                            password = "123456",
-                            rol = 1
+                            password = "123456"
                         },
                         new
                         {
                             idUsuario = 2,
                             apellido = "Lopez",
+                            bloqueado = false,
                             cuit_cuil = 25689475L,
                             dni = 654321,
+                            esAdmin = false,
+                            esEmpresa = false,
+                            intentos = 0,
                             mail = "pepitolopez@gmail.com",
                             nombre = "Pepito",
-                            password = "654321",
-                            rol = 2
+                            password = "654321"
                         },
                         new
                         {
                             idUsuario = 3,
                             apellido = "Perez",
+                            bloqueado = false,
                             cuit_cuil = 20321548L,
                             dni = 32154869,
+                            esAdmin = false,
+                            esEmpresa = true,
+                            intentos = 0,
                             mail = "joseperez@hotmail.com",
                             nombre = "José",
-                            password = "123456",
-                            rol = 3
+                            password = "123456"
                         });
                 });
 

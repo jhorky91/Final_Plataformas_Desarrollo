@@ -14,12 +14,19 @@ namespace Final_Plataformas_De_Desarrollo.Models
         public string password { get; set; }
         public int cuit_cuil { get; set; }
         public Carro miCarro { get; set; }
-        public int rol { get; set; } // 1-Administrador 2-Cliente 3-Empresa
+        
+
+        public bool esAdmin { get;  set; }
+        public bool esEmpresa { get; set; }
+        public int intentos { get; set; }
+        public bool bloqueado { get; set; }
+
+
         public ICollection<Compra> compras { get; set; }
 
         public Usuario() { }
 
-        public Usuario(int dni, string nombre, string apellido, string mail, string password, int cuit_cuil, int rol)
+        public Usuario(int dni, string nombre, string apellido, string mail, string password, int cuit_cuil)
         {
             //creo que hay que agregar en el constructor al carro
             this.dni        = dni;
@@ -28,9 +35,10 @@ namespace Final_Plataformas_De_Desarrollo.Models
             this.mail       = mail;
             this.password   = password;
             this.cuit_cuil  = cuit_cuil;
-            this.rol        = rol;
+            
            
             
         }
+
     }
 }

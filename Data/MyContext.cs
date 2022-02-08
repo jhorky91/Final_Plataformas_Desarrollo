@@ -31,6 +31,7 @@ namespace Final_Plataformas_De_Desarrollo.Data
             //optionbuilder es el objeto que permite setear opciones para la configuracion de la base de datos
             //usa SQL Server pasandole el connectionString
             optionsBuilder.UseSqlServer(@"Data Source=PC-JHORKY;Initial Catalog=FINALDBPlataformasDeDesarrollo;Integrated Security=True");
+            
         }
 
         //hacemos un modelo para las clases que ya tenemos
@@ -63,8 +64,16 @@ namespace Final_Plataformas_De_Desarrollo.Data
                     usr.Property(u => u.password).IsRequired(true);
                     usr.Property(u => u.cuit_cuil).HasColumnType("bigint");
                     usr.Property(u => u.cuit_cuil).IsRequired(true);
-                    usr.Property(u => u.rol).HasColumnType("int");//tinyint
-                    usr.Property(u => u.rol).IsRequired(true);
+
+                    usr.Property(u => u.esAdmin).HasColumnType("bit");
+                    usr.Property(u => u.esAdmin).IsRequired(true);
+                    usr.Property(u => u.esEmpresa).HasColumnType("bit");
+                    usr.Property(u => u.esEmpresa).IsRequired(true);
+                    usr.Property(u => u.intentos).HasColumnType("int");
+                    usr.Property(u => u.intentos).IsRequired(true);
+                    usr.Property(u => u.bloqueado).HasColumnType("bit");
+                    usr.Property(u => u.bloqueado).IsRequired(true);
+                  
                 });
 
 
@@ -120,11 +129,8 @@ namespace Final_Plataformas_De_Desarrollo.Data
                 .WithMany(C => C.productos)
                 .HasForeignKey(P => P.idCategoria)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            
+                
          
-
-
             //##############################################################
             //       CARRO PRODUCTO
             // propiedades
@@ -289,11 +295,14 @@ namespace Final_Plataformas_De_Desarrollo.Data
 
             modelBuilder.Entity<Usuario>().HasData(
                 new { idUsuario = 1, dni = 123456, nombre = "Admin", apellido = "Admin",
-                      mail = "admin@gmail.com", password = "123456", cuit_cuil = 34865218, rol = 1},
+                      mail = "admin@gmail.com", password = "123456", cuit_cuil = 34865218, 
+                      esAdmin = true, esEmpresa = false, intentos = 0, bloqueado = false },
                 new { idUsuario = 2, dni = 654321, nombre = "Pepito", apellido = "Lopez",
-                    mail = "pepitolopez@gmail.com", password = "654321", cuit_cuil = 25689475, rol = 2},
+                    mail = "pepitolopez@gmail.com", password = "654321", cuit_cuil = 25689475,
+                    esAdmin = false, esEmpresa = false, intentos = 0, bloqueado = false },
                 new { idUsuario = 3, dni = 32154869, nombre = "José", apellido = "Perez",
-                    mail = "joseperez@hotmail.com", password = "123456", cuit_cuil = 20321548, rol = 3}
+                    mail = "joseperez@hotmail.com", password = "123456", cuit_cuil = 20321548,
+                    esAdmin = false, esEmpresa = true, intentos = 0, bloqueado = false }
                 );
 
             modelBuilder.Entity<Carro>().HasData(

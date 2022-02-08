@@ -48,7 +48,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         // GET: Carro/Create
         public IActionResult Create()
         {
-            ViewData["idUsuario"] = new SelectList(_context.usuarios, "idUsuario", "apellido");
+            ViewData["idUsuario"] = new SelectList(_context.usuarios, "idUsuario", "nombre");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["idUsuario"] = new SelectList(_context.usuarios, "idUsuario", "apellido", carro.idUsuario);
+            ViewData["idUsuario"] = new SelectList(_context.usuarios, "idUsuario", "nombre", carro.idUsuario);
             return View(carro);
         }
 
@@ -82,7 +82,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             {
                 return NotFound();
             }
-            ViewData["idUsuario"] = new SelectList(_context.usuarios, "idUsuario", "apellido", carro.idUsuario);
+            ViewData["idUsuario"] = new SelectList(_context.usuarios, "idUsuario", "nombre", carro.idUsuario);
             return View(carro);
         }
 
@@ -118,7 +118,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["idUsuario"] = new SelectList(_context.usuarios, "idUsuario", "apellido", carro.idUsuario);
+            ViewData["idUsuario"] = new SelectList(_context.usuarios, "idUsuario", "nombre", carro.idUsuario);
             return View(carro);
         }
 

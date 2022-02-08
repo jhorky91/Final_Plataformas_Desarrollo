@@ -42,10 +42,25 @@
                 <input asp-for="cuit_cuil" class="form-control" />
                 <span asp-validation-for="cuit_cuil" class="text-danger"></span>
             </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="esAdmin" /> @Html.DisplayNameFor(model => model.esAdmin)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="esEmpresa" /> @Html.DisplayNameFor(model => model.esEmpresa)
+                </label>
+            </div>
             <div class="form-group">
-                <label asp-for="rol" class="control-label"></label>
-                <input asp-for="rol" class="form-control" />
-                <span asp-validation-for="rol" class="text-danger"></span>
+                <label asp-for="intentos" class="control-label"></label>
+                <input asp-for="intentos" class="form-control" />
+                <span asp-validation-for="intentos" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="bloqueado" /> @Html.DisplayNameFor(model => model.bloqueado)
+                </label>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

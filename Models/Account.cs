@@ -10,7 +10,8 @@ namespace Final_Plataformas_De_Desarrollo.Models
         public string name;
         public int id;
         public bool signIn;
-        public int rol;
+        public bool esAdmin;
+        public bool esEmpresa;
 
 
         public Account() 

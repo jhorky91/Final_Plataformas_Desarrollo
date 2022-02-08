@@ -21,11 +21,15 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             _logger = logger;
             _context = context;
         }
-        
-        public IActionResult Index()
+
+        //CLIENTE
+        public async Task<IActionResult> Index()
         {
-            return View();
+            //ViewData["Login"] = true;
+            var productos = _context.productos;
+            return View(await productos.ToListAsync());
         }
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -39,7 +39,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             {
                 return NotFound();
             }
-            
+
             return View(usuario);
         }
 
@@ -54,7 +54,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("idUsuario,dni,nombre,apellido,mail,password,cuit_cuil,rol")] Usuario usuario)
+        public async Task<IActionResult> Create([Bind("idUsuario,dni,nombre,apellido,mail,password,cuit_cuil,esAdmin,esEmpresa,intentos,bloqueado")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("idUsuario,dni,nombre,apellido,mail,password,cuit_cuil,rol")] Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("idUsuario,dni,nombre,apellido,mail,password,cuit_cuil,esAdmin,esEmpresa,intentos,bloqueado")] Usuario usuario)
         {
             if (id != usuario.idUsuario)
             {

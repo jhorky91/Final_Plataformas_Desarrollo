@@ -31,7 +31,10 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                     mail = table.Column<string>(type: "varchar(50)", nullable: false),
                     password = table.Column<string>(type: "varchar(50)", nullable: false),
                     cuit_cuil = table.Column<long>(type: "bigint", nullable: false),
-                    rol = table.Column<int>(type: "int", nullable: false)
+                    esAdmin = table.Column<bool>(type: "bit", nullable: false),
+                    esEmpresa = table.Column<bool>(type: "bit", nullable: false),
+                    intentos = table.Column<int>(type: "int", nullable: false),
+                    bloqueado = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -172,12 +175,12 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
 
             migrationBuilder.InsertData(
                 table: "Usuario",
-                columns: new[] { "idUsuario", "apellido", "cuit_cuil", "dni", "mail", "nombre", "password", "rol" },
+                columns: new[] { "idUsuario", "apellido", "bloqueado", "cuit_cuil", "dni", "esAdmin", "esEmpresa", "intentos", "mail", "nombre", "password" },
                 values: new object[,]
                 {
-                    { 1, "Admin", 34865218L, 123456, "admin@gmail.com", "Admin", "123456", 1 },
-                    { 2, "Lopez", 25689475L, 654321, "pepitolopez@gmail.com", "Pepito", "654321", 2 },
-                    { 3, "Perez", 20321548L, 32154869, "joseperez@hotmail.com", "José", "123456", 3 }
+                    { 1, "Admin", false, 34865218L, 123456, true, false, 0, "admin@gmail.com", "Admin", "123456" },
+                    { 2, "Lopez", false, 25689475L, 654321, false, false, 0, "pepitolopez@gmail.com", "Pepito", "654321" },
+                    { 3, "Perez", false, 20321548L, 32154869, false, true, 0, "joseperez@hotmail.com", "José", "123456" }
                 });
 
             migrationBuilder.InsertData(
