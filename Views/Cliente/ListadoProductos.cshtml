@@ -2,3 +2,45 @@
     ViewData["Title"] = "Listado de Productos";
 
 }
+@model IEnumerable<Final_Plataformas_De_Desarrollo.Models.Producto>;
+@{
+    IEnumerable<Categoria> cat = ViewData["categorias"] as IEnumerable<Categoria>;
+}
+
+@*   LISTADO DE PRODUCTOS  *@
+
+<div class="container">
+    <div class=" row">
+
+        <div class="col-md-3 filtros ">
+            <ul>
+                <li class="active">
+                    Todos
+                </li>
+                @foreach (var categorias in cat)
+                {
+                    @* CATEGORIAS *@
+                    <li data-filter="">
+                        @categorias.nombre;
+                    </li>
+                }
+            </ul>
+            @* PRECIO *@
+            @* NOMBRE *@
+            @* ASCENDENTE *@
+            @* DESCENDENTE *@
+
+        </div>
+                    @* PRODUCTOS *@
+        <div class="col-md-9">
+            @foreach (var prod in Model)
+            {
+                <div class=" filterDiv ">
+
+                </div>
+            }
+        </div>
+
+    </div>
+
+</div>

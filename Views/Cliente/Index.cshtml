@@ -1,28 +1,80 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@{ ViewData["Title"] = "Home Page"; }
+
 @using Microsoft.AspNetCore.Http;
 @using Newtonsoft.Json;
+
 @model IEnumerable<Final_Plataformas_De_Desarrollo.Models.Producto>;
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
 
+@{
+    List<Producto> ProdPorFecha = Model.OrderByDescending(p => p.fechaCreacion).ToList();
+    IEnumerable<Categoria> cat = ViewData["categorias"] as IEnumerable<Categoria>;
+}
+
+@*   HOME PAGE CLIENTE  *@
+
 <div class="text-center">
 
-    <h3 class="display-4">Welcome </h3>
+    <h3 class="display-4">Bienvenido Cliente </h3>
 
-    <hr />
+    <hr />-
 
     <div class="container">
         <div class="row">
-            @foreach (var prod in Model)
+
+            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active bg-dark">
+                        <img src="~/images/login.png" class="d-block w-50">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>@ProdPorFecha[0].nombre</h3>
+                            <h5>@ProdPorFecha[0].precio</h5>
+                            <p>@ProdPorFecha[0].cat.nombre</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item  bg-dark">
+                        <img src="~/images/login.png" class="d-block w-50">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>@ProdPorFecha[1].nombre</h3>
+                            <h5>@ProdPorFecha[1].precio</h5>
+                            <p>@ProdPorFecha[1].cat.nombre</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item  bg-dark">
+                        <img src="~/images/login.png" class="d-block w-50">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>@ProdPorFecha[2].nombre</h3>
+                            <h5>@ProdPorFecha[2].precio</h5>
+                            <p>@ProdPorFecha[2].cat.nombre</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-target="#carouselExampleCaptions" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-target="#carouselExampleCaptions" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </button>
+            </div>
+
+            @foreach (var cate in cat)
             {
-                <div class="col-md-4">
-                    <label>
-                        @prod.nombre
-                    </label>
+                <div class="col-md-2 card text-center justify-content-between mx-3 my-3 align-content-center">
+                    <div class="card-body">
+                        <label>@cate.nombre</label>
+
+                    </div>
                 </div>
             }
+
+
         </div>
     </div>
-
 </div>

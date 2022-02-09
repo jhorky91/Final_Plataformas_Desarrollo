@@ -28,7 +28,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         public async Task<IActionResult> Index()
         {
             //ViewData["Login"] = true;
-            var productos = _context.productos;
+            var productos = _context.productos.Include(p => p.cat);
+            ViewData["categorias"] = _context.categorias;
             return View(await productos.ToListAsync());
         }
 
@@ -47,7 +48,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
 
         public async Task<IActionResult> ListadoProductos()
         {
-            var productos = _context.productos;
+            var productos = _context.productos.Include(p => p.cat);
+            ViewData["categorias"] = _context.categorias;
             return View(await productos.ToListAsync());
         }
 
