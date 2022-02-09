@@ -26,7 +26,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         public IActionResult Login()
         {
             //ViewData["Login"] = "ERROR";
-            HttpContext.Session.SetString("SighIn", JsonConvert.SerializeObject(new Account()));
+            //HttpContext.Session.SetString("SignIn", JsonConvert.SerializeObject(new Account()));
             return View();
         }
 
@@ -37,6 +37,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             
             if (usuario != null && usuario.password == model.Input.Password)
             {
+                //ADMIN
                 if (usuario.esAdmin)
                 {
                     Account a = new Account();
@@ -44,9 +45,10 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                     a.id = usuario.idUsuario;
                     a.esAdmin  = usuario.esAdmin;
                     a.signIn = true;
-                    HttpContext.Session.SetString("SighIn", JsonConvert.SerializeObject(a));
+                    HttpContext.Session.SetString("SignIn", JsonConvert.SerializeObject(a));
                     return RedirectToAction("Index", "Admin");
                 }
+                //CLIENTE
                 else 
                 {
                     //TempData["Login"] = true;
@@ -57,7 +59,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                     a.id = usuario.idUsuario;
                     a.esAdmin = usuario.esAdmin;
                     a.signIn = true;
-                    HttpContext.Session.SetString("SighIn", JsonConvert.SerializeObject(a));
+                    HttpContext.Session.SetString("SignIn", JsonConvert.SerializeObject(a));
                     return RedirectToAction("Index","Cliente");
                 }
             }
@@ -89,7 +91,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         public IActionResult CerrarSesion()
         {
             //TempData["Login"] = null;
-            HttpContext.Session.SetString("SighIn", JsonConvert.SerializeObject(new Account()));
+            HttpContext.Session.SetString("SignIn", null);
             return RedirectToAction("Login");
         }
 

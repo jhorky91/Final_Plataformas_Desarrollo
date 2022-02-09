@@ -24,12 +24,12 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                @*if (TempData["Login"] != null)*@
-                @if (JsonConvert.DeserializeObject<Account>(HttpContextAccessor.HttpContext.Session.GetString("SighIn")).signIn)
+
+                @if (HttpContextAccessor.HttpContext.Session.GetString("SignIn") != null)
                 {
 
 
-                    @if (!JsonConvert.DeserializeObject<Account>(HttpContextAccessor.HttpContext.Session.GetString("SighIn")).esAdmin)
+                    @if (!JsonConvert.DeserializeObject<Account>(HttpContextAccessor.HttpContext.Session.GetString("SignIn")).esAdmin)
                     {
 
 
@@ -48,7 +48,7 @@
                             </ul>
 
 
-                        </div><a class="btn btn-outline-success my-2 my-sm-0 bg-success" asp-area="" asp-controller="Home" asp-action="CerrarSesion">Logout</a>
+                        </div><a class="btn btn-success my-2 my-sm-0 " asp-area="" asp-controller="Home" asp-action="CerrarSesion">Logout</a>
                     }
                     else
                     {

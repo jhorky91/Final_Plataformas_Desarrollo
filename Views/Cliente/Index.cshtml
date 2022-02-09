@@ -7,28 +7,22 @@
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
 
 <div class="text-center">
-    @if (JsonConvert.DeserializeObject<Account>(HttpContextAccessor.HttpContext.Session.GetString("SighIn")).signIn)
-    {
-        <h3 class="display-4">Welcome </h3>
 
-        <hr />
+    <h3 class="display-4">Welcome </h3>
 
-        <div class="container">
-            <div class="row">
-                @foreach (var prod in Model)
-                {
-                    <div class="col-md-4">
-                        <label>
-                            @prod.nombre
-                        </label>
-                    </div>
-                }
-            </div>
+    <hr />
+
+    <div class="container">
+        <div class="row">
+            @foreach (var prod in Model)
+            {
+                <div class="col-md-4">
+                    <label>
+                        @prod.nombre
+                    </label>
+                </div>
+            }
         </div>
-    }
-    else
-    {
-        <h4>Se caduco la sesion, vuelva a iniciar</h4>
-        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Iniciar Sesion</a>
-    }
+    </div>
+
 </div>
