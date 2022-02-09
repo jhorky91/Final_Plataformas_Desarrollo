@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Final_Plataformas_De_Desarrollo.Migrations
 {
@@ -12,7 +13,8 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                 {
                     idCategoria = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    nombre = table.Column<string>(type: "varchar(50)", nullable: false)
+                    nombre = table.Column<string>(type: "varchar(50)", nullable: false),
+                    fechaCreacion = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -50,7 +52,8 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                     nombre = table.Column<string>(type: "varchar(50)", nullable: false),
                     precio = table.Column<decimal>(type: "decimal(8,2)", nullable: false),
                     cantidad = table.Column<int>(type: "int", nullable: false),
-                    idCategoria = table.Column<int>(type: "int", nullable: false)
+                    idCategoria = table.Column<int>(type: "int", nullable: false),
+                    fechaCreacion = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -158,19 +161,19 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
 
             migrationBuilder.InsertData(
                 table: "Categoria",
-                columns: new[] { "idCategoria", "nombre" },
+                columns: new[] { "idCategoria", "fechaCreacion", "nombre" },
                 values: new object[,]
                 {
-                    { 1, "Comida" },
-                    { 2, "Bebida" },
-                    { 3, "Ropa" },
-                    { 4, "Articulos de limpieza" },
-                    { 5, "Electrodomesticos" },
-                    { 6, "Informatica" },
-                    { 7, "Herramientas" },
-                    { 8, "Electronica" },
-                    { 9, "Mascotas" },
-                    { 10, "Libreria" }
+                    { 1, new DateTime(2020, 1, 20, 12, 30, 0, 0, DateTimeKind.Unspecified), "Comida" },
+                    { 2, new DateTime(2019, 9, 2, 9, 40, 0, 0, DateTimeKind.Unspecified), "Bebida" },
+                    { 3, new DateTime(2021, 10, 21, 8, 10, 0, 0, DateTimeKind.Unspecified), "Ropa" },
+                    { 4, new DateTime(2021, 11, 22, 7, 58, 0, 0, DateTimeKind.Unspecified), "Articulos de limpieza" },
+                    { 5, new DateTime(2020, 12, 25, 3, 1, 0, 0, DateTimeKind.Unspecified), "Electrodomesticos" },
+                    { 6, new DateTime(2022, 2, 9, 10, 20, 0, 0, DateTimeKind.Unspecified), "Informatica" },
+                    { 7, new DateTime(2021, 7, 30, 10, 20, 0, 0, DateTimeKind.Unspecified), "Herramientas" },
+                    { 8, new DateTime(2019, 5, 19, 10, 20, 0, 0, DateTimeKind.Unspecified), "Electronica" },
+                    { 9, new DateTime(2020, 4, 12, 15, 20, 0, 0, DateTimeKind.Unspecified), "Mascotas" },
+                    { 10, new DateTime(2020, 10, 20, 10, 20, 0, 0, DateTimeKind.Unspecified), "Libreria" }
                 });
 
             migrationBuilder.InsertData(
@@ -200,59 +203,59 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
 
             migrationBuilder.InsertData(
                 table: "Producto",
-                columns: new[] { "idProducto", "cantidad", "idCategoria", "nombre", "precio" },
+                columns: new[] { "idProducto", "cantidad", "fechaCreacion", "idCategoria", "nombre", "precio" },
                 values: new object[,]
                 {
-                    { 49, 200, 10, "Resma", 700m },
-                    { 15, 20, 6, "Monitor", 28000m },
-                    { 16, 20, 6, "Notebook", 95000m },
-                    { 32, 150, 7, "Taladro", 15000m },
-                    { 33, 150, 7, "Amoladora", 7000m },
-                    { 34, 150, 7, "Soldadora", 20000m },
-                    { 35, 150, 7, "Sierra", 8000m },
-                    { 7, 150, 8, "TV", 80000m },
-                    { 36, 150, 8, "Hidrolavadora", 7000m },
-                    { 37, 150, 8, "Parlantes", 10000m },
-                    { 50, 200, 10, "Tablero dibujo", 3000m },
-                    { 38, 150, 8, "Auriculares", 4500m },
-                    { 14, 20, 6, "Teclado", 3500m },
-                    { 41, 200, 9, "Alimento para Perros", 282m },
-                    { 42, 200, 9, "Alimento para Gatos", 144m },
-                    { 43, 200, 9, "Cuchas", 3000m },
-                    { 44, 200, 9, "Correas", 1200m },
-                    { 45, 200, 9, "Juguetes", 600m },
-                    { 46, 200, 10, "Cuaderno", 250m },
-                    { 47, 200, 10, "Marcadores", 1200m },
-                    { 48, 200, 10, "Calculadora", 1500m },
-                    { 39, 150, 8, "Celular", 50000m },
-                    { 40, 150, 8, "Proyector", 45000m },
-                    { 13, 20, 6, "Mouse", 1500m },
-                    { 31, 20, 5, "Licuadora", 6000m },
-                    { 5, 100, 1, "Palitos", 126m },
-                    { 6, 100, 1, "Chizitos", 138m },
-                    { 19, 100, 1, "Mani", 121m },
-                    { 20, 100, 1, "Nachos", 241m },
-                    { 1, 100, 2, "Gaseosa", 125m },
-                    { 2, 50, 2, "Cerveza", 120m },
-                    { 3, 100, 2, "Agua", 78m },
-                    { 17, 100, 2, "Leche", 95m },
-                    { 18, 100, 2, "Energizante", 108m },
-                    { 9, 50, 3, "Pantalon Deportivo", 6500m },
-                    { 10, 50, 3, "Camiseta Deportiva", 6500m },
-                    { 21, 50, 3, "Campera", 6000m },
-                    { 22, 50, 3, "Sweater", 3000m },
-                    { 23, 50, 3, "Jean", 2000m },
-                    { 11, 50, 4, "Lavandina", 49m },
-                    { 12, 50, 4, "Escoba", 340m },
-                    { 24, 50, 4, "Detergente", 87m },
-                    { 25, 50, 4, "Pala", 300m },
-                    { 26, 50, 4, "Secador", 800m },
-                    { 27, 20, 5, "Heladera", 83000m },
-                    { 28, 20, 5, "Lavarropa", 78000m },
-                    { 29, 20, 5, "Cocina", 50000m },
-                    { 30, 20, 5, "Microondas", 25000m },
-                    { 8, 30, 6, "PC", 60000m },
-                    { 4, 100, 1, "Papas", 250m }
+                    { 49, 200, new DateTime(2021, 3, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, "Resma", 700m },
+                    { 15, 20, new DateTime(2020, 9, 25, 9, 55, 0, 0, DateTimeKind.Unspecified), 6, "Monitor", 28000m },
+                    { 16, 20, new DateTime(2021, 7, 28, 4, 30, 0, 0, DateTimeKind.Unspecified), 6, "Notebook", 95000m },
+                    { 32, 150, new DateTime(2019, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 7, "Taladro", 15000m },
+                    { 33, 150, new DateTime(2021, 5, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), 7, "Amoladora", 7000m },
+                    { 34, 150, new DateTime(2019, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 7, "Soldadora", 20000m },
+                    { 35, 150, new DateTime(2019, 7, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), 7, "Sierra", 8000m },
+                    { 7, 150, new DateTime(2020, 12, 19, 10, 30, 0, 0, DateTimeKind.Unspecified), 8, "TV", 80000m },
+                    { 36, 150, new DateTime(2021, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 8, "Hidrolavadora", 7000m },
+                    { 37, 150, new DateTime(2019, 4, 25, 4, 3, 0, 0, DateTimeKind.Unspecified), 8, "Parlantes", 10000m },
+                    { 50, 200, new DateTime(2021, 2, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, "Tablero dibujo", 3000m },
+                    { 38, 150, new DateTime(2021, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), 8, "Auriculares", 4500m },
+                    { 14, 20, new DateTime(2020, 9, 19, 10, 47, 0, 0, DateTimeKind.Unspecified), 6, "Teclado", 3500m },
+                    { 41, 200, new DateTime(2020, 6, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 9, "Alimento para Perros", 282m },
+                    { 42, 200, new DateTime(2021, 7, 10, 21, 3, 0, 0, DateTimeKind.Unspecified), 9, "Alimento para Gatos", 144m },
+                    { 43, 200, new DateTime(2021, 1, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 9, "Cuchas", 3000m },
+                    { 44, 200, new DateTime(2020, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 9, "Correas", 1200m },
+                    { 45, 200, new DateTime(2020, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 9, "Juguetes", 600m },
+                    { 46, 200, new DateTime(2020, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, "Cuaderno", 250m },
+                    { 47, 200, new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, "Marcadores", 1200m },
+                    { 48, 200, new DateTime(2021, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, "Calculadora", 1500m },
+                    { 39, 150, new DateTime(2019, 2, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 8, "Celular", 50000m },
+                    { 40, 150, new DateTime(2020, 5, 15, 20, 3, 0, 0, DateTimeKind.Unspecified), 8, "Proyector", 45000m },
+                    { 13, 20, new DateTime(2021, 1, 10, 9, 20, 0, 0, DateTimeKind.Unspecified), 6, "Mouse", 1500m },
+                    { 31, 20, new DateTime(2021, 10, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, "Licuadora", 6000m },
+                    { 5, 100, new DateTime(2019, 3, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Palitos", 126m },
+                    { 6, 100, new DateTime(2020, 1, 2, 14, 30, 0, 0, DateTimeKind.Unspecified), 1, "Chizitos", 138m },
+                    { 19, 100, new DateTime(2020, 8, 11, 4, 30, 0, 0, DateTimeKind.Unspecified), 1, "Mani", 121m },
+                    { 20, 100, new DateTime(2020, 1, 19, 1, 0, 0, 0, DateTimeKind.Unspecified), 1, "Nachos", 241m },
+                    { 1, 100, new DateTime(2020, 12, 20, 10, 20, 0, 0, DateTimeKind.Unspecified), 2, "Gaseosa", 125m },
+                    { 2, 50, new DateTime(2022, 2, 7, 9, 30, 0, 0, DateTimeKind.Unspecified), 2, "Cerveza", 120m },
+                    { 3, 100, new DateTime(2022, 1, 20, 1, 0, 0, 0, DateTimeKind.Unspecified), 2, "Agua", 78m },
+                    { 17, 100, new DateTime(2019, 1, 22, 10, 50, 0, 0, DateTimeKind.Unspecified), 2, "Leche", 95m },
+                    { 18, 100, new DateTime(2019, 5, 18, 1, 20, 0, 0, DateTimeKind.Unspecified), 2, "Energizante", 108m },
+                    { 9, 50, new DateTime(2021, 11, 10, 12, 45, 0, 0, DateTimeKind.Unspecified), 3, "Pantalon Deportivo", 6500m },
+                    { 10, 50, new DateTime(2021, 12, 9, 10, 30, 0, 0, DateTimeKind.Unspecified), 3, "Camiseta Deportiva", 6500m },
+                    { 21, 50, new DateTime(2020, 6, 12, 2, 30, 0, 0, DateTimeKind.Unspecified), 3, "Campera", 6000m },
+                    { 22, 50, new DateTime(2020, 8, 16, 3, 0, 0, 0, DateTimeKind.Unspecified), 3, "Sweater", 3000m },
+                    { 23, 50, new DateTime(2019, 10, 10, 3, 40, 0, 0, DateTimeKind.Unspecified), 3, "Jean", 2000m },
+                    { 11, 50, new DateTime(2021, 4, 17, 5, 40, 0, 0, DateTimeKind.Unspecified), 4, "Lavandina", 49m },
+                    { 12, 50, new DateTime(2020, 5, 15, 8, 10, 0, 0, DateTimeKind.Unspecified), 4, "Escoba", 340m },
+                    { 24, 50, new DateTime(2019, 12, 25, 12, 34, 0, 0, DateTimeKind.Unspecified), 4, "Detergente", 87m },
+                    { 25, 50, new DateTime(2020, 12, 24, 10, 20, 0, 0, DateTimeKind.Unspecified), 4, "Pala", 300m },
+                    { 26, 50, new DateTime(2020, 4, 9, 10, 30, 0, 0, DateTimeKind.Unspecified), 4, "Secador", 800m },
+                    { 27, 20, new DateTime(2020, 11, 20, 10, 10, 0, 0, DateTimeKind.Unspecified), 5, "Heladera", 83000m },
+                    { 28, 20, new DateTime(2020, 9, 19, 12, 20, 0, 0, DateTimeKind.Unspecified), 5, "Lavarropa", 78000m },
+                    { 29, 20, new DateTime(2019, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, "Cocina", 50000m },
+                    { 30, 20, new DateTime(2019, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, "Microondas", 25000m },
+                    { 8, 30, new DateTime(2021, 12, 23, 12, 0, 0, 0, DateTimeKind.Unspecified), 6, "PC", 60000m },
+                    { 4, 100, new DateTime(2019, 2, 1, 3, 0, 0, 0, DateTimeKind.Unspecified), 1, "Papas", 250m }
                 });
 
             migrationBuilder.CreateIndex(

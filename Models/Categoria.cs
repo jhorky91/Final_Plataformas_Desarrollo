@@ -9,7 +9,7 @@ namespace Final_Plataformas_De_Desarrollo.Models
     {
         public int idCategoria { get; set; }
         public string nombre { get; set; }
-
+        public DateTime fechaCreacion { get; set; }
         public ICollection<Producto> productos { get; set; }
         
         public Categoria() { }

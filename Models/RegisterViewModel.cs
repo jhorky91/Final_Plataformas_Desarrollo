@@ -37,12 +37,10 @@ namespace Final_Plataformas_De_Desarrollo.Models
             public string Password { get; set; }
 
             [Required(ErrorMessage = "El campo CUIT/CUIL es obligatorio.")]
-            [StringLength(20, MinimumLength = 2)]
+            //[ StringLength(20, MinimumLength = 2)]
             [DataType(DataType.Text)]
             public int CUIT_CUIL { get; set; }
 
-            [Required(ErrorMessage = "El campo Rol es obligatorio.")]
-            
             public bool esEmpresa { get; set; }
 
         }

@@ -16,6 +16,8 @@ namespace Final_Plataformas_De_Desarrollo.Models
         public List<CarroProducto> carroProducto { get; set; }
         public ICollection<Compra> compras { get; } = new List<Compra>();
         public List<CompraProducto> compraProducto { get; set; }
+        public DateTime fechaCreacion { get; set; }
+
 
         public Producto() { }
         public Producto(string nombre, double precio, int cantidad, Categoria cat)

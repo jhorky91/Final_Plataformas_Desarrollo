@@ -57,7 +57,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("idProducto,nombre,precio,cantidad,idCategoria")] Producto producto)
+        public async Task<IActionResult> Create([Bind("idProducto,nombre,precio,cantidad,idCategoria,fechaCreacion")] Producto producto)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("idProducto,nombre,precio,cantidad,idCategoria")] Producto producto)
+        public async Task<IActionResult> Edit(int id, [Bind("idProducto,nombre,precio,cantidad,idCategoria,fechaCreacion")] Producto producto)
         {
             if (id != producto.idProducto)
             {

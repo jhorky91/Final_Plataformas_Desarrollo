@@ -1,6 +1,7 @@
 ﻿
 using Final_Plataformas_De_Desarrollo.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Configuration;
 
 namespace Final_Plataformas_De_Desarrollo.Data
@@ -119,6 +120,8 @@ namespace Final_Plataformas_De_Desarrollo.Data
                     prod.Property(P => P.cantidad).IsRequired(true);
                     prod.Property(P => P.idCategoria).HasColumnType("int");
                     prod.Property(P => P.idCategoria).IsRequired(true);
+                    prod.Property(P => P.fechaCreacion).HasColumnType("datetime");
+                    prod.Property(P => P.fechaCreacion).IsRequired(true);
                 });
 
             //#######################################
@@ -169,7 +172,10 @@ namespace Final_Plataformas_De_Desarrollo.Data
             //propiedades de los datos
             modelBuilder.Entity<Categoria>(
                 cat => { cat.Property(C => C.nombre).HasColumnType("varchar(50)");
-                         cat.Property(C => C.nombre).IsRequired(true); }
+                         cat.Property(C => C.nombre).IsRequired(true);
+                         cat.Property(C => C.fechaCreacion).HasColumnType("datetime");
+                         cat.Property(C => C.fechaCreacion).IsRequired(true);
+                }
                 );
 
 
@@ -228,69 +234,69 @@ namespace Final_Plataformas_De_Desarrollo.Data
             //##############################################################
 
             modelBuilder.Entity<Categoria>().HasData(
-                new { idCategoria = 1, nombre = "Comida" },
-                new { idCategoria = 2, nombre = "Bebida" },
-                new { idCategoria = 3, nombre = "Ropa" },
-                new { idCategoria = 4, nombre = "Articulos de limpieza" },
-                new { idCategoria = 5, nombre = "Electrodomesticos" },
-                new { idCategoria = 6, nombre = "Informatica" },
-                new { idCategoria = 7, nombre = "Herramientas" },
-                new { idCategoria = 8, nombre = "Electronica" },
-                new { idCategoria = 9, nombre = "Mascotas" },
-                new { idCategoria = 10, nombre = "Libreria" }
+                new { idCategoria = 1, nombre = "Comida", fechaCreacion = new DateTime(2020, 01, 20, 12, 30, 00) },
+                new { idCategoria = 2, nombre = "Bebida", fechaCreacion = new DateTime(2019, 09, 2, 09, 40, 00) },
+                new { idCategoria = 3, nombre = "Ropa", fechaCreacion = new DateTime(2021, 10, 21, 08, 10, 00) },
+                new { idCategoria = 4, nombre = "Articulos de limpieza", fechaCreacion = new DateTime(2021, 11, 22, 07, 58, 00) },
+                new { idCategoria = 5, nombre = "Electrodomesticos", fechaCreacion = new DateTime(2020, 12, 25, 03, 01, 00) },
+                new { idCategoria = 6, nombre = "Informatica", fechaCreacion = new DateTime(2022, 02, 09, 10, 20, 00) },
+                new { idCategoria = 7, nombre = "Herramientas", fechaCreacion = new DateTime(2021, 07, 30, 10, 20, 00) },
+                new { idCategoria = 8, nombre = "Electronica", fechaCreacion = new DateTime(2019, 05, 19, 10, 20, 00) },
+                new { idCategoria = 9, nombre = "Mascotas", fechaCreacion = new DateTime(2020, 04, 12, 15, 20, 00) },
+                new { idCategoria = 10, nombre = "Libreria", fechaCreacion = new DateTime(2020, 10, 20, 10, 20, 00) }
                 );
             
             modelBuilder.Entity<Producto>().HasData(
-                new { idProducto = 1,  nombre = "Gaseosa", precio = 125.00, cantidad = 100, idCategoria = 2 },
-                new { idProducto = 2,  nombre = "Cerveza", precio = 120.00, cantidad = 50,  idCategoria = 2 },
-                new { idProducto = 3,  nombre = "Agua",    precio = 78.00,  cantidad = 100, idCategoria = 2 },
-                new { idProducto = 4,  nombre = "Papas",   precio = 250.00, cantidad = 100, idCategoria = 1 },
-                new { idProducto = 5,  nombre = "Palitos", precio = 126.00, cantidad = 100, idCategoria = 1 },
-                new { idProducto = 6,  nombre = "Chizitos", precio = 138.00, cantidad = 100, idCategoria = 1 },
-                new { idProducto = 7,  nombre = "TV", precio = 80000.00, cantidad = 150, idCategoria = 8 },
-                new { idProducto = 8,  nombre = "PC", precio = 60000.00, cantidad = 30, idCategoria = 6 },
-                new { idProducto = 9,  nombre = "Pantalon Deportivo", precio = 6500.00, cantidad = 50, idCategoria = 3 },
-                new { idProducto = 10, nombre = "Camiseta Deportiva", precio = 6500.00, cantidad = 50, idCategoria = 3 },
-                new { idProducto = 11, nombre = "Lavandina", precio = 49.00, cantidad = 50, idCategoria = 4 },
-                new { idProducto = 12, nombre = "Escoba", precio = 340.00, cantidad = 50, idCategoria = 4 },
-                new { idProducto = 13, nombre = "Mouse", precio = 1500.00, cantidad = 20, idCategoria = 6 },
-                new { idProducto = 14, nombre = "Teclado", precio = 3500.00, cantidad = 20, idCategoria = 6 },
-                new { idProducto = 15, nombre = "Monitor", precio = 28000.00, cantidad = 20, idCategoria = 6 },
-                new { idProducto = 16, nombre = "Notebook", precio = 95000.00, cantidad = 20, idCategoria = 6 },
-                new { idProducto = 17, nombre = "Leche", precio = 95.00, cantidad = 100, idCategoria = 2 },
-                new { idProducto = 18, nombre = "Energizante", precio = 108.00, cantidad = 100, idCategoria = 2 },
-                new { idProducto = 19, nombre = "Mani", precio = 121.00, cantidad = 100, idCategoria = 1 },
-                new { idProducto = 20, nombre = "Nachos", precio = 241.00, cantidad = 100, idCategoria = 1 },
-                new { idProducto = 21, nombre = "Campera", precio = 6000.00, cantidad = 50, idCategoria = 3 },
-                new { idProducto = 22, nombre = "Sweater", precio = 3000.00, cantidad = 50, idCategoria = 3 },
-                new { idProducto = 23, nombre = "Jean", precio = 2000.00, cantidad = 50, idCategoria = 3 },
-                new { idProducto = 24, nombre = "Detergente", precio = 87.00, cantidad = 50, idCategoria = 4 },
-                new { idProducto = 25, nombre = "Pala", precio = 300.00, cantidad = 50, idCategoria = 4 },
-                new { idProducto = 26, nombre = "Secador", precio = 800.00, cantidad = 50, idCategoria = 4 },
-                new { idProducto = 27, nombre = "Heladera", precio = 83000.00, cantidad = 20, idCategoria = 5 },
-                new { idProducto = 28, nombre = "Lavarropa", precio = 78000.00, cantidad = 20, idCategoria = 5 },
-                new { idProducto = 29, nombre = "Cocina", precio = 50000.00, cantidad = 20, idCategoria = 5 },
-                new { idProducto = 30, nombre = "Microondas", precio = 25000.00, cantidad = 20, idCategoria = 5 },
-                new { idProducto = 31, nombre = "Licuadora", precio = 6000.00, cantidad = 20, idCategoria = 5 },
-                new { idProducto = 32, nombre = "Taladro", precio = 15000.00, cantidad = 150, idCategoria = 7 },
-                new { idProducto = 33, nombre = "Amoladora", precio = 7000.00, cantidad = 150, idCategoria = 7 },
-                new { idProducto = 34, nombre = "Soldadora", precio = 20000.00, cantidad = 150, idCategoria = 7 },
-                new { idProducto = 35, nombre = "Sierra", precio = 8000.00, cantidad = 150, idCategoria = 7 },
-                new { idProducto = 36, nombre = "Hidrolavadora", precio = 7000.00, cantidad = 150, idCategoria = 8 },
-                new { idProducto = 37, nombre = "Parlantes", precio = 10000.00, cantidad = 150, idCategoria = 8 },
-                new { idProducto = 38, nombre = "Auriculares", precio = 4500.00, cantidad = 150, idCategoria = 8 },
-                new { idProducto = 39, nombre = "Celular", precio = 50000.00, cantidad = 150, idCategoria = 8 },
-                new { idProducto = 40, nombre = "Proyector", precio = 45000.00, cantidad = 150, idCategoria = 8 },
-                new { idProducto = 41, nombre = "Alimento para Perros", precio = 282.00, cantidad = 200, idCategoria = 9 },
-                new { idProducto = 42, nombre = "Alimento para Gatos",  precio = 144.00, cantidad = 200, idCategoria = 9 },
-                new { idProducto = 43, nombre = "Cuchas", precio = 3000.00, cantidad = 200, idCategoria = 9 },
-                new { idProducto = 44, nombre = "Correas", precio = 1200.00, cantidad = 200, idCategoria = 9 },
-                new { idProducto = 45, nombre = "Juguetes", precio = 600.00, cantidad = 200, idCategoria = 9 },
-                new { idProducto = 46, nombre = "Cuaderno", precio = 250.00, cantidad = 200, idCategoria = 10 },
-                new { idProducto = 47, nombre = "Marcadores", precio = 1200.00, cantidad = 200, idCategoria = 10 },
-                new { idProducto = 48, nombre = "Calculadora", precio = 1500.00, cantidad = 200, idCategoria = 10 },
-                new { idProducto = 49, nombre = "Resma", precio = 700.00, cantidad = 200, idCategoria = 10 },
-                new { idProducto = 50, nombre = "Tablero dibujo", precio = 3000.00, cantidad = 200, idCategoria = 10 }
+                new { idProducto = 1,  nombre = "Gaseosa", precio = 125.00, cantidad = 100, idCategoria = 2 , fechaCreacion = new DateTime(2020,12,20,10,20,00) },
+                new { idProducto = 2,  nombre = "Cerveza", precio = 120.00, cantidad = 50,  idCategoria = 2, fechaCreacion = new DateTime(2022,02,07,09,30,00) },
+                new { idProducto = 3,  nombre = "Agua",    precio = 78.00,  cantidad = 100, idCategoria = 2, fechaCreacion = new DateTime(2022,01,20,01,00,00) },
+                new { idProducto = 4,  nombre = "Papas",   precio = 250.00, cantidad = 100, idCategoria = 1, fechaCreacion = new DateTime(2019,02,01,03,00,00) },
+                new { idProducto = 5,  nombre = "Palitos", precio = 126.00, cantidad = 100, idCategoria = 1, fechaCreacion = new DateTime(2019,03,09,00,00,00) },
+                new { idProducto = 6,  nombre = "Chizitos", precio = 138.00, cantidad = 100, idCategoria = 1, fechaCreacion = new DateTime(2020,01,02,14,30,00) },
+                new { idProducto = 7,  nombre = "TV", precio = 80000.00, cantidad = 150, idCategoria = 8, fechaCreacion = new DateTime(2020,12,19,10,30,00) },
+                new { idProducto = 8,  nombre = "PC", precio = 60000.00, cantidad = 30, idCategoria = 6, fechaCreacion = new DateTime(2021,12,23,12,00,00) },
+                new { idProducto = 9,  nombre = "Pantalon Deportivo", precio = 6500.00, cantidad = 50, idCategoria = 3, fechaCreacion = new DateTime(2021,11,10,12,45,00) },
+                new { idProducto = 10, nombre = "Camiseta Deportiva", precio = 6500.00, cantidad = 50, idCategoria = 3, fechaCreacion = new DateTime(2021,12,09,10,30,00) },
+                new { idProducto = 11, nombre = "Lavandina", precio = 49.00, cantidad = 50, idCategoria = 4, fechaCreacion = new DateTime(2021,04,17,05,40,00) },
+                new { idProducto = 12, nombre = "Escoba", precio = 340.00, cantidad = 50, idCategoria = 4, fechaCreacion = new DateTime(2020,05,15,08,10,00) },
+                new { idProducto = 13, nombre = "Mouse", precio = 1500.00, cantidad = 20, idCategoria = 6, fechaCreacion = new DateTime(2021,01,10,09,20,00) },
+                new { idProducto = 14, nombre = "Teclado", precio = 3500.00, cantidad = 20, idCategoria = 6, fechaCreacion = new DateTime(2020,09,19,10,47,00) },
+                new { idProducto = 15, nombre = "Monitor", precio = 28000.00, cantidad = 20, idCategoria = 6, fechaCreacion = new DateTime(2020,09,25,09,55,00) },
+                new { idProducto = 16, nombre = "Notebook", precio = 95000.00, cantidad = 20, idCategoria = 6, fechaCreacion = new DateTime(2021,07,28,04,30,00) },
+                new { idProducto = 17, nombre = "Leche", precio = 95.00, cantidad = 100, idCategoria = 2, fechaCreacion = new DateTime(2019,01,22,10,50,00) },
+                new { idProducto = 18, nombre = "Energizante", precio = 108.00, cantidad = 100, idCategoria = 2, fechaCreacion = new DateTime(2019,05,18,01,20,00) },
+                new { idProducto = 19, nombre = "Mani", precio = 121.00, cantidad = 100, idCategoria = 1, fechaCreacion = new DateTime(2020,08,11,04,30,00) },
+                new { idProducto = 20, nombre = "Nachos", precio = 241.00, cantidad = 100, idCategoria = 1, fechaCreacion = new DateTime(2020,01,19,01,00,00) },
+                new { idProducto = 21, nombre = "Campera", precio = 6000.00, cantidad = 50, idCategoria = 3, fechaCreacion = new DateTime(2020,06,12,02,30,00) },
+                new { idProducto = 22, nombre = "Sweater", precio = 3000.00, cantidad = 50, idCategoria = 3, fechaCreacion = new DateTime(2020,08,16,03,00,00) },
+                new { idProducto = 23, nombre = "Jean", precio = 2000.00, cantidad = 50, idCategoria = 3, fechaCreacion = new DateTime(2019,10,10,03,40,00) },
+                new { idProducto = 24, nombre = "Detergente", precio = 87.00, cantidad = 50, idCategoria = 4, fechaCreacion = new DateTime(2019,12,25,12,34,00) },
+                new { idProducto = 25, nombre = "Pala", precio = 300.00, cantidad = 50, idCategoria = 4, fechaCreacion = new DateTime(2020,12,24,10,20,00) },
+                new { idProducto = 26, nombre = "Secador", precio = 800.00, cantidad = 50, idCategoria = 4, fechaCreacion = new DateTime(2020,04,09,10,30,00) },
+                new { idProducto = 27, nombre = "Heladera", precio = 83000.00, cantidad = 20, idCategoria = 5, fechaCreacion = new DateTime(2020,11,20,10,10,00) },
+                new { idProducto = 28, nombre = "Lavarropa", precio = 78000.00, cantidad = 20, idCategoria = 5, fechaCreacion = new DateTime(2020,09,19,12,20,00) },
+                new { idProducto = 29, nombre = "Cocina", precio = 50000.00, cantidad = 20, idCategoria = 5, fechaCreacion = new DateTime(2019,04,05,00,00,00) },
+                new { idProducto = 30, nombre = "Microondas", precio = 25000.00, cantidad = 20, idCategoria = 5, fechaCreacion = new DateTime(2019,11,30,00,00,00) },
+                new { idProducto = 31, nombre = "Licuadora", precio = 6000.00, cantidad = 20, idCategoria = 5, fechaCreacion = new DateTime(2021,10,09,00,00,00) },
+                new { idProducto = 32, nombre = "Taladro", precio = 15000.00, cantidad = 150, idCategoria = 7, fechaCreacion = new DateTime(2019,07,15,00,00,00) },
+                new { idProducto = 33, nombre = "Amoladora", precio = 7000.00, cantidad = 150, idCategoria = 7, fechaCreacion = new DateTime(2021,05,30,00,00,00) },
+                new { idProducto = 34, nombre = "Soldadora", precio = 20000.00, cantidad = 150, idCategoria = 7, fechaCreacion = new DateTime(2019,04,05,00,00,00) },
+                new { idProducto = 35, nombre = "Sierra", precio = 8000.00, cantidad = 150, idCategoria = 7, fechaCreacion = new DateTime(2019,07,18,00,00,00) },
+                new { idProducto = 36, nombre = "Hidrolavadora", precio = 7000.00, cantidad = 150, idCategoria = 8, fechaCreacion = new DateTime(2021,09,22,00,00,00) },
+                new { idProducto = 37, nombre = "Parlantes", precio = 10000.00, cantidad = 150, idCategoria = 8, fechaCreacion = new DateTime(2019,04,25,04,03,00) },
+                new { idProducto = 38, nombre = "Auriculares", precio = 4500.00, cantidad = 150, idCategoria = 8, fechaCreacion = new DateTime(2021,08,30,00,00,00) },
+                new { idProducto = 39, nombre = "Celular", precio = 50000.00, cantidad = 150, idCategoria = 8, fechaCreacion = new DateTime(2019,02,03,00,00,00) },
+                new { idProducto = 40, nombre = "Proyector", precio = 45000.00, cantidad = 150, idCategoria = 8, fechaCreacion = new DateTime(2020,05,15,20,03,00) },
+                new { idProducto = 41, nombre = "Alimento para Perros", precio = 282.00, cantidad = 200, idCategoria = 9, fechaCreacion = new DateTime(2020,06,03,00,00,00) },
+                new { idProducto = 42, nombre = "Alimento para Gatos",  precio = 144.00, cantidad = 200, idCategoria = 9, fechaCreacion = new DateTime(2021,07,10,21,03,00) },
+                new { idProducto = 43, nombre = "Cuchas", precio = 3000.00, cantidad = 200, idCategoria = 9, fechaCreacion = new DateTime(2021,01,20,00,00,00) },
+                new { idProducto = 44, nombre = "Correas", precio = 1200.00, cantidad = 200, idCategoria = 9, fechaCreacion = new DateTime(2020,03,11,00,00,00) },
+                new { idProducto = 45, nombre = "Juguetes", precio = 600.00, cantidad = 200, idCategoria = 9, fechaCreacion = new DateTime(2020,04,12,00,00,00) },
+                new { idProducto = 46, nombre = "Cuaderno", precio = 250.00, cantidad = 200, idCategoria = 10, fechaCreacion = new DateTime(2020,05,03,00,00,00) },
+                new { idProducto = 47, nombre = "Marcadores", precio = 1200.00, cantidad = 200, idCategoria = 10, fechaCreacion = new DateTime(2021,01,01,00,00,00) },
+                new { idProducto = 48, nombre = "Calculadora", precio = 1500.00, cantidad = 200, idCategoria = 10, fechaCreacion = new DateTime(2021,01,12,00,00,00) },
+                new { idProducto = 49, nombre = "Resma", precio = 700.00, cantidad = 200, idCategoria = 10, fechaCreacion = new DateTime(2021,03,09,00,00,00) },
+                new { idProducto = 50, nombre = "Tablero dibujo", precio = 3000.00, cantidad = 200, idCategoria = 10, fechaCreacion =  new DateTime(2021,02,08,00,00,00)}
                 );
 
             modelBuilder.Entity<Usuario>().HasData(

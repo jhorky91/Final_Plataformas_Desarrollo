@@ -78,11 +78,14 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             u.mail  = model.Input.Email;
             u.password = model.Input.Password;
             u.cuit_cuil = model.Input.CUIT_CUIL;
-            //agregar esAdmin y es Empresa
             
+            u.esAdmin = false;
+            u.esEmpresa = model.Input.esEmpresa;
+            u.intentos = 0;
+            u.bloqueado = false;
 
-
-
+            _context.usuarios.Add(u);
+            await _context.SaveChangesAsync();
 
             return RedirectToAction("Login");
         }
@@ -90,8 +93,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         //CERRAR SESION
         public IActionResult CerrarSesion()
         {
-            //TempData["Login"] = null;
-            HttpContext.Session.SetString("SignIn", null);
+
+            HttpContext.Session.Clear();
             return RedirectToAction("Login");
         }
 

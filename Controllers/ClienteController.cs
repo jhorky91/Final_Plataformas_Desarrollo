@@ -38,6 +38,12 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             var carro =  _context.usuarios.Where(u => u.idUsuario == id_usr).FirstOrDefault().miCarro;
             return View(carro);
         }
+        public async Task<IActionResult> MisCompras()
+        {
+            int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
+            var compras = _context.compras.Where(u => u.idUsuario == id_usr);
+            return View(await compras.ToListAsync());
+        }
 
         public async Task<IActionResult> ListadoProductos()
         {

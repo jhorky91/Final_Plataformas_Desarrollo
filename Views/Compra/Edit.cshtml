@@ -13,6 +13,9 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="idCompra" />
+
+            @* NO SE DEBE EDITAR EL USUARIO, SOLO EL TOTAL  *@
+
             <div class="form-group">
                 <label asp-for="idUsuario" class="control-label"></label>
                 <select asp-for="idUsuario" class="form-control" asp-items="ViewBag.idUsuario"></select>
