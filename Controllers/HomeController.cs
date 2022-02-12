@@ -34,7 +34,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         public async Task<IActionResult> IniciarSesion(LoginViewModel model)
         {
             var usuario = await _context.usuarios.FirstOrDefaultAsync(u => u.dni == model.Input.DNI);
-            
+
             if (usuario != null && usuario.password == model.Input.Password)
             {
                 //ADMIN
@@ -43,13 +43,13 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                     Account a = new Account();
                     a.name = usuario.nombre;
                     a.id = usuario.idUsuario;
-                    a.esAdmin  = usuario.esAdmin;
+                    a.esAdmin = usuario.esAdmin;
                     a.signIn = true;
                     HttpContext.Session.SetString("SignIn", JsonConvert.SerializeObject(a));
                     return RedirectToAction("Index", "Admin");
                 }
                 //CLIENTE
-                else 
+                else
                 {
                     //TempData["Login"] = true;
                     //TempData.Keep("Login");
@@ -60,8 +60,23 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                     a.esAdmin = usuario.esAdmin;
                     a.signIn = true;
                     HttpContext.Session.SetString("SignIn", JsonConvert.SerializeObject(a));
-                    return RedirectToAction("Index","Cliente");
+                    return RedirectToAction("Index", "Cliente");
                 }
+            }
+            else 
+            {
+                //
+                //usuario.intentos += 1;
+                //if (usuario.intentos < 3)
+                //{
+                //    ViewData["errorInicio"] = "Error: ingresaste un dni o contraseña incorrecta(" + usuario.intentos + ")";
+                //}
+                //else 
+                //{
+                //    usuario.intentos = 0;
+                //    usuario.bloqueado = true;
+                //    ViewData["errorInicio"] = "Error: usuario bloqueado por exceso de intentos de inicio, contactece con un administrador para ser desbloqueado";
+                //}
             }
            
             return RedirectToAction("Login"); 

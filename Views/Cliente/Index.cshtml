@@ -30,7 +30,7 @@
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item active bg-dark">
-                        <img src="~/images/login.png" class="d-block w-50">
+                        <img src="~/images/login.png" class="d-block w-25">
                         <div class="carousel-caption d-none d-md-block">
                             <h3>@ProdPorFecha[0].nombre</h3>
                             <h5>@ProdPorFecha[0].precio</h5>
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="carousel-item  bg-dark">
-                        <img src="~/images/login.png" class="d-block w-50">
+                        <img src="~/images/login.png" class="d-block w-25">
                         <div class="carousel-caption d-none d-md-block">
                             <h3>@ProdPorFecha[1].nombre</h3>
                             <h5>@ProdPorFecha[1].precio</h5>
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div class="carousel-item  bg-dark">
-                        <img src="~/images/login.png" class="d-block w-50">
+                        <img src="~/images/login.png" class="d-block w-25">
                         <div class="carousel-caption d-none d-md-block">
                             <h3>@ProdPorFecha[2].nombre</h3>
                             <h5>@ProdPorFecha[2].precio</h5>
@@ -68,7 +68,13 @@
             {
                 <div class="col-md-2 card text-center justify-content-between mx-3 my-3 align-content-center">
                     <div class="card-body">
-                        <label>@cate.nombre</label>
+                        <label>@cate.nombre</label><br />
+                        @Html.ActionLink("Ir a lista", "ListadoProductos", new
+                           {
+                               cat = cate.idCategoria,
+                               orderby = "",
+                               az = ""
+                           }) <br />
 
                     </div>
                 </div>

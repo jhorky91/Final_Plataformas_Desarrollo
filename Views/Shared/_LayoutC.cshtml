@@ -4,15 +4,16 @@
 @using Final_Plataformas_De_Desarrollo.Models;
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
 
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Final_Plataformas_De_Desarrollo</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <script src="https://kit.fontawesome.com/2e9c83e3ea.js" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -28,10 +29,8 @@
                 @if (HttpContextAccessor.HttpContext.Session.GetString("SignIn") != null)
                 {
 
-
                     @if (!JsonConvert.DeserializeObject<Account>(HttpContextAccessor.HttpContext.Session.GetString("SignIn")).esAdmin)
                     {
-
 
                         <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
 
@@ -47,8 +46,21 @@
                                 </li>
                             </ul>
 
+                        </div>
+                        @*  CARRO  *@
+                        <div class="mt-2 px-3 ">
+                            <a asp-controller="Cliente" asp-action="Carro">
+                                <i class="fas fa-shopping-cart text-success" style="font-size:25px;"></i>
+                            </a>
+                            @*  CANTIDAD DE PRODUCTOS EN EL CARRO  *@
+                            <label class="text-white" style="font-size:15px">1</label>
 
-                        </div><a class="btn btn-success my-2 my-sm-0 " asp-area="" asp-controller="Home" asp-action="CerrarSesion">Logout</a>
+                        </div>
+
+                        @*  CERRAR SESION  *@
+                        <div class=" my-auto">
+                            <a class="btn btn-success  " asp-area="" asp-controller="Home" asp-action="CerrarSesion">Logout</a>
+                        </div>
                     }
                     else
                     {
@@ -72,7 +84,6 @@
                                 </li>
                             </ul>
 
-
                         </div>
 
                         <a class="btn btn-success  my-2 my-sm-0" asp-area="" asp-controller="Home" asp-action="CerrarSesion">Logout</a>
@@ -80,28 +91,24 @@
                     }
                 }
 
-
             </div>
-        </nav>
-    </header><div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
+                </nav>
+            </header><div class="container">
+                <main role="main" class="pb-3">
+                    @RenderBody()
 
-
-
-        </main>
-    </div>
-
-    <footer class="border-top footer text-white bg-dark">
-            <div class="container">
-                &copy; 2022 - Final_Plataformas_De_Desarrollo - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </main>
             </div>
-    </footer>
 
+            <footer class="border-top footer text-white bg-dark">
+                <div class="container">
+                    &copy; 2022 - Final_Plataformas_De_Desarrollo - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+            </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
-</body>
-</html>
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+            @RenderSection("Scripts", required: false)
+        </body>
+    </html>

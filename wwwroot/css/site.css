@@ -71,7 +71,14 @@ body {
 }
 /* LISTADO PRODUCTOS  */
 .filtros {
-    background-color: darkgrey ;
+    background-color: lightgray ;
     color: black;
+    font-weight: bold;
 
 }
+.carro {
+    border-radius:4px;
+    color:green;
+    
+}
+

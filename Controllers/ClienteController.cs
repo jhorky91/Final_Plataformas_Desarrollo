@@ -46,11 +46,58 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             return View(await compras.ToListAsync());
         }
 
-        public async Task<IActionResult> ListadoProductos()
+        //public async Task<IActionResult> ListadoProductos()
+        //{
+        //    var productos = _context.productos.Include(p => p.cat);
+        //    ViewData["categorias"] = _context.categorias;
+        //    return View(await productos.ToListAsync());
+        //}
+
+
+        public async Task<IActionResult> ListadoProductos(int cat, string orderby, string az)
         {
-            var productos = _context.productos.Include(p => p.cat);
+            IEnumerable<Producto> productos = await _context.productos.Include(p => p.cat).ToListAsync();
+
+            if (cat != 0) 
+            {
+                productos = productos.Where(p => p.idCategoria == cat);
+            }
+            if (orderby != "") 
+            {
+                if (orderby == "precio")
+                {
+                    if (az != "")
+                    {
+                        if (az == "asc")
+                        {
+                            productos = productos.OrderBy(p => p.precio);
+                        } 
+                        else 
+                        {
+                            productos = productos.OrderByDescending(p => p.precio);
+                        }
+                    }
+                }
+                else 
+                {
+                    if (az != "")
+                    {
+                        if (az == "asc")
+                        {
+                            productos = productos.OrderBy(p => p.nombre);
+                        }
+                        else
+                        {
+                            productos = productos.OrderByDescending(p => p.nombre);
+                        }
+                    }
+                }
+            }
+           
+            
+            
             ViewData["categorias"] = _context.categorias;
-            return View(await productos.ToListAsync());
+            return View( productos);
         }
 
         public IActionResult DetalleProducto(int id)
