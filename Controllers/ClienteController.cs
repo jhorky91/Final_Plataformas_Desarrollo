@@ -33,16 +33,16 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             return View(await productos.ToListAsync());
         }
 
-        public IActionResult Carro()
+        public async Task<IActionResult> Carro()
         {
             int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
-            var carro =  _context.usuarios.Where(u => u.idUsuario == id_usr).FirstOrDefault().miCarro;
-            return View(carro);
+            var carro =  await _context.carros.Where(c => c.idUsuario == id_usr).Include(c=> c.carroProducto).FirstOrDefaultAsync();
+            return View(carro.carroProducto);
         }
         public async Task<IActionResult> MisCompras()
         {
             int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
-            var compras = _context.compras.Where(u => u.idUsuario == id_usr);
+            var compras = _context.compras.Where(u => u.idUsuario == id_usr).Include(c => c.compraProducto);
             return View(await compras.ToListAsync());
         }
 
@@ -102,7 +102,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
 
         public IActionResult DetalleProducto(int id)
         {
-            var producto = _context.productos.Where(p => p.idProducto == id).FirstOrDefault();
+            var producto = _context.productos.Where(p => p.idProducto == id).Include(p => p.cat).FirstOrDefault();
             return View(producto);
         }
 

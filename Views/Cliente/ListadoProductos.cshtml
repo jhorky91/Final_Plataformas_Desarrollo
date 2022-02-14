@@ -41,10 +41,10 @@
             <hr />
 
             @* FILTROS
-                POR PRECIO
-                POR NOMBRE
-                ORDENADO DE FORMA ASCENDENTE
-                ORDENADO DE FORMA DESCENDENTE
+            POR PRECIO
+            POR NOMBRE
+            ORDENADO DE FORMA ASCENDENTE
+            ORDENADO DE FORMA DESCENDENTE
             *@
 
             @Html.ActionLink("Precio", "ListadoProductos", new
@@ -76,7 +76,7 @@
             })<br />
 
             <hr />
-            
+
             @* QUITAR TODOS LOS FILTROS *@
 
             @Html.ActionLink("Quitar Filtros", "ListadoProductos", new
@@ -89,12 +89,14 @@
         </div>
         @* PRODUCTOS *@
         <div class="col-md-9">
+
             @foreach (var prod in Model)
             {
                 <div class="  bg-transparent">
                     <h5>@prod.nombre</h5>
                     <p>Precio: @prod.precio $</p>
                     <p>Categoria: @prod.cat.nombre</p>
+                    <a asp-controller="Cliente" asp-action="DetalleProducto" asp-route-id="@prod.idProducto">Ir a Producto</a>
                 </div>
                 <hr />
             }

@@ -13,7 +13,9 @@
     <title>@ViewData["Title"] - Final_Plataformas_De_Desarrollo</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <script src="https://kit.fontawesome.com/2e9c83e3ea.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/css/modal.css" />
+
+    
 </head>
 
 <body>
@@ -82,7 +84,9 @@
                 }
 
 
-            </div></nav></header><div class="container">
+            </div>
+        </nav>
+    </header><div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -96,6 +100,8 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/modal.js" asp-append-version="true"></script>
+    <script src="https://kit.fontawesome.com/2e9c83e3ea.js" crossorigin="anonymous"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

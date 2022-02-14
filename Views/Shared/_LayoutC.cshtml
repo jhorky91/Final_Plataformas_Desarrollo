@@ -12,7 +12,8 @@
     <title>@ViewData["Title"] - Final_Plataformas_De_Desarrollo</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <script src="https://kit.fontawesome.com/2e9c83e3ea.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/css/modal.css" />
+
 
 </head>
 
@@ -52,9 +53,11 @@
                             <a asp-controller="Cliente" asp-action="Carro">
                                 <i class="fas fa-shopping-cart text-success" style="font-size:25px;"></i>
                             </a>
-                            @*  CANTIDAD DE PRODUCTOS EN EL CARRO  *@
-                            <label class="text-white" style="font-size:15px">1</label>
 
+                            @*  CANTIDAD DE PRODUCTOS EN EL CARRO  *@
+                            <label class="text-white" style="font-size:15px">
+                                1
+                            </label>
                         </div>
 
                         @*  CERRAR SESION  *@
@@ -92,23 +95,25 @@
                 }
 
             </div>
-                </nav>
-            </header><div class="container">
-                <main role="main" class="pb-3">
-                    @RenderBody()
+        </nav>
+    </header><div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
 
-                </main>
-            </div>
+        </main>
+    </div>
 
-            <footer class="border-top footer text-white bg-dark">
-                <div class="container">
-                    &copy; 2022 - Final_Plataformas_De_Desarrollo - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                </div>
-            </footer>
+    <footer class="border-top footer text-white bg-dark">
+        <div class="container">
+            &copy; 2022 - Final_Plataformas_De_Desarrollo - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
 
-            <script src="~/lib/jquery/dist/jquery.min.js"></script>
-            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-            <script src="~/js/site.js" asp-append-version="true"></script>
-            @RenderSection("Scripts", required: false)
-        </body>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/2e9c83e3ea.js" crossorigin="anonymous"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/modal.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
     </html>

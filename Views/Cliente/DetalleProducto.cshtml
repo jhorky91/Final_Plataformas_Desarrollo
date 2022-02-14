@@ -1,4 +1,41 @@
 ﻿@{
     ViewData["Title"] = "Listado de Productos";
-
+    Layout = "_LayoutC";
 }
+@model Final_Plataformas_De_Desarrollo.Models.Producto
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 bg-dark">
+
+        </div>
+        <div class="col-md-7">
+            <h6>Nombre:</h6>
+            <label>@Model.nombre .</label><hr />
+            <h6>Precio:</h6>
+            <label>@Model.precio $.</label><hr />
+            <h6>Categoria:</h6>
+            <label>@Model.cat.nombre .</label><hr />
+            <h6>Cantidad en Stock:</h6>
+            <label>@Model.cantidad unidades.</label><hr />
+        </div>
+        <div class="my-5">
+
+            <button class="btn btn-success" id="myBtn">Open Modal</button>
+
+            @* MODAL *@
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p>Some text in the Modal..</p>
+                    @*<a asp-controller="Cliente" asp-action="AgregarAlCarro" asp-route-id="@Model.idProducto">Ir a Producto</a>*@
+                </div>
+            </div>
+        </div>
+          
+
+        
+
+    </div>
+</div>
