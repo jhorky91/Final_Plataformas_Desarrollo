@@ -1,9 +1,69 @@
-﻿@{      
-            Layout = "~/Views/Shared/_LayoutA.cshtml";
-            ViewData["Title"] = "Home Page";
+﻿@{
+    Layout = "~/Views/Shared/_LayoutA.cshtml";
+    ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome Admin</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@*<div class="text-center">
+        <h1 class="display-4">Welcome Admin</h1>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    </div>*@
+
+
+@model IEnumerable<Final_Plataformas_De_Desarrollo.Models.Carro>
+
+@{
+    Layout = "~/Views/Shared/_LayoutA.cshtml";
+    ViewData["Title"] = "Index";
+}
+
+<h1>Bienvenido a nuestro Panel Administrador</h1>
+
+<div class="card-body">
+
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+                <span class="info-box-icon bg-info elevation-1"><i class="fa-solid fa-cart-arrow-down"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Carros</span>
+                    <span class="info-box-number">18</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+                <span class="info-box-icon bg-success elevation-1"><i class="fa-solid fa-cart-shopping"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Compras</span>
+                    <span class="info-box-number">20</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+                <span class="info-box-icon bg-danger elevation-1"><i class="fa-solid fa-boxes-stacked"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Productos</span>
+                    <span class="info-box-number">15</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+                <span class="info-box-icon bg-warning elevation-1"><i class="fa-solid fa-users"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Usuarios</span>
+                    <span class="info-box-number">10</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+    </div>
 </div>

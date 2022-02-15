@@ -1,59 +1,69 @@
 ﻿@model IEnumerable<Final_Plataformas_De_Desarrollo.Models.Producto>
 
 @{
+    Layout = "~/Views/Shared/_LayoutA.cshtml";
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Productos</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.precio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.cantidad)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.cat)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.fechaCreacion)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.precio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.cantidad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.cat.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fechaCreacion)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.idProducto">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.idProducto">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.idProducto">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<a class="btn btn-success" asp-action="Create">Nuevo Producto</a>
+
+
+<div class="card-body">
+    <div class="table-responsive">
+        <div style="overflow-x:auto;">
+            <table class="table table-xl-responsive-borderless" id="tablajson" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            Nombre
+                        </th>
+                        <th>
+                            Precio
+                        </th>
+                        <th>
+                            Cantidad
+                        </th>
+                        <th>
+                            Categoria
+                        </th>
+                        <th>
+                            Fecha_Creacion
+                        </th>
+                        <th>
+                            Acciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.nombre)
+                            </td>
+                            <td>
+                                $@Html.DisplayFor(modelItem => item.precio)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.cantidad)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.cat.nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.fechaCreacion)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.idProducto"><i class="fas fa-edit text-success"></i></a> |
+                                <a asp-action="Details" asp-route-id="@item.idProducto"><i class="fas fa-eye text-success"></i></a> |
+                                <a asp-action="Delete" asp-route-id="@item.idProducto"><i class="fas fa-trash-alt text-success"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

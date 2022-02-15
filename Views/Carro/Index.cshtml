@@ -1,35 +1,42 @@
 ﻿@model IEnumerable<Final_Plataformas_De_Desarrollo.Models.Carro>
 
 @{
+    Layout = "~/Views/Shared/_LayoutA.cshtml";
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Carros</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.usuario)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.usuario.nombre)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.idCarro">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.idCarro">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.idCarro">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="card-body">
+    <div class="table-responsive">
+        <div style="overflow-x:auto;">
+            <table class="table table-xl-responsive-borderless" id="tablajson" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            Usuario
+                        </th>
+                        <th>
+                            Acciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.usuario.nombre)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.idCarro"><i class="fas fa-edit text-success"></i></a> |
+                            <a asp-action="Details" asp-route-id="@item.idCarro"><i class="fas fa-eye text-success"></i></a> |
+                            <a asp-action="Delete" asp-route-id="@item.idCarro"><i class="fas fa-trash-alt text-success"></i></a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

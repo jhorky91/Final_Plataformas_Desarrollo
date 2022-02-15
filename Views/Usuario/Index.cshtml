@@ -1,89 +1,80 @@
 ﻿@model IEnumerable<Final_Plataformas_De_Desarrollo.Models.Usuario>
 
 @{
+    Layout = "~/Views/Shared/_LayoutA.cshtml";
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Usuarios</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.dni)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.apellido)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.mail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.cuit_cuil)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.esAdmin)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.esEmpresa)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.intentos)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.bloqueado)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.dni)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.apellido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.mail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.cuit_cuil)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.esAdmin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.esEmpresa)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.intentos)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.bloqueado)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.idUsuario">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.idUsuario">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.idUsuario">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<a asp-action="Create">Nuevo Usuario</a>
+
+<div class="card-body">
+    <div class="table-responsive">
+        <div style="overflow-x:auto;">
+            <table class="table table-xl-responsive-borderless" id="tablajson" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            DNI
+                        </th>
+                        <th>
+                            Nombre
+                        </th>
+                        <th>
+                            Apellido
+                        </th>
+                        <th>
+                            Admin
+                        </th>
+                        <th>
+                            Empresa
+                        </th>
+                        <th>
+                            Intentos
+                        </th>
+                        <th>
+                            Bloqueado
+                        </th>
+                        <th>
+                            Acciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.dni)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.apellido)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.esAdmin)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.esEmpresa)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.intentos)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.bloqueado)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.idUsuario"><i class="fas fa-edit text-success"></i></a> |
+                                <a asp-action="Details" asp-route-id="@item.idUsuario"><i class="fas fa-eye text-success"></i></a> |
+                                <a asp-action="Delete" asp-route-id="@item.idUsuario"><i class="fas fa-trash-alt text-success"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
