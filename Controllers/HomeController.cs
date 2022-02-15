@@ -82,8 +82,6 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             return RedirectToAction("Login"); 
         }
 
-
-
         public async Task<IActionResult> Registrarse(RegisterViewModel model)
         {
             Usuario u = new Usuario();
@@ -113,15 +111,12 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             return RedirectToAction("Login");
         }
 
-
-
         //REGISTRO
         public IActionResult Register()
         {
             return View();
         }
 
-       
         public IActionResult Privacy()
         {
             return View();

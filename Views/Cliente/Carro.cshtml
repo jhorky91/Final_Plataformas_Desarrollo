@@ -1,20 +1,20 @@
 ﻿@{
-    ViewData["Title"] = "Listado de Productos";
+    ViewData["Title"] = "Mi Carro";
 }
-@model List<Final_Plataformas_De_Desarrollo.Models.CarroProducto> ;
+@model IEnumerable<Final_Plataformas_De_Desarrollo.Models.CarroProducto> ;
 
 <div class="container">
 
     @if (Model.Count() > 0)
     {
         
-        @foreach (var prod in Model)
+        @foreach (CarroProducto carprod in Model)
         {
             <div class="row">
                 <div class="col-md-10">
-                    <h5>@prod.producto.nombre</h5>
-                    <p>Precio: @prod.producto.precio $</p>
-                    <p>Cantidad: @prod.cantidad</p>
+                    <h5>@carprod.producto.nombre</h5>
+                    <p>Precio: $@carprod.producto.precio </p>
+                    <p>Cantidad: @carprod.cantidad</p>
                 </div>
 
                 <div class="col-md-2">

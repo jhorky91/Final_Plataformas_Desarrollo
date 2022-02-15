@@ -1,9 +1,8 @@
 ﻿@{
-    ViewData["Title"] = "Listado de Productos";
-    Layout = "_LayoutC";
+    ViewData["Title"] = "Detalle Producto";
+
 }
 @model Final_Plataformas_De_Desarrollo.Models.Producto
-
 
 <div class="container">
     <div class="row">
@@ -11,31 +10,38 @@
 
         </div>
         <div class="col-md-7">
+
             <h6>Nombre:</h6>
-            <label>@Model.nombre .</label><hr />
+            <label> @Model.nombre </label><hr />
             <h6>Precio:</h6>
-            <label>@Model.precio $.</label><hr />
+            <label> @Model.precio $</label><hr />
             <h6>Categoria:</h6>
-            <label>@Model.cat.nombre .</label><hr />
+            <label> @Model.cat.nombre </label><hr />
             <h6>Cantidad en Stock:</h6>
-            <label>@Model.cantidad unidades.</label><hr />
+            <label> @Model.cantidad unidades</label><hr />
         </div>
-        <div class="my-5">
+        <div class="my-5 justify-content-center">
 
-            <button class="btn btn-success" id="myBtn">Open Modal</button>
+            <a class="btn btn-success" asp-controller="Cliente" asp-action="AgregarProducto" asp-route-id="@Model.idProducto">Agregar al Carro</a>
 
-            @* MODAL *@
-            <div id="myModal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <p>Some text in the Modal..</p>
-                    @*<a asp-controller="Cliente" asp-action="AgregarAlCarro" asp-route-id="@Model.idProducto">Ir a Producto</a>*@
-                </div>
+
+
+        </div>
+
+
+        <!--<button class="btn btn-success" id="myBtn">Open Modal</button>-->
+
+        @* MODAL *@
+
+        <!--<div id="myModal" class="modal">
+
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <label></label>
             </div>
-        </div>
-          
+        </div>-->
 
-        
+
 
     </div>
 </div>

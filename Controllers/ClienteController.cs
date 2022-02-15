@@ -36,8 +36,15 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         public async Task<IActionResult> Carro()
         {
             int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
-            var carro =  await _context.carros.Where(c => c.idUsuario == id_usr).Include(c=> c.carroProducto).FirstOrDefaultAsync();
+            var carro =  await _context.carros.Where(c => c.idUsuario == id_usr).Include(c => c.carroProducto).FirstOrDefaultAsync();
+            
             return View(carro.carroProducto);
+        }
+
+        public IActionResult AgregarProducto(int ID)
+        {
+            ViewData["Producto"] = ID;
+            return View();
         }
         public async Task<IActionResult> MisCompras()
         {
@@ -100,9 +107,11 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             return View( productos);
         }
 
-        public IActionResult DetalleProducto(int id)
+        public async Task<IActionResult> DetalleProducto(int id)
         {
-            var producto = _context.productos.Where(p => p.idProducto == id).Include(p => p.cat).FirstOrDefault();
+
+            Producto producto = await _context.productos.Where(p => p.idProducto == id).Include(p => p.cat).FirstOrDefaultAsync();
+            
             return View(producto);
         }
 
@@ -111,34 +120,35 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         //                                  MODIFICAR CARRO
         //                                  VACIAR CARRO
         // #######################################################################################
-
-        public bool AgregarAlCarro(int ID, int cantidad)
+        
+        [HttpPost]
+        public async Task<IActionResult> AgregarAlCarro(AgregarAlCarroViewModel model)
         {
             try
             {
                 int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
-                Carro c = _context.usuarios.Where(u => u.idUsuario == id_usr).FirstOrDefault().miCarro;
-                c.productos.Add(_context.productos.Where(p => p.idProducto == ID).FirstOrDefault());
-                _context.carros.Update(c);
-                _context.SaveChanges();
+                Carro carro = await _context.carros.Where(c => c.idUsuario == id_usr).Include(c => c.carroProducto).FirstOrDefaultAsync();
+                Producto prod = await _context.productos.Where(p => p.idProducto == model.Input.ID).FirstOrDefaultAsync();
+                CarroProducto cp = new CarroProducto();
+                cp.producto = prod;
+                cp.cantidad = model.Input.Cantidad;
 
-                foreach (CarroProducto cp in c.carroProducto)
-                {
-                    if (cp.idProducto == ID)
-                    {
-                        cp.cantidad = cantidad;
-                        _context.carros.Update(c);
-                        _context.SaveChanges();
-                    }
-                }
+                carro.carroProducto.Add(cp);
+                _context.carros.Update(carro);
+                await _context.SaveChangesAsync();
+
+                
+
+                return RedirectToAction("Carro");
             }
             catch (Exception)
             {
-                return false;
+                
             }
-
-            return true;
-
+            
+            
+            
+            return RedirectToAction("ListadoProductos");
         }
 
         public bool ModificarCarro(int ID, int cantidad)
