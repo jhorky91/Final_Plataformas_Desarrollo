@@ -24,11 +24,21 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             _logger = logger;
             _context = context;
         }
-        
+
+        // #######################################################################################
+        //                                  INDEX
+        //                                  CARRO
+        //                                  AGREGAR PRODUCTO
+        //                                  MIS COMPRAS
+        //                                  LISTADO DE PRODUCTOS
+        //                                  DETALLE DE PRODUCTO
+        // #######################################################################################
+
         public async Task<IActionResult> Index()
         {
-            //ViewData["Login"] = true;
-            var productos = _context.productos.Include(p => p.cat);
+            var productos = _context.productos
+                                .Include(p => p.cat);
+
             ViewData["categorias"] = _context.categorias;
             return View(await productos.ToListAsync());
         }
@@ -36,34 +46,42 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         public async Task<IActionResult> Carro()
         {
             int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
-            var carro =  await _context.carros.Where(c => c.idUsuario == id_usr).Include(c => c.carroProducto).FirstOrDefaultAsync();
+            var carro =  await _context.carros
+                                .Where(c => c.idUsuario == id_usr)
+                                .Include(c => c.carroProducto)
+                                .ThenInclude(cp => cp.producto)
+                                .FirstOrDefaultAsync();
             
             return View(carro.carroProducto);
         }
-
-        public IActionResult AgregarProducto(int ID)
+        
+        //METODO FORMULARIO AGREGAR AL CARRO
+        public async Task<IActionResult> AgregarProducto(int ID)
         {
-            ViewData["Producto"] = ID;
+            var productos = await _context.productos
+                                        .Include(p => p.cat)
+                                        .Where(p => p.idProducto == ID)
+                                        .FirstOrDefaultAsync();
+            
+            ViewData["Producto"] = productos;
             return View();
         }
+
         public async Task<IActionResult> MisCompras()
         {
             int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
-            var compras = _context.compras.Where(u => u.idUsuario == id_usr).Include(c => c.compraProducto);
+            var compras = _context.compras
+                                .Where(u => u.idUsuario == id_usr)
+                                .Include(c => c.compraProducto);
+
             return View(await compras.ToListAsync());
         }
 
-        //public async Task<IActionResult> ListadoProductos()
-        //{
-        //    var productos = _context.productos.Include(p => p.cat);
-        //    ViewData["categorias"] = _context.categorias;
-        //    return View(await productos.ToListAsync());
-        //}
-
-
         public async Task<IActionResult> ListadoProductos(int cat, string orderby, string az)
         {
-            IEnumerable<Producto> productos = await _context.productos.Include(p => p.cat).ToListAsync();
+            IEnumerable<Producto> productos = await _context.productos
+                                                        .Include(p => p.cat)
+                                                        .ToListAsync();
 
             if (cat != 0) 
             {
@@ -100,8 +118,6 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                     }
                 }
             }
-           
-            
             
             ViewData["categorias"] = _context.categorias;
             return View( productos);
@@ -110,7 +126,10 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         public async Task<IActionResult> DetalleProducto(int id)
         {
 
-            Producto producto = await _context.productos.Where(p => p.idProducto == id).Include(p => p.cat).FirstOrDefaultAsync();
+            Producto producto = await _context.productos
+                                        .Where(p => p.idProducto == id)
+                                        .Include(p => p.cat)
+                                        .FirstOrDefaultAsync();
             
             return View(producto);
         }
@@ -124,93 +143,100 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         [HttpPost]
         public async Task<IActionResult> AgregarAlCarro(AgregarAlCarroViewModel model)
         {
-            try
+            int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
+            
+            Carro carro = await _context.carros
+                                    .Where(c => c.idUsuario == id_usr)
+                                    .Include(c => c.carroProducto)
+                                    .ThenInclude(cp => cp.producto)
+                                    .FirstOrDefaultAsync();
+            
+            Producto prod = await _context.productos
+                                    .Where(p => p.idProducto == model.Input.ID)
+                                    .FirstOrDefaultAsync();
+            
+            //SI EL PRODUCTO YA EXISTE EN EL CARRO, SE AGREGA SOLO LA CANTIDAD
+            if (carro.carroProducto.Exists(cp => cp.producto == prod))
             {
-                int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
-                Carro carro = await _context.carros.Where(c => c.idUsuario == id_usr).Include(c => c.carroProducto).FirstOrDefaultAsync();
-                Producto prod = await _context.productos.Where(p => p.idProducto == model.Input.ID).FirstOrDefaultAsync();
+                foreach (CarroProducto carroProd in carro.carroProducto)
+                {
+                    if (carroProd.idProducto == model.Input.ID)
+                    {
+                        carroProd.cantidad += model.Input.Cantidad;
+                        break;
+                    }
+                }
+            }
+            //SI EL PRODUCTO NO EXISTE EN EL CARRO, SE AGREGA
+            else 
+            {
                 CarroProducto cp = new CarroProducto();
                 cp.producto = prod;
                 cp.cantidad = model.Input.Cantidad;
 
                 carro.carroProducto.Add(cp);
-                _context.carros.Update(carro);
-                await _context.SaveChangesAsync();
-
-                
-
-                return RedirectToAction("Carro");
-            }
-            catch (Exception)
-            {
-                
             }
             
-            
-            
-            return RedirectToAction("ListadoProductos");
+            //GUARDAMOS LOS CAMBIOS                               
+            _context.carros.Update(carro);
+            _context.SaveChanges();
+
+            return RedirectToAction("Carro");
+
         }
 
-        public bool ModificarCarro(int ID, int cantidad)
+        public async Task<IActionResult> ModificarCarro(int ID, int cantidad)
         {
-            try
-            {
-                int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
-                if (_context.carros.Where(c => c.idUsuario == id_usr).FirstOrDefault() != null)
-                {
-                    Carro c = _context.usuarios.Where(u => u.idUsuario == id_usr).FirstOrDefault().miCarro;
-                    Producto p = _context.productos.Where(p => p.idProducto == ID).FirstOrDefault();
+            int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
 
+            Carro carro = await _context.carros
+                                    .Where(c => c.idUsuario == id_usr)
+                                    .Include(c => c.carroProducto)
+                                    .ThenInclude(cp => cp.producto)
+                                    .FirstOrDefaultAsync();
+
+            Producto prod = await _context.productos
+                                    .Where(p => p.idProducto == ID)
+                                    .Include(p => p.carroProducto)
+                                    .FirstOrDefaultAsync();
+
+            foreach (CarroProducto cp in carro.carroProducto)
+            {
+                if (cp.idProducto == ID)
+                {
                     if (cantidad == 0)
                     {
-                        
-                        c.productos.Remove(p);
-                        _context.carros.Update(c);
-                        _context.SaveChanges();
+                        carro.carroProducto.Remove(cp);
+                        _context.carros.Update(carro);
+                        await _context.SaveChangesAsync();
                     }
                     else
                     {
-                        int Cant = c.carroProducto.Where(p => p.idProducto == ID).FirstOrDefault().cantidad;
-                        c.carroProducto.Where(p => p.idProducto == ID).FirstOrDefault().cantidad = cantidad;
-                        _context.carros.Update(c);
-                        _context.SaveChanges();
+                        cp.cantidad = cantidad;
+                        _context.carros.Update(carro);
+                        await _context.SaveChangesAsync();
                     }
-                }
-                else
-                {
-                    return false;
+                    break;
                 }
             }
-            catch (Exception)
-            {
-                return false;
-            }
-            return true;
+
+            return RedirectToAction("Carro");
         }
-        public bool VaciarCarro()
+        public IActionResult VaciarCarro()
         {
-            try
+            
+            int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
+            if (_context.carros.Where(c => c.idUsuario == id_usr).FirstOrDefault() != null)
             {
-                int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
-                if (_context.carros.Where(c => c.idUsuario == id_usr).FirstOrDefault() != null)
-                {
-                    Carro c = _context.carros.Where(c => c.idUsuario == id_usr).FirstOrDefault();
+                Carro c = _context.carros.Where(c => c.idUsuario == id_usr).FirstOrDefault();
 
-                    c.carroProducto = new List<CarroProducto>();
-                    _context.carros.Update(c);
-                    _context.SaveChanges();
-                }
-                else
-                {
-                    return false;
-                }
+                c.carroProducto = new List<CarroProducto>();
+                _context.carros.Update(c);
+                _context.SaveChanges();
+            }
+            
 
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-            return true;
+            return RedirectToAction("Carro");
         }
 
         // #######################################################################################

@@ -31,7 +31,7 @@ namespace Final_Plataformas_De_Desarrollo.Data
         {
             //optionbuilder es el objeto que permite setear opciones para la configuracion de la base de datos
             //usa SQL Server pasandole el connectionString
-            optionsBuilder.UseSqlServer(@"Data Source=PC-JHORKY;Initial Catalog=FINALDBPlataformasDeDesarrollo;Integrated Security=True");
+            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-HP82AM9;Initial Catalog=FINALDBPlataformasDeDesarrollo;Integrated Security=True");
             
         }
 
@@ -152,11 +152,13 @@ namespace Final_Plataformas_De_Desarrollo.Data
             modelBuilder.Entity<CarroProducto>()
                 .HasOne(cp => cp.carro)
                 .WithMany(C => C.carroProducto)
-                .HasForeignKey(cp => cp.idCarro);
+                .HasForeignKey(cp => cp.idCarro)
+                .OnDelete(DeleteBehavior.Cascade); 
             modelBuilder.Entity<CarroProducto>()
                 .HasOne(cp => cp.producto)
                 .WithMany(C => C.carroProducto)
-                .HasForeignKey(cp => cp.idProducto);
+                .HasForeignKey(cp => cp.idProducto)
+                .OnDelete(DeleteBehavior.Cascade); 
 
 
             //##############################################################
