@@ -10,7 +10,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Final_Plataformas_De_Desarrollo</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/modal.css" />
 
@@ -19,7 +20,7 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar bg-dark border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar bg-dark box-shadow">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Cliente" asp-action="Index">Logo</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -30,80 +31,49 @@
                 @if (HttpContextAccessor.HttpContext.Session.GetString("SignIn") != null)
                 {
 
-                    @if (!JsonConvert.DeserializeObject<Account>(HttpContextAccessor.HttpContext.Session.GetString("SignIn")).esAdmin)
-                    {
 
-                        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
 
-                            <ul class="navbar-nav flex-grow-1">
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Cliente" asp-action="Index">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Cliente" asp-action="ListadoProductos">Listado de Productos</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Cliente" asp-action="Privacy">Contacto</a>
-                                </li>
-                            </ul>
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Cliente" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Cliente" asp-action="ListadoProductos">Listado de Productos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Cliente" asp-action="Privacy">Contacto</a>
+                            </li>
+                        </ul>
 
-                        </div>
-                        @*  CARRO  *@
-                        <div class="mt-2 px-3 ">
-                            <a asp-controller="Cliente" asp-action="Carro">
-                                <i class="fas fa-shopping-cart text-success" style="font-size:25px;"></i>
-                            </a>
+                    </div>
+                    @*  CARRO  *@
+                    <div class="mt-2 px-3 ">
+                        <a asp-controller="Cliente" asp-action="Carro">
+                            <i class="fas fa-shopping-cart text-success" style="font-size:25px;"></i>
+                        </a>
 
-                            @*  CANTIDAD DE PRODUCTOS EN EL CARRO  *@
-                            <label class="text-white" style="font-size:15px">
-                                1
-                            </label>
-                        </div>
+                        @*  CANTIDAD DE PRODUCTOS EN EL CARRO  *@
+                        <label class="text-white" style="font-size:15px">
+                            @(HttpContextAccessor.HttpContext.Session.GetString("CantProductos"))
+                        </label>
+                    </div>
 
-                        @*  CERRAR SESION  *@
-                        <div class=" my-auto">
-                            <a class="btn btn-success  " asp-area="" asp-controller="Home" asp-action="CerrarSesion">Logout</a>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    @*  CERRAR SESION  *@
+                    <div class=" my-auto">
+                        <a class="btn btn-success  " asp-area="" asp-controller="Home" asp-action="CerrarSesion">Logout</a>
+                    </div>
 
-                            <ul class="navbar-nav flex-grow-1">
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Producto">Producto</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Categoria">Categoria</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Usuario">Usuario</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Carro">Carro</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Compra">Compra</a>
-                                </li>
-                            </ul>
-
-                        </div>
-
-                        <a class="btn btn-success  my-2 my-sm-0" asp-area="" asp-controller="Home" asp-action="CerrarSesion">Logout</a>
-
-                    }
                 }
 
             </div>
         </nav>
-    </header><div class="container">
-        <main role="main" class="pb-3">
+    </header>
+    <div class="container-fluid">
             @RenderBody()
-
-        </main>
     </div>
 
-    <footer class="border-top footer text-white bg-dark">
+    <footer class="footer text-white bg-dark">
         <div class="container">
             &copy; 2022 - Final_Plataformas_De_Desarrollo - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>

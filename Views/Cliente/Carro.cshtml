@@ -20,9 +20,9 @@
                 <div class="col-md-2">
 
                     @* MODIFICAR PRODUCTO *@
-                    @*<a asp-controller="Cliente" asp-action="ModificarCarro" asp-route-id="@item.idProducto"><i class="fas fa-edit text-success"></i></a> |*@
+                    <a asp-controller="Cliente" asp-action="ModificarProducto" asp-route-id="@carprod.idProducto"><i class="fas fa-edit text-success"></i></a>
                     @* ELIMINAR PRODUCTO *@
-                    <a asp-controller="Cliente" asp-action="ModificarCarro" asp-route-id="@carprod.idProducto,0"><i class="fas fa-trash-alt text-success"></i></a>
+                    <a asp-controller="Cliente" asp-action="QuitarProductoDelCarro" asp-route-ID="@carprod.idProducto"><i class="fas fa-trash-alt text-success"></i></a>
                 </div>
 
             </div>

@@ -71,12 +71,12 @@ body {
 }
 
 /* LISTADO PRODUCTOS  */
-.filtros {
-    background-color: lightgray ;
-    color: black;
-    font-weight: bold;
 
+
+a.my-class { 
+    color: white; 
 }
+
 .carro {
     border-radius:4px;
     color:green;

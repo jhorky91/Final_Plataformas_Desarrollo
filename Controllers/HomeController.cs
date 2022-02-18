@@ -25,15 +25,15 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         }
         public IActionResult Login()
         {
-            //ViewData["Login"] = "ERROR";
-            //HttpContext.Session.SetString("SignIn", JsonConvert.SerializeObject(new Account()));
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> IniciarSesion(LoginViewModel model)
         {
-            var usuario = await _context.usuarios.FirstOrDefaultAsync(u => u.dni == model.Input.DNI);
+            var usuario = await _context.usuarios
+                                    .FirstOrDefaultAsync(u => u.dni == model.Input.DNI);
+
 
             if (usuario != null && usuario.password == model.Input.Password)
             {
@@ -46,24 +46,30 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                     a.esAdmin = usuario.esAdmin;
                     a.signIn = true;
                     HttpContext.Session.SetString("SignIn", JsonConvert.SerializeObject(a));
+
                     return RedirectToAction("Index", "Admin");
                 }
                 //CLIENTE
                 else
                 {
-                    //TempData["Login"] = true;
-                    //TempData.Keep("Login");
-                    //HttpContext.Session.SetString("SighIn", JsonConvert.SerializeObject(usuario));
                     Account a = new Account();
                     a.name = usuario.nombre;
                     a.id = usuario.idUsuario;
                     a.esAdmin = usuario.esAdmin;
                     a.signIn = true;
+
+                    var carro = _context.carros
+                                        .Where(c => c.idUsuario == usuario.idUsuario)
+                                        .Include(c => c.carroProducto)
+                                        .FirstOrDefault();
+
+                    HttpContext.Session.SetString("CantProductos", carro.carroProducto.Count().ToString());
+
                     HttpContext.Session.SetString("SignIn", JsonConvert.SerializeObject(a));
                     return RedirectToAction("Index", "Cliente");
                 }
             }
-            else 
+            else
             {
                 //
                 //usuario.intentos += 1;
@@ -78,20 +84,20 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                 //    ViewData["errorInicio"] = "Error: usuario bloqueado por exceso de intentos de inicio, contactece con un administrador para ser desbloqueado";
                 //}
             }
-           
-            return RedirectToAction("Login"); 
+
+            return RedirectToAction("Login");
         }
 
         public async Task<IActionResult> Registrarse(RegisterViewModel model)
         {
             Usuario u = new Usuario();
-            u.dni   =   model.Input.DNI;
-            u.nombre  =  model.Input.Nombre;
+            u.dni = model.Input.DNI;
+            u.nombre = model.Input.Nombre;
             u.apellido = model.Input.Apellido;
-            u.mail  = model.Input.Email;
+            u.mail = model.Input.Email;
             u.password = model.Input.Password;
             u.cuit_cuil = model.Input.CUIT_CUIL;
-            
+
             u.esAdmin = false;
             u.esEmpresa = model.Input.esEmpresa;
             u.intentos = 0;

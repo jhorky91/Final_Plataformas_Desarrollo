@@ -29,6 +29,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         //                                  INDEX
         //                                  CARRO
         //                                  AGREGAR PRODUCTO
+        //                                  MODIFICAR PRODUCTO
         //                                  MIS COMPRAS
         //                                  LISTADO DE PRODUCTOS
         //                                  DETALLE DE PRODUCTO
@@ -46,15 +47,15 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         public async Task<IActionResult> Carro()
         {
             int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
-            var carro =  await _context.carros
+            var carro = await _context.carros
                                 .Where(c => c.idUsuario == id_usr)
                                 .Include(c => c.carroProducto)
                                 .ThenInclude(cp => cp.producto)
                                 .FirstOrDefaultAsync();
-            
+
             return View(carro.carroProducto);
         }
-        
+
         //METODO FORMULARIO AGREGAR AL CARRO
         public async Task<IActionResult> AgregarProducto(int ID)
         {
@@ -62,7 +63,17 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                                         .Include(p => p.cat)
                                         .Where(p => p.idProducto == ID)
                                         .FirstOrDefaultAsync();
-            
+
+            ViewData["Producto"] = productos;
+            return View();
+        }
+        public async Task<IActionResult> ModificarProducto(int ID)
+        {
+            var productos = await _context.productos
+                                        .Include(p => p.cat)
+                                        .Where(p => p.idProducto == ID)
+                                        .FirstOrDefaultAsync();
+
             ViewData["Producto"] = productos;
             return View();
         }
@@ -83,11 +94,11 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                                                         .Include(p => p.cat)
                                                         .ToListAsync();
 
-            if (cat != 0) 
+            if (cat != 0)
             {
                 productos = productos.Where(p => p.idCategoria == cat);
             }
-            if (orderby != "") 
+            if (orderby != "")
             {
                 if (orderby == "precio")
                 {
@@ -96,14 +107,14 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                         if (az == "asc")
                         {
                             productos = productos.OrderBy(p => p.precio);
-                        } 
-                        else 
+                        }
+                        else
                         {
                             productos = productos.OrderByDescending(p => p.precio);
                         }
                     }
                 }
-                else 
+                else
                 {
                     if (az != "")
                     {
@@ -118,9 +129,9 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                     }
                 }
             }
-            
+
             ViewData["categorias"] = _context.categorias;
-            return View( productos);
+            return View(productos);
         }
 
         public async Task<IActionResult> DetalleProducto(int id)
@@ -130,31 +141,37 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                                         .Where(p => p.idProducto == id)
                                         .Include(p => p.cat)
                                         .FirstOrDefaultAsync();
-            
+
             return View(producto);
         }
 
         // #######################################################################################
         //                                  AGREGAR AL CARRO
         //                                  MODIFICAR CARRO
+        //                                  QUITAR PRODUCTO DEL CARRO ------------------------------>  REVISAR
         //                                  VACIAR CARRO
         // #######################################################################################
-        
+
+        // #######################################################################################
+        //
+        //                                   AGREGAR AL CARRO
+        //
+        // #######################################################################################
         [HttpPost]
         public async Task<IActionResult> AgregarAlCarro(AgregarAlCarroViewModel model)
         {
             int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
-            
+
             Carro carro = await _context.carros
                                     .Where(c => c.idUsuario == id_usr)
                                     .Include(c => c.carroProducto)
                                     .ThenInclude(cp => cp.producto)
                                     .FirstOrDefaultAsync();
-            
+
             Producto prod = await _context.productos
                                     .Where(p => p.idProducto == model.Input.ID)
                                     .FirstOrDefaultAsync();
-            
+
             //SI EL PRODUCTO YA EXISTE EN EL CARRO, SE AGREGA SOLO LA CANTIDAD
             if (carro.carroProducto.Exists(cp => cp.producto == prod))
             {
@@ -168,15 +185,16 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                 }
             }
             //SI EL PRODUCTO NO EXISTE EN EL CARRO, SE AGREGA
-            else 
+            else
             {
                 CarroProducto cp = new CarroProducto();
                 cp.producto = prod;
                 cp.cantidad = model.Input.Cantidad;
 
                 carro.carroProducto.Add(cp);
+                HttpContext.Session.SetString("CantProductos", (int.Parse(HttpContext.Session.GetString("CantProductos")) + 1).ToString());
             }
-            
+
             //GUARDAMOS LOS CAMBIOS                               
             _context.carros.Update(carro);
             _context.SaveChanges();
@@ -185,105 +203,165 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
 
         }
 
-        public async Task<IActionResult> ModificarCarro(int ID, int cantidad)
+        // #######################################################################################
+        //
+        //                             MODIFICAR PRODUCTO DEL CARRO
+        //
+        // #######################################################################################
+
+        public async Task<IActionResult> ModificarCarro(ModificarCarroViewModel model)
         {
             int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
 
             Carro carro = await _context.carros
                                     .Where(c => c.idUsuario == id_usr)
                                     .Include(c => c.carroProducto)
-                                    .ThenInclude(cp => cp.producto)
+                                    .FirstOrDefaultAsync();
+            if (model.Input.Cantidad == 0)
+            {
+
+                List<CarroProducto> aux = new List<CarroProducto>();
+                foreach (CarroProducto cp in carro.carroProducto)
+                {
+                    if (cp.idProducto != model.Input.ID)
+                    {
+                        aux.Add(cp);
+                    }
+                }
+
+                carro.carroProducto = aux;
+                _context.carros.Update(carro);
+                await _context.SaveChangesAsync();
+                HttpContext.Session.SetString("CantProductos", carro.carroProducto.Count().ToString());
+            }
+            else
+            {
+                foreach (CarroProducto cp in carro.carroProducto)
+                {
+                    if (cp.idProducto == model.Input.ID)
+                    {
+                        cp.cantidad = model.Input.Cantidad;
+                        _context.carros.Update(carro);
+                        await _context.SaveChangesAsync();
+
+                        break;
+                    }
+                }
+            }
+
+            return RedirectToAction("Carro");
+        }
+
+        //################################################################################# ---> REVISAR
+        //
+        //                         QUITAR PRODUCTO DEL CARRO 
+        //
+        //#################################################################################
+
+        public async Task<IActionResult> QuitarProductoDelCarro(int ID)
+        {
+            int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
+
+            Carro carro = await _context.carros
+                                    .Where(c => c.idUsuario == id_usr)
+                                    .Include(c => c.carroProducto)
                                     .FirstOrDefaultAsync();
 
-            Producto prod = await _context.productos
-                                    .Where(p => p.idProducto == ID)
-                                    .Include(p => p.carroProducto)
-                                    .FirstOrDefaultAsync();
-
+            List<CarroProducto> aux = new List<CarroProducto>();
             foreach (CarroProducto cp in carro.carroProducto)
             {
-                if (cp.idProducto == ID)
+                if (cp.idProducto != ID)
                 {
-                    if (cantidad == 0)
-                    {
-                        carro.carroProducto.Remove(cp);
-                        _context.carros.Update(carro);
-                        await _context.SaveChangesAsync();
-                    }
-                    else
-                    {
-                        cp.cantidad = cantidad;
-                        _context.carros.Update(carro);
-                        await _context.SaveChangesAsync();
-                    }
-                    break;
+                    aux.Add(cp);
                 }
             }
 
+            carro.carroProducto = aux;
+            _context.carros.Update(carro);
+            await _context.SaveChangesAsync();
+            HttpContext.Session.SetString("CantProductos", carro.carroProducto.Count().ToString());
             return RedirectToAction("Carro");
         }
-        public IActionResult VaciarCarro()
+
+        // #######################################################################################
+        //
+        //                                  VACIAR EL CARRO
+        //
+        // #######################################################################################
+
+        public async Task<IActionResult> VaciarCarro()
         {
-            
+
             int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
-            if (_context.carros.Where(c => c.idUsuario == id_usr).FirstOrDefault() != null)
+            if (await _context.carros.Where(c => c.idUsuario == id_usr).FirstOrDefaultAsync() != null)
             {
-                Carro c = _context.carros.Where(c => c.idUsuario == id_usr).FirstOrDefault();
+                Carro c = await _context.carros.Where(c => c.idUsuario == id_usr).FirstOrDefaultAsync();
 
                 c.carroProducto = new List<CarroProducto>();
                 _context.carros.Update(c);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
-            
+
 
             return RedirectToAction("Carro");
         }
 
         // #######################################################################################
+        //
         //                                  COMPRA
+        //
         // #######################################################################################
 
-        public bool Comprar()
-        {                       
-            try
+        public async Task<IActionResult> Comprar()
+        {
+
+            int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
+            double total = 0;
+
+            Carro c = await _context.carros
+                                .Where(c => c.idUsuario == id_usr)
+                                .Include(c => c.carroProducto)
+                                .ThenInclude(cp => cp.producto)
+                                .FirstOrDefaultAsync();
+
+            foreach (CarroProducto carProd in c.carroProducto)
             {
-                int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
-                double total = 0;
-
-                Carro c = _context.usuarios.Where(U => U.idUsuario == id_usr).FirstOrDefault().miCarro;
-                foreach (CarroProducto carProd in c.carroProducto)
+                if (carProd.producto.cantidad >= carProd.cantidad)
                 {
-                    if (carProd.producto.cantidad >= carProd.cantidad)
-                    {
-                        total += (carProd.cantidad * carProd.producto.precio);
-                    }
-                    else 
-                    {
-                        return false;
-                    }
+                    total += (carProd.cantidad * carProd.producto.precio);
                 }
-
-                Usuario user = _context.usuarios.Where(U => U.idUsuario == id_usr).FirstOrDefault();
-                Compra aux = new Compra(user, total);
-                _context.compras.Add(aux);
-                _context.SaveChanges();
-
-                foreach (Producto prod in c.productos)
+                else
                 {
-                    int cant = c.carroProducto.Where(CP => CP.idProducto == prod.idProducto).FirstOrDefault().cantidad;
-                    CompraProducto cp = new CompraProducto(aux, prod, cant);
-                    aux.compraProducto.Add(cp);
+                    //##############################################################################-------------------------> REVISAR
+                    ViewData["ERROR"] = "Error, no hay stock suficiente para el producto "
+                                        + carProd.producto.nombre +
+                                        ", modifique el carro en el producto antes de efectuar la compra ";
+
+                    return RedirectToAction("Carro");
                 }
-                c.carroProducto = new List<CarroProducto>();
-                _context.carros.Update(c);
-                _context.compras.Update(aux);
-                _context.SaveChanges();
             }
-            catch (Exception)
+
+            Usuario user = await _context.usuarios
+                                        .Where(u => u.idUsuario == id_usr).FirstOrDefaultAsync();
+
+            Compra aux = new Compra(user, total);
+            _context.compras.Add(aux);
+            await _context.SaveChangesAsync();
+
+            foreach (CarroProducto cp in c.carroProducto)
             {
-                return false;
+                int cant = cp.cantidad;
+                CompraProducto comp = new CompraProducto(aux, cp.producto, cant);
+                aux.compraProducto.Add(comp);
             }
-            return true;
+            c.carroProducto = new List<CarroProducto>();
+            _context.carros.Update(c);
+            _context.compras.Update(aux);
+            await _context.SaveChangesAsync();
+
+            //##############################################################################-------------------------> REVISAR
+            ViewData["Compra"] = "Compra efectuada exitosamente.";
+            return RedirectToAction("Carro");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

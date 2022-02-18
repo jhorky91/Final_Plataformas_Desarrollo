@@ -21,7 +21,16 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             _logger = logger;
             _context = context;
         }
-        
+
+        // #######################################################################################
+        //                                  INDEX
+        //                                  PRODUCTO
+        //                                  CATEGORIA
+        //                                  USUARIO
+        //                                  CARRO
+        //                                  COMPRA
+        // #######################################################################################
+
         public IActionResult Index()
         {
             return View();
