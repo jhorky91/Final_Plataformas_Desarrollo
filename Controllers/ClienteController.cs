@@ -52,8 +52,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                                 .Include(c => c.carroProducto)
                                 .ThenInclude(cp => cp.producto)
                                 .FirstOrDefaultAsync();
-
-            return View(carro.carroProducto);
+            ViewData["Carro"] = carro.carroProducto;
+            return View();
         }
 
         //METODO FORMULARIO AGREGAR AL CARRO
@@ -142,7 +142,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                                         .Include(p => p.cat)
                                         .FirstOrDefaultAsync();
 
-            return View(producto);
+            ViewData["producto"] = producto;
+            return View();
         }
 
         // #######################################################################################
@@ -208,7 +209,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         //                             MODIFICAR PRODUCTO DEL CARRO
         //
         // #######################################################################################
-
+        [HttpPost]
         public async Task<IActionResult> ModificarCarro(ModificarCarroViewModel model)
         {
             int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;

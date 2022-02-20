@@ -1,15 +1,19 @@
 ﻿@{
     ViewData["Title"] = "Mi Carro";
+    var carro = ViewData["Carro"] as IEnumerable<CarroProducto>;
+    int cont = 0;
 }
-@model IEnumerable<Final_Plataformas_De_Desarrollo.Models.CarroProducto> ;
+@model ModificarCarroViewModel;
 
-<div class="container">
+<div class="container mt-3">
 
-    @if (Model.Count() > 0)
+    @if (carro.Count() > 0)
     {
-        
-        @foreach (CarroProducto carprod in Model)
+
+        @foreach (CarroProducto carprod in carro)
         {
+            cont++;
+
             <div class="row">
                 <div class="col-md-10">
                     <h5>@carprod.producto.nombre</h5>
@@ -20,23 +24,107 @@
                 <div class="col-md-2">
 
                     @* MODIFICAR PRODUCTO *@
-                    <a asp-controller="Cliente" asp-action="ModificarProducto" asp-route-id="@carprod.idProducto"><i class="fas fa-edit text-success"></i></a>
+                    <button type="button" class="btn btn-success " data-toggle="modal" data-target="@("#modalMod"+cont.ToString())"> <i class="fas fa-edit text-white"></i> </button>
                     @* ELIMINAR PRODUCTO *@
-                    <a asp-controller="Cliente" asp-action="QuitarProductoDelCarro" asp-route-ID="@carprod.idProducto"><i class="fas fa-trash-alt text-success"></i></a>
+                    <button type="button" class="btn btn-success " data-toggle="modal" data-target="@("#modalDel"+cont.ToString())"> <i class="fas fa-trash-alt text-white"></i> </button>
+
                 </div>
 
             </div>
             <hr />
+
+            @* MODAL MODIFICAR PRODUCTO DEL CARRO *@
+
+            <div class="modal" id="@("modalMod"+@cont.ToString())" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalDelCenteredLabel">@carprod.producto.nombre</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <section>
+                                <form asp-controller="Cliente" asp-action="ModificarCarro" method="post">
+                                    <div class="form-group">
+                                        <input asp-for="@Model.Input.ID" class="form-control" value="@carprod.producto.idProducto" hidden />
+                                    </div>
+                                    <div class="form-group">
+                                        <span>
+                                            Seleccione la cantidad
+                                        </span>
+                                        <select asp-for="@Model.Input.Cantidad" class="form-control" onfocus="this.size=10;" onblur="this.size=1;"
+                                                onchange="this.size=1; this.blur()" ;>
+                                            <option value="" selected disabled hidden>Ingrese cantidad de unidades</option>
+                                            @for (int i = 0; i <= carprod.producto.cantidad; i++)
+                                            {
+                                                <option value="@i">@i</option>
+                                            }
+                                        </select>
+                                        <span asp-validation-for="@Model.Input.Cantidad" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <span class="text-danger">
+                                            @Html.DisplayFor(lvm => lvm.ErrorMessage)
+                                        </span>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-success btn-block">Modificar Producto</button>
+                                    </div>
+                                    
+                                </form>
+                            </section>
+                            <label id="indexMessage" class="error">@Html.DisplayFor(lvm => lvm.ErrorMessage)</label>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            @* FIN DEL MODAL MODIFICAR PRODUCTO DEL CARRO *@
+
+            @* MODAL ELIMINAR PRODUCTO DEL CARRO *@
+
+            <div class="modal" id="@("modalDel"+@cont.ToString())" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalDelCenteredLabel">¿Estas seguro que deseas eliminar el producto @carprod.producto.nombre ?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <span>
+                                Si le das confirmar, el producto se eliminará del carro.
+                            </span>
+                        </div>
+                        <div class="modal-footer">
+                            @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>*@
+                            <a class="btn btn-danger" asp-controller="Cliente" asp-action="QuitarProductoDelCarro" asp-route-ID="@carprod.idProducto">Confirmar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* FIN DEL MODAL ELIMINAR PRODUCTO DEL CARRO *@
+
+
         }
     }
     else
     {
-        <div class="row">
+        <div class="row text-center">
             <h5>Carro vacio</h5>
         </div>
         <hr />
     }
 
-
-
 </div>
+
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+
+

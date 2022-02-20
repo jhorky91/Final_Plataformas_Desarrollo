@@ -16,16 +16,13 @@ namespace Final_Plataformas_De_Desarrollo.Models
 
         public class InputModel
         {
-
             [Required]
             public int ID { get; set; }
 
-            [Required(ErrorMessage = "El campo Cantidad es obligatorio.")]
-            [Range(1, int.MaxValue)]
+            [Required(ErrorMessage = "El campo Cantidad debe contener un numero mayor a 0.")]
             public int Cantidad { get; set; }
 
         }
-
 
     }
 }

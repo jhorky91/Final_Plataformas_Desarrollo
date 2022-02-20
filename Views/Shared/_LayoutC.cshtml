@@ -13,9 +13,7 @@
     @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/modal.css" />
-
-
+    
 </head>
 
 <body>
@@ -70,7 +68,7 @@
         </nav>
     </header>
     <div class="container-fluid">
-            @RenderBody()
+        @RenderBody()
     </div>
 
     <footer class="footer text-white bg-dark">
@@ -83,7 +81,30 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/2e9c83e3ea.js" crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/modal.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+
+
+    @if (HttpContextAccessor.HttpContext.Session.GetString("SignIn") == null && ViewData["Title"].ToString() != "Login")
+    {
+        @* MODAL SESION CADUCADA *@
+
+        <div class="modal" style="display: block">
+            <div class="modal-content text-center">
+                <div class=" mx-auto my-auto">
+                    <h3>Se expiro la sesion</h3>
+                    <label>Vuelva a iniciar sesion para continuar</label>
+                    <hr />
+                    <a asp-controller="Home" asp-action="Login">Iniciar Sesion</a>
+                </div>
+            </div>
+        </div>
+
+        @* FIN DEL MODAL *@
+
+
+
+        
+    }
+
 </body>
     </html>
