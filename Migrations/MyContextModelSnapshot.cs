@@ -178,14 +178,6 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                     b.HasIndex("idUsuario");
 
                     b.ToTable("Compra");
-
-                    b.HasData(
-                        new
-                        {
-                            idCompra = 1,
-                            idUsuario = 2,
-                            total = 0m
-                        });
                 });
 
             modelBuilder.Entity("Final_Plataformas_De_Desarrollo.Models.CompraProducto", b =>

@@ -46,44 +46,34 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
 
         public async Task<IActionResult> Carro()
         {
-            int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
-            var carro = await _context.carros
-                                .Where(c => c.idUsuario == id_usr)
-                                .Include(c => c.carroProducto)
-                                .ThenInclude(cp => cp.producto)
-                                .FirstOrDefaultAsync();
-            ViewData["Carro"] = carro.carroProducto;
+            try
+            {
+                int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
+                var carro = await _context.carros
+                                    .Where(c => c.idUsuario == id_usr)
+                                    .Include(c => c.carroProducto)
+                                    .ThenInclude(cp => cp.producto)
+                                    .FirstOrDefaultAsync();
+                ViewData["Carro"] = carro.carroProducto;
+
+            }
+            catch (Exception) 
+            {
+                ViewData["error"] = "Vuelva a iniciar sesion";
+                return RedirectToAction("Login","Home");
+            }
             return View();
         }
-
-        //METODO FORMULARIO AGREGAR AL CARRO
-        public async Task<IActionResult> AgregarProducto(int ID)
-        {
-            var productos = await _context.productos
-                                        .Include(p => p.cat)
-                                        .Where(p => p.idProducto == ID)
-                                        .FirstOrDefaultAsync();
-
-            ViewData["Producto"] = productos;
-            return View();
-        }
-        public async Task<IActionResult> ModificarProducto(int ID)
-        {
-            var productos = await _context.productos
-                                        .Include(p => p.cat)
-                                        .Where(p => p.idProducto == ID)
-                                        .FirstOrDefaultAsync();
-
-            ViewData["Producto"] = productos;
-            return View();
-        }
+       
 
         public async Task<IActionResult> MisCompras()
         {
             int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
             var compras = _context.compras
                                 .Where(u => u.idUsuario == id_usr)
-                                .Include(c => c.compraProducto);
+                                .Include(c => c.compraProducto)
+                                .ThenInclude(cp => cp.producto)
+                                .ThenInclude(p => p.cat);
 
             return View(await compras.ToListAsync());
         }
@@ -296,11 +286,16 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
             if (await _context.carros.Where(c => c.idUsuario == id_usr).FirstOrDefaultAsync() != null)
             {
-                Carro c = await _context.carros.Where(c => c.idUsuario == id_usr).FirstOrDefaultAsync();
+                Carro c = await _context.carros
+                                    .Where(c => c.idUsuario == id_usr)
+                                    .Include(c => c.carroProducto)
+                                    .FirstOrDefaultAsync();
 
                 c.carroProducto = new List<CarroProducto>();
                 _context.carros.Update(c);
                 await _context.SaveChangesAsync();
+
+                HttpContext.Session.SetString("CantProductos", 0.ToString());
             }
 
 

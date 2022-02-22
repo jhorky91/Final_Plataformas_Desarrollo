@@ -6,6 +6,57 @@
 @model ModificarCarroViewModel;
 
 <div class="container mt-3">
+    <div class="row justify-content-between">
+        <a class="btn btn-success" asp-controller="Cliente" asp-action="MisCompras">Historial de Compras</a>
+        <button type="button" class="btn btn-danger " data-toggle="modal" data-target="#modalVaciarCarro"> Vaciar el Carro </button>
+        <button type="button" class="btn btn-success " data-toggle="modal" data-target="#modalComprar"> Comprar </button>
+    </div>
+    <hr />
+
+    @* MODAL VACIAR EL CARRO *@
+    <div class="modal" id="modalVaciarCarro" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDelCenteredLabel">¿Estas seguro que deseas vaciar el carro?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span>
+                        Si le das confirmar, los productos desapareceran del carro.
+                    </span>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-danger" asp-controller="Cliente" asp-action="VaciarCarro">Confirmar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @* FIN MODAL VACIAR EL CARRO *@
+
+    @* MODAL COMPRAR *@
+    <div class="modal" id="modalComprar" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDelCenteredLabel">¿Estas seguro que deseas efectuar la compra de los productos del carro?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-danger" asp-controller="Cliente" asp-action="Comprar">Confirmar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @* FIN MODAL COMPRAR *@
+
 
     @if (carro.Count() > 0)
     {
@@ -72,12 +123,12 @@
                                     <div class="modal-footer">
                                         <button type="submit" class="btn btn-success btn-block">Modificar Producto</button>
                                     </div>
-                                    
+
                                 </form>
                             </section>
                             <label id="indexMessage" class="error">@Html.DisplayFor(lvm => lvm.ErrorMessage)</label>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -111,11 +162,14 @@
             @* FIN DEL MODAL ELIMINAR PRODUCTO DEL CARRO *@
 
 
+
         }
+
+
     }
     else
     {
-        <div class="row text-center">
+        <div class="row justify-content-center">
             <h5>Carro vacio</h5>
         </div>
         <hr />

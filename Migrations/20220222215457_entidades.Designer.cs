@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Final_Plataformas_De_Desarrollo.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20220217224702_Entidades")]
-    partial class Entidades
+    [Migration("20220222215457_entidades")]
+    partial class entidades
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -180,14 +180,6 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                     b.HasIndex("idUsuario");
 
                     b.ToTable("Compra");
-
-                    b.HasData(
-                        new
-                        {
-                            idCompra = 1,
-                            idUsuario = 2,
-                            total = 0m
-                        });
                 });
 
             modelBuilder.Entity("Final_Plataformas_De_Desarrollo.Models.CompraProducto", b =>

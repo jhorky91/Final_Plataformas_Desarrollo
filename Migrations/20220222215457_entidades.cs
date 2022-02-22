@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Final_Plataformas_De_Desarrollo.Migrations
 {
-    public partial class Entidades : Migration
+    public partial class entidades : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -197,16 +197,11 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Compra",
-                columns: new[] { "idCompra", "idUsuario", "total" },
-                values: new object[] { 1, 2, 0m });
-
-            migrationBuilder.InsertData(
                 table: "Producto",
                 columns: new[] { "idProducto", "cantidad", "fechaCreacion", "idCategoria", "nombre", "precio" },
                 values: new object[,]
                 {
-                    { 49, 200, new DateTime(2021, 3, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, "Resma", 700m },
+                    { 50, 200, new DateTime(2021, 2, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, "Tablero dibujo", 3000m },
                     { 15, 20, new DateTime(2020, 9, 25, 9, 55, 0, 0, DateTimeKind.Unspecified), 6, "Monitor", 28000m },
                     { 16, 20, new DateTime(2021, 7, 28, 4, 30, 0, 0, DateTimeKind.Unspecified), 6, "Notebook", 95000m },
                     { 32, 150, new DateTime(2019, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 7, "Taladro", 15000m },
@@ -216,9 +211,8 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                     { 7, 150, new DateTime(2020, 12, 19, 10, 30, 0, 0, DateTimeKind.Unspecified), 8, "TV", 80000m },
                     { 36, 150, new DateTime(2021, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 8, "Hidrolavadora", 7000m },
                     { 37, 150, new DateTime(2019, 4, 25, 4, 3, 0, 0, DateTimeKind.Unspecified), 8, "Parlantes", 10000m },
-                    { 50, 200, new DateTime(2021, 2, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, "Tablero dibujo", 3000m },
                     { 38, 150, new DateTime(2021, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), 8, "Auriculares", 4500m },
-                    { 14, 20, new DateTime(2020, 9, 19, 10, 47, 0, 0, DateTimeKind.Unspecified), 6, "Teclado", 3500m },
+                    { 39, 150, new DateTime(2019, 2, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 8, "Celular", 50000m },
                     { 41, 200, new DateTime(2020, 6, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 9, "Alimento para Perros", 282m },
                     { 42, 200, new DateTime(2021, 7, 10, 21, 3, 0, 0, DateTimeKind.Unspecified), 9, "Alimento para Gatos", 144m },
                     { 43, 200, new DateTime(2021, 1, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 9, "Cuchas", 3000m },
@@ -227,7 +221,8 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                     { 46, 200, new DateTime(2020, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, "Cuaderno", 250m },
                     { 47, 200, new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, "Marcadores", 1200m },
                     { 48, 200, new DateTime(2021, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, "Calculadora", 1500m },
-                    { 39, 150, new DateTime(2019, 2, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 8, "Celular", 50000m },
+                    { 49, 200, new DateTime(2021, 3, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, "Resma", 700m },
+                    { 14, 20, new DateTime(2020, 9, 19, 10, 47, 0, 0, DateTimeKind.Unspecified), 6, "Teclado", 3500m },
                     { 40, 150, new DateTime(2020, 5, 15, 20, 3, 0, 0, DateTimeKind.Unspecified), 8, "Proyector", 45000m },
                     { 13, 20, new DateTime(2021, 1, 10, 9, 20, 0, 0, DateTimeKind.Unspecified), 6, "Mouse", 1500m },
                     { 31, 20, new DateTime(2021, 10, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, "Licuadora", 6000m },

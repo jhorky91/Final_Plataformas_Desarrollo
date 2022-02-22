@@ -1,5 +1,82 @@
 ﻿@{
-    ViewData["Title"] = "Listado de Productos";
+    ViewData["Title"] = "Mis Compras";
 
 }
-@model IEnumerable<Final_Plataformas_De_Desarrollo.Models.Compra> ;
+@model List<Final_Plataformas_De_Desarrollo.Models.Compra>; 
+
+<div class="container mt-3">
+
+    @if (Model.Count() >= 1)
+    {
+
+        @foreach (Compra com in Model)
+        {
+
+            <div class="row">
+                <div class="col-md-10">
+                    <h5>@com.idCompra</h5>
+                    <p>Total: @com.total </p>
+                </div>
+                <div class="col-md-2">
+
+                    @* DETALLE DE LA COMPRA *@
+                    <button type="button" class="btn btn-success " data-toggle="modal" data-target="@("#modalDetalle"+com.idCompra.ToString())"> <i class="fas fa-edit text-white"></i> </button>
+
+                </div>
+
+            </div>
+            <hr />
+
+            @* MODAL DETALLE DE LA COMPRA *@
+
+            <div class="modal" id="@("modalDetalle"+com.idCompra.ToString())" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalDelCenteredLabel">@com.idCompra</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-xl-responsive-borderless" id="tablajson" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Precio</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (CompraProducto cp in com.compraProducto)
+                                    {
+                                        <tr>
+                                            <td>@cp.producto.nombre</td>
+                                            <td>$@cp.producto.precio</td>
+                                            <td>@cp.cantidad</td>
+                                            <td>@( cp.producto.precio*cp.cantidad )</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* FIN DEL MODAL DETALLE DE LA COMPRA *@
+
+        }
+    }
+    else
+    {
+        <div class="row justify-content-center">
+            <h5>No se encontraron compras registradas</h5>
+        </div>
+        <hr />
+    }
+
+</div>
+

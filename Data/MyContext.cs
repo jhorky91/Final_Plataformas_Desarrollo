@@ -319,9 +319,9 @@ namespace Final_Plataformas_De_Desarrollo.Data
                 new { idCarro = 3, idUsuario = 3 }
                 );
 
-            modelBuilder.Entity<Compra>().HasData(
-               new { idCompra = 1, idUsuario = 2, total= 0.0 }
-               );
+            //modelBuilder.Entity<Compra>().HasData(
+            //   new { idCompra = 1, idUsuario = 2, total= 0.0 }
+            //   );
 
             /*
             modelBuilder.Entity<CarroProducto>().HasData(
