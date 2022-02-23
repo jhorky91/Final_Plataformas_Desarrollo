@@ -59,7 +59,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             }
             catch (Exception) 
             {
-                ViewData["error"] = "Vuelva a iniciar sesion";
+                TempData["mensaje"]  = "Vuelva a iniciar sesion";
                 return RedirectToAction("Login","Home");
             }
             return View();
@@ -131,8 +131,14 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                                         .Where(p => p.idProducto == id)
                                         .Include(p => p.cat)
                                         .FirstOrDefaultAsync();
+            List<Producto> ProdRelacionado = await _context.productos
+                                .Where(p => p.idCategoria == producto.idCategoria)
+                                .ToListAsync();
+
+            ViewData["prodRela"] = ProdRelacionado;
 
             ViewData["producto"] = producto;
+            
             return View();
         }
 
@@ -328,6 +334,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                 }
                 else
                 {
+
                     //##############################################################################-------------------------> REVISAR
                     ViewData["ERROR"] = "Error, no hay stock suficiente para el producto "
                                         + carProd.producto.nombre +
@@ -354,7 +361,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             _context.carros.Update(c);
             _context.compras.Update(aux);
             await _context.SaveChangesAsync();
-
+            
+            HttpContext.Session.SetString("CantProductos", 0.ToString());
             //##############################################################################-------------------------> REVISAR
             ViewData["Compra"] = "Compra efectuada exitosamente.";
             return RedirectToAction("Carro");

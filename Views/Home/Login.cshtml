@@ -1,19 +1,18 @@
 ﻿@model LoginViewModel;
 @{
-
     ViewData["Title"] = "Login";
-    
 }
-
-
 
 <div class="container">
     <div class="row">
         <div class="col-md-4 mx-auto">
+            <p>@TempData["errorLogin"]</p>
+
+
             <div class="card text-center">
                 @*<div class="card-header">
-                    <h3>Iniciar Sesión</h3>
-                </div>*@
+                <h3>Iniciar Sesión</h3>
+            </div>*@
                 <img src="~/images/login.png" class="mx-auto w-25" />
                 <div class="card-body">
                     <section>
@@ -42,12 +41,12 @@
                     </section>
                     <label id="indexMessage" class="error">@Html.DisplayFor(lvm => lvm.ErrorMessage)</label>
                 </div>
-                
+
             </div>
         </div>
 
     </div>
 </div>
-@section Scripts{ 
+@section Scripts{
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }

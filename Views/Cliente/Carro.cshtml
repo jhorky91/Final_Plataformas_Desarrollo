@@ -1,7 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Mi Carro";
     var carro = ViewData["Carro"] as IEnumerable<CarroProducto>;
-    int cont = 0;
 }
 @model ModificarCarroViewModel;
 
@@ -63,7 +62,7 @@
 
         @foreach (CarroProducto carprod in carro)
         {
-            cont++;
+           
 
             <div class="row">
                 <div class="col-md-10">
@@ -75,9 +74,9 @@
                 <div class="col-md-2">
 
                     @* MODIFICAR PRODUCTO *@
-                    <button type="button" class="btn btn-success " data-toggle="modal" data-target="@("#modalMod"+cont.ToString())"> <i class="fas fa-edit text-white"></i> </button>
+                    <button type="button" class="btn btn-success " data-toggle="modal" data-target="@("#modalMod"+carprod.producto.idProducto.ToString())"> <i class="fas fa-edit text-white"></i> </button>
                     @* ELIMINAR PRODUCTO *@
-                    <button type="button" class="btn btn-success " data-toggle="modal" data-target="@("#modalDel"+cont.ToString())"> <i class="fas fa-trash-alt text-white"></i> </button>
+                    <button type="button" class="btn btn-success " data-toggle="modal" data-target="@("#modalDel"+carprod.producto.idProducto.ToString())"> <i class="fas fa-trash-alt text-white"></i> </button>
 
                 </div>
 
@@ -86,7 +85,7 @@
 
             @* MODAL MODIFICAR PRODUCTO DEL CARRO *@
 
-            <div class="modal" id="@("modalMod"+@cont.ToString())" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
+            <div class="modal" id="@("modalMod"+carprod.producto.idProducto.ToString())" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -137,7 +136,7 @@
 
             @* MODAL ELIMINAR PRODUCTO DEL CARRO *@
 
-            <div class="modal" id="@("modalDel"+@cont.ToString())" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
+            <div class="modal" id="@("modalDel"+carprod.producto.idProducto.ToString())" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">

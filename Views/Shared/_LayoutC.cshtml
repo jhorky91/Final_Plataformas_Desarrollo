@@ -40,7 +40,7 @@
                                 <a class="nav-link text-white" asp-area="" asp-controller="Cliente" asp-action="ListadoProductos">Listado de Productos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Cliente" asp-action="Privacy">Contacto</a>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Contacto">Contacto</a>
                             </li>
                         </ul>
 
@@ -86,24 +86,28 @@
 
     @if (HttpContextAccessor.HttpContext.Session.GetString("SignIn") == null && ViewData["Title"].ToString() != "Login")
     {
-        @* MODAL SESION CADUCADA *@
 
-        <div class="modal" style="display: block">
-            <div class="modal-content text-center">
-                <div class=" mx-auto my-auto">
-                    <h3>Se expiro la sesion</h3>
-                    <label>Vuelva a iniciar sesion para continuar</label>
-                    <hr />
-                    <a asp-controller="Home" asp-action="Login">Iniciar Sesion</a>
+        @* MODAL SESION CADUCADA *@
+        <div class="modal"  tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true" style="display: block; background-color: rgba(0,0,0,0.5);">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content "style="background-color: rgb(255, 255, 255,1);">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalDelCenteredLabel">Se expiro la sesion</h5>
+                    </div>
+                    <div class="modal-body">
+                        <label>Vuelva a iniciar sesion para continuar</label>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-success" asp-controller="Home" asp-action="Login">Iniciar Sesion</a>
+                    </div>
                 </div>
             </div>
         </div>
-
         @* FIN DEL MODAL *@
 
 
 
-        
+
     }
 
 </body>

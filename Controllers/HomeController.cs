@@ -25,6 +25,10 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         }
         public IActionResult Login()
         {
+            //if (ViewBag.error != null) 
+            //{
+            //    ViewBag.msg = ViewBag.error;
+            //}
             return View();
         }
 
@@ -123,7 +127,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Contacto()
         {
             return View();
         }
