@@ -6,13 +6,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4 mx-auto">
-            <p>@TempData["errorLogin"]</p>
-
-
-            <div class="card text-center">
+            <div class="card text-center mt-3">
                 @*<div class="card-header">
-                <h3>Iniciar Sesión</h3>
-            </div>*@
+                        <h3>Iniciar Sesión</h3>
+                    </div>*@
                 <img src="~/images/login.png" class="mx-auto w-25" />
                 <div class="card-body">
                     <section>
@@ -47,6 +44,7 @@
 
     </div>
 </div>
+
 @section Scripts{
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }

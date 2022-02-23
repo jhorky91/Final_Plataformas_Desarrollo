@@ -13,7 +13,8 @@
     @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/site.css" />
-    
+    <link rel="stylesheet" href="~/css/modalEmergente.css" />
+
 </head>
 
 <body>
@@ -69,6 +70,32 @@
     </header>
     <div class="container-fluid">
         @RenderBody()
+
+        @if (TempData["Mensaje"] != null)
+        {
+
+            @* MODAL *@
+
+            <div id="myModalEmergente" class="modal-Emergente " style="display:block">
+                <div class="modal-content-Emergente">
+                    <span class="closeEmergente">&times;</span>
+                    @if (TempData["TituloMensaje"] != null) 
+                    { 
+                        <div class="modal-header-Emergente">
+                            
+                            <h2>@TempData["TituloMensaje"]</h2>
+                        </div>
+                    }
+                    <div class="modal-body-Emergente">
+                        <p>@TempData["Mensaje"]</p>
+
+                    </div>
+                </div>
+            </div>
+
+            @* FINAL MODAL *@
+        }
+
     </div>
 
     <footer class="footer text-white bg-dark">
@@ -81,6 +108,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/2e9c83e3ea.js" crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/modalEmergente.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 
 
@@ -88,9 +116,9 @@
     {
 
         @* MODAL SESION CADUCADA *@
-        <div class="modal"  tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true" style="display: block; background-color: rgba(0,0,0,0.5);">
+        <div class="modal" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true" style="display: block; background-color: rgba(0,0,0,0.5);">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content "style="background-color: rgb(255, 255, 255,1);">
+                <div class="modal-content " style="background-color: rgb(255, 255, 255,1);">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalDelCenteredLabel">Se expiro la sesion</h5>
                     </div>
@@ -104,11 +132,9 @@
             </div>
         </div>
         @* FIN DEL MODAL *@
-
-
-
-
     }
 
+
+
 </body>
-    </html>
+</html>
