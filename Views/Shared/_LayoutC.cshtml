@@ -4,6 +4,7 @@
 @using Final_Plataformas_De_Desarrollo.Models;
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
 
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -79,10 +80,10 @@
             <div id="myModalEmergente" class="modal-Emergente " style="display:block">
                 <div class="modal-content-Emergente">
                     <span class="closeEmergente">&times;</span>
-                    @if (TempData["TituloMensaje"] != null) 
-                    { 
+                    @if (TempData["TituloMensaje"] != null)
+                    {
                         <div class="modal-header-Emergente">
-                            
+
                             <h2>@TempData["TituloMensaje"]</h2>
                         </div>
                     }

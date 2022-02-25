@@ -3,9 +3,8 @@
     var prod = ViewData["producto"] as Producto;
     var prodRel = ViewData["prodRela"] as List<Producto>;
     var cont = 0;
-
 }
-@model AgregarAlCarroViewModel;
+@model FormulariosViewModel;
 <div class="row">
     <div class="col-12 justify-content-center">
         <div class="card my-5 mx-5">
@@ -83,10 +82,10 @@
                 <section>
                     <form asp-controller="Cliente" asp-action="AgregarAlCarro" method="post">
                         <div class="form-group">
-                            <input asp-for="@Model.Input.ID" class="form-control" value="@prod.idProducto" hidden />
+                            <input asp-for="@Model.AgregarInput.ID" class="form-control" value="@prod.idProducto" hidden />
                         </div>
                         <div class="form-group">
-                            <select asp-for="@Model.Input.Cantidad" class="form-control" onfocus="this.size=10;" onblur="this.size=1;"
+                            <select asp-for="@Model.AgregarInput.Cantidad" class="form-control" onfocus="this.size=10;" onblur="this.size=1;"
                                     onchange="this.size=1; this.blur()" ;>
                                 <option value="" selected disabled hidden>Ingrese cantidad de unidades</option>
                                 @for (int i = 1; i <= prod.cantidad; i++)
@@ -94,7 +93,7 @@
                                     <option value="@i">@i</option>
                                 }
                             </select>
-                            <span asp-validation-for="@Model.Input.Cantidad" class="text-danger"></span>
+                            <span asp-validation-for="@Model.AgregarInput.Cantidad" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <span class="text-danger">

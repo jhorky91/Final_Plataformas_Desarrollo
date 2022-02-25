@@ -33,13 +33,13 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> IniciarSesion(LoginViewModel model)
+        public async Task<IActionResult> IniciarSesion(FormulariosViewModel model)
         {
             var usuario = await _context.usuarios
-                                    .FirstOrDefaultAsync(u => u.dni == model.Input.DNI);
+                                    .FirstOrDefaultAsync(u => u.dni == model.LoginInput.DNI);
 
 
-            if (usuario != null && usuario.password == model.Input.Password)
+            if (usuario != null && usuario.password == model.LoginInput.Password)
             {
                 //ADMIN
                 if (usuario.esAdmin)
@@ -92,18 +92,18 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             return RedirectToAction("Login");
         }
 
-        public async Task<IActionResult> Registrarse(RegisterViewModel model)
+        public async Task<IActionResult> Registrarse(FormulariosViewModel model)
         {
             Usuario u = new Usuario();
-            u.dni = model.Input.DNI;
-            u.nombre = model.Input.Nombre;
-            u.apellido = model.Input.Apellido;
-            u.mail = model.Input.Email;
-            u.password = model.Input.Password;
-            u.cuit_cuil = model.Input.CUIT_CUIL;
+            u.dni = model.RegisterInput.DNI;
+            u.nombre = model.RegisterInput.Nombre;
+            u.apellido = model.RegisterInput.Apellido;
+            u.mail = model.RegisterInput.Email;
+            u.password = model.RegisterInput.Password;
+            u.cuit_cuil = model.RegisterInput.CUIT_CUIL;
 
             u.esAdmin = false;
-            u.esEmpresa = model.Input.esEmpresa;
+            u.esEmpresa = model.RegisterInput.esEmpresa;
             u.intentos = 0;
             u.bloqueado = false;
 

@@ -1,7 +1,7 @@
-﻿@model LoginViewModel;
-@{
+﻿@{
     ViewData["Title"] = "Login";
 }
+@model FormulariosViewModel;
 
 <div class="container">
     <div class="row">
@@ -15,12 +15,12 @@
                     <section>
                         <form asp-controller="Home" asp-action="IniciarSesion" method="post">
                             <div class="form-group">
-                                <input asp-for="Input.DNI" class="form-control" placeholder="Ingese su Dni" autofocus />
-                                <span asp-validation-for="Input.DNI" class="text-danger"></span>
+                                <input asp-for="LoginInput.DNI" class="form-control" placeholder="Ingese su Dni" autofocus />
+                                <span asp-validation-for="LoginInput.DNI" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <input asp-for="Input.Password" class="form-control" placeholder="Ingrese su Password" />
-                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                <input asp-for="LoginInput.Password" class="form-control" placeholder="Ingrese su Password" />
+                                <span asp-validation-for="LoginInput.Password" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <span class="text-danger">

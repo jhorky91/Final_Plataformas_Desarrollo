@@ -1,9 +1,7 @@
-﻿@model RegisterViewModel;
-@{
-
+﻿@{
     ViewData["Title"] = "Register";
 }
-
+@model FormulariosViewModel;
 
 <div class="container">
     <div class="row">
@@ -17,35 +15,35 @@
                     <section>
                         <form asp-controller="Home" asp-action="Registrarse" method="post">
                             <div class="form-group">
-                                <input asp-for="Input.DNI" class="form-control" placeholder="Ingese su Dni" autofocus />
-                                <span asp-validation-for="Input.DNI" class="text-danger"></span>
+                                <input asp-for="RegisterInput.DNI" class="form-control" placeholder="Ingese su Dni" autofocus />
+                                <span asp-validation-for="RegisterInput.DNI" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <input asp-for="Input.Nombre" class="form-control" placeholder="Ingrese su Nombre"  />
-                                <span asp-validation-for="Input.Nombre" class="text-danger"></span>
+                                <input asp-for="RegisterInput.Nombre" class="form-control" placeholder="Ingrese su Nombre" />
+                                <span asp-validation-for="RegisterInput.Nombre" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <input asp-for="Input.Apellido" class="form-control" placeholder="Ingrese su Apellido"  />
-                                <span asp-validation-for="Input.Apellido" class="text-danger"></span>
+                                <input asp-for="RegisterInput.Apellido" class="form-control" placeholder="Ingrese su Apellido" />
+                                <span asp-validation-for="RegisterInput.Apellido" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <input asp-for="Input.Email" class="form-control" placeholder="Ingrese el Email" />
-                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                <input asp-for="RegisterInput.Email" class="form-control" placeholder="Ingrese el Email" />
+                                <span asp-validation-for="RegisterInput.Email" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <input asp-for="Input.Password" class="form-control" placeholder="Ingrese su Password" />
-                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                <input asp-for="RegisterInput.Password" class="form-control" placeholder="Ingrese su Password" />
+                                <span asp-validation-for="RegisterInput.Password" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <input asp-for="Input.CUIT_CUIL" class="form-control" placeholder="Ingrese su Cuit/Cuil" />
-                                <span asp-validation-for="Input.CUIT_CUIL" class="text-danger"></span>
+                                <input asp-for="RegisterInput.CUIT_CUIL" class="form-control" placeholder="Ingrese su Cuit/Cuil" />
+                                <span asp-validation-for="RegisterInput.CUIT_CUIL" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label class="form-check-label justify-content-start d-flex ml-4">
-                                    <input class="form-check-input" asp-for="Input.esEmpresa"  />
+                                    <input class="form-check-input" asp-for="RegisterInput.esEmpresa" />
                                     Sos Empresa
                                 </label>
-                                <span asp-validation-for="Input.esEmpresa" class="text-danger"></span>
+                                <span asp-validation-for="RegisterInput.esEmpresa" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <span class="text-danger">

@@ -55,6 +55,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         // POST: Producto/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("idProducto,nombre,precio,cantidad,idCategoria,fechaCreacion")] Producto producto)
