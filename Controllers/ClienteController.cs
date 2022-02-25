@@ -26,13 +26,19 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         }
 
         // #######################################################################################
-        //                                  INDEX
+        //                             <<------ VISTAS ------>>
+        //                                  INDEX / HOME
         //                                  CARRO
         //                                  MIS COMPRAS
         //                                  LISTADO DE PRODUCTOS
         //                                  DETALLE DE PRODUCTO
         // #######################################################################################
-
+        
+        // #######################################################################################
+        //
+        //                                   INDEX / HOME
+        //
+        // #######################################################################################
         public async Task<IActionResult> Index()
         {
             var productos = _context.productos
@@ -42,6 +48,11 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             return View(await productos.ToListAsync());
         }
 
+        // #######################################################################################
+        //
+        //                                      CARRO
+        //
+        // #######################################################################################
         public async Task<IActionResult> Carro()
         {
             try
@@ -62,8 +73,12 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                 return RedirectToAction("Login","Home");
             }
         }
-       
 
+        // #######################################################################################
+        //
+        //                            HISTORIAL DE COMPRAS / MIS COMPRAS
+        //
+        // #######################################################################################
         public async Task<IActionResult> MisCompras()
         {
             try 
@@ -86,6 +101,11 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
 
         }
 
+        // #######################################################################################
+        //
+        //                                   LISTADO DE PRODUCTOS
+        //
+        // #######################################################################################
         public async Task<IActionResult> ListadoProductos(int cat, string orderby, string az)
         {
             IEnumerable<Producto> productos = await _context.productos
@@ -132,6 +152,11 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             return View(productos);
         }
 
+        // #######################################################################################
+        //
+        //                                   DETALLE DEL PRODUCTO
+        //
+        // #######################################################################################
         public async Task<IActionResult> DetalleProducto(int id)
         {
 
@@ -276,7 +301,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             }            
         }
 
-        //################################################################################# ---> REVISAR
+        //################################################################################# 
         //
         //                         QUITAR PRODUCTO DEL CARRO 
         //
@@ -388,7 +413,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
 
                         TempData["Mensaje"] = "Error, no hay stock suficiente para el producto "
                                             + carProd.producto.nombre +
-                                            ", modifique el carro en el producto antes de efectuar la compra ";
+                                            ", modifique el carro en el producto antes de efectuar la compra.";
+                        
                         return RedirectToAction("Carro");
                     }
                 }
@@ -396,7 +422,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                 Usuario user = await _context.usuarios
                                             .Where(u => u.idUsuario == id_usr).FirstOrDefaultAsync();
 
-                Compra aux = new Compra(user, total);
+                Compra aux = new Compra(user, total, DateTime.Now);
                 _context.compras.Add(aux);
                 await _context.SaveChangesAsync();
 

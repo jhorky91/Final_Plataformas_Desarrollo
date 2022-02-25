@@ -194,7 +194,10 @@ namespace Final_Plataformas_De_Desarrollo.Data
             //propiedades de los datos
             modelBuilder.Entity<Compra>(
                 c => { c.Property(Co => Co.total).HasColumnType("decimal(8,2)");
-                       c.Property(Co => Co.total).IsRequired(true);}
+                       c.Property(Co => Co.total).IsRequired(true);
+                       c.Property(Co => Co.fechaCreacion).HasColumnType("datetime");
+                       c.Property(Co => Co.fechaCreacion).IsRequired(true);
+                }
                 );
 
             //#######################################

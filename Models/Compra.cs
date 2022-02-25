@@ -12,13 +12,14 @@ namespace Final_Plataformas_De_Desarrollo.Models
         public List<CompraProducto> compraProducto { get; set; } = new List<CompraProducto>();
         public ICollection<Producto> productos { get; } = new List<Producto>();
         public double total { get; set; }
-
+        public DateTime fechaCreacion { get; set; }
         public Compra() { }
-        public Compra(Usuario usuario, double total) 
+        public Compra(Usuario usuario, double total, DateTime fecha) 
         {
             this.usuario = usuario;
             idUsuario = usuario.idUsuario;
             this.total = total;
+            this.fechaCreacion = fecha;
         }
 
 

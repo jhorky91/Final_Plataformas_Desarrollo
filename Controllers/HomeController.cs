@@ -38,58 +38,79 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             var usuario = await _context.usuarios
                                     .FirstOrDefaultAsync(u => u.dni == model.LoginInput.DNI);
 
-
-            if (usuario != null && usuario.password == model.LoginInput.Password)
+            if (usuario != null)
             {
-                //ADMIN
-                if (usuario.esAdmin)
+                if (usuario.password == model.LoginInput.Password)
                 {
-                    Account a = new Account();
-                    a.name = usuario.nombre;
-                    a.id = usuario.idUsuario;
-                    a.esAdmin = usuario.esAdmin;
-                    a.signIn = true;
-                    HttpContext.Session.SetString("SignIn", JsonConvert.SerializeObject(a));
+                    //ADMIN
+                    if (usuario.esAdmin)
+                    {
+                        Account a = new Account();
+                        a.name = usuario.nombre;
+                        a.id = usuario.idUsuario;
+                        a.esAdmin = usuario.esAdmin;
+                        a.signIn = true;
 
-                    return RedirectToAction("Index", "Admin");
+                        usuario.intentos = 0;
+                        _context.usuarios.Update(usuario);
+                        await _context.SaveChangesAsync();
+
+                        HttpContext.Session.SetString("SignIn", JsonConvert.SerializeObject(a));
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    //CLIENTE
+                    else
+                    {
+                        Account a = new Account();
+                        a.name = usuario.nombre;
+                        a.id = usuario.idUsuario;
+                        a.esAdmin = usuario.esAdmin;
+                        a.signIn = true;
+
+                        var carro = _context.carros
+                                            .Where(c => c.idUsuario == usuario.idUsuario)
+                                            .Include(c => c.carroProducto)
+                                            .FirstOrDefault();
+
+                        usuario.intentos = 0;
+                        _context.usuarios.Update(usuario);
+                        await _context.SaveChangesAsync();
+
+                        HttpContext.Session.SetString("CantProductos", carro.carroProducto.Count().ToString());
+                        HttpContext.Session.SetString("SignIn", JsonConvert.SerializeObject(a));
+                        TempData["Mensaje"] = "Bienvenido "+usuario.nombre+".";
+                        return RedirectToAction("Index", "Cliente");
+                    }
                 }
-                //CLIENTE
                 else
                 {
-                    Account a = new Account();
-                    a.name = usuario.nombre;
-                    a.id = usuario.idUsuario;
-                    a.esAdmin = usuario.esAdmin;
-                    a.signIn = true;
 
-                    var carro = _context.carros
-                                        .Where(c => c.idUsuario == usuario.idUsuario)
-                                        .Include(c => c.carroProducto)
-                                        .FirstOrDefault();
+                    usuario.intentos += 1;
+                    if (usuario.intentos < 3)
+                    {
+                        TempData["Mensaje"] = "Error: ingresaste una contraseña incorrecta.";
+                    }
+                    else
+                    {
+                        usuario.intentos = 0;
+                        usuario.bloqueado = true;
+                        TempData["Mensaje"] = "Error: usuario bloqueado por exceso de intentos de inicio, contactece con un administrador para ser desbloqueado";
+                    }
+                    TempData["TituloMensaje"] = "Contraseña incorrecta";
 
-                    HttpContext.Session.SetString("CantProductos", carro.carroProducto.Count().ToString());
+                    _context.usuarios.Update(usuario);
+                    await _context.SaveChangesAsync();
 
-                    HttpContext.Session.SetString("SignIn", JsonConvert.SerializeObject(a));
-                    return RedirectToAction("Index", "Cliente");
+                    return RedirectToAction("Login");
                 }
             }
-            else
+            else 
             {
-                //
-                //usuario.intentos += 1;
-                //if (usuario.intentos < 3)
-                //{
-                //    ViewData["errorInicio"] = "Error: ingresaste un dni o contraseña incorrecta(" + usuario.intentos + ")";
-                //}
-                //else 
-                //{
-                //    usuario.intentos = 0;
-                //    usuario.bloqueado = true;
-                //    ViewData["errorInicio"] = "Error: usuario bloqueado por exceso de intentos de inicio, contactece con un administrador para ser desbloqueado";
-                //}
+                TempData["TituloMensaje"] = "Usuario incorrecto";
+                TempData["Mensaje"] = "Vuelva a intentar iniciar sesion";
+                return RedirectToAction("Login");
             }
-
-            return RedirectToAction("Login");
+            
         }
 
         public async Task<IActionResult> Registrarse(FormulariosViewModel model)

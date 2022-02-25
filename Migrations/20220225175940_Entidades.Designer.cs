@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Final_Plataformas_De_Desarrollo.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20220222215457_entidades")]
-    partial class entidades
+    [Migration("20220225175940_Entidades")]
+    partial class Entidades
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -168,6 +168,9 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("fechaCreacion")
+                        .HasColumnType("datetime");
 
                     b.Property<int>("idUsuario")
                         .HasColumnType("int");

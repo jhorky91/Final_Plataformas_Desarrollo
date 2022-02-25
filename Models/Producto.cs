@@ -29,6 +29,7 @@ namespace Final_Plataformas_De_Desarrollo.Models
             this.idCategoria    = cat.idCategoria;
             this.carroProducto  = new List<CarroProducto>();
             this.compraProducto = new List<CompraProducto>();
+            
         }
 
         public override string ToString()

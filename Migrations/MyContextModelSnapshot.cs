@@ -167,6 +167,9 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("fechaCreacion")
+                        .HasColumnType("datetime");
+
                     b.Property<int>("idUsuario")
                         .HasColumnType("int");
 
