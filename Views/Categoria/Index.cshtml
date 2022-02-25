@@ -19,7 +19,7 @@
                             Nombre
                         </th>
                         <th>
-                            Fecha_Creacion
+                            Fecha Creacion
                         </th>
                         <th>
                             Acciones
@@ -31,10 +31,10 @@
                     {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.nombre)
+                            @item.nombre
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.fechaCreacion)
+                            @item.fechaCreacion.ToString("dd-MM-yyyy HH:mm:ss")
                         </td>
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.idCategoria"><i class="fas fa-edit text-success"></i></a> |

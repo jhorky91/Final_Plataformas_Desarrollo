@@ -14,6 +14,9 @@
                 <thead>
                     <tr>
                         <th>
+                            Fecha
+                        </th>
+                        <th>
                             Usuario
                         </th>
                         <th>
@@ -27,19 +30,22 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.usuario.nombre)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.total)
-                            </td>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@item.idCompra"><i class="fas fa-edit text-success"></i></a> |
-                                <a asp-action="Details" asp-route-id="@item.idCompra"><i class="fas fa-eye text-success"></i></a> |
-                                <a asp-action="Delete" asp-route-id="@item.idCompra"><i class="fas fa-trash-alt text-success"></i></a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>
+                            @item.fechaCreacion.ToString("dd-MM-yyyy HH:mm:ss")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.usuario.nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.total)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.idCompra"><i class="fas fa-edit text-success"></i></a> |
+                            <a asp-action="Details" asp-route-id="@item.idCompra"><i class="fas fa-eye text-success"></i></a> |
+                            <a asp-action="Delete" asp-route-id="@item.idCompra"><i class="fas fa-trash-alt text-success"></i></a>
+                        </td>
+                    </tr>
                     }
                 </tbody>
             </table>
