@@ -287,7 +287,7 @@ namespace Final_Plataformas_De_Desarrollo.Data
                 new { idProducto = 33, nombre = "Amoladora", precio = 7000.00, cantidad = 150, idCategoria = 7, fechaCreacion = new DateTime(2021,05,30,00,00,00) },
                 new { idProducto = 34, nombre = "Soldadora", precio = 20000.00, cantidad = 150, idCategoria = 7, fechaCreacion = new DateTime(2019,04,05,00,00,00) },
                 new { idProducto = 35, nombre = "Sierra", precio = 8000.00, cantidad = 150, idCategoria = 7, fechaCreacion = new DateTime(2019,07,18,00,00,00) },
-                new { idProducto = 36, nombre = "Hidrolavadora", precio = 7000.00, cantidad = 150, idCategoria = 8, fechaCreacion = new DateTime(2021,09,22,00,00,00) },
+                new { idProducto = 36, nombre = "Hidrolavadora", precio = 7000.00, cantidad = 150, idCategoria = 7, fechaCreacion = new DateTime(2021,09,22,00,00,00) },
                 new { idProducto = 37, nombre = "Parlantes", precio = 10000.00, cantidad = 150, idCategoria = 8, fechaCreacion = new DateTime(2019,04,25,04,03,00) },
                 new { idProducto = 38, nombre = "Auriculares", precio = 4500.00, cantidad = 150, idCategoria = 8, fechaCreacion = new DateTime(2021,08,30,00,00,00) },
                 new { idProducto = 39, nombre = "Celular", precio = 50000.00, cantidad = 150, idCategoria = 8, fechaCreacion = new DateTime(2019,02,03,00,00,00) },

@@ -20,7 +20,13 @@ namespace Final_Plataformas_De_Desarrollo.Models
 
         [BindProperty]
         public ModificarInputModel ModificarInput { get; set; }
-       
+
+        [BindProperty]
+        public ModificarDatosInputModel ModificarDatosInput { get; set; }
+        
+        [BindProperty]
+        public CambiarPasswordInputModel ModificarPasswordInput { get; set; }
+
         [TempData]
         public string ErrorMessage { get; set; }
 
@@ -84,6 +90,44 @@ namespace Final_Plataformas_De_Desarrollo.Models
 
             [Required(ErrorMessage = "El campo Cantidad debe contener un numero mayor a 0.")]
             public int Cantidad { get; set; }
+
+        }
+
+        public class ModificarDatosInputModel
+        {
+
+            [Required(ErrorMessage = "El campo Nombre es obligatorio.")]
+            [DataType(DataType.Text)]
+            public string Nombre { get; set; }
+
+            [Required(ErrorMessage = "El campo Apellido es obligatorio.")]
+            [DataType(DataType.Text)]
+            public string Apellido { get; set; }
+
+            [Required(ErrorMessage = "El campo Email es obligatorio.")]
+            [DataType(DataType.Text)] 
+            public string Email { get; set; }
+
+            [Required(ErrorMessage = "El campo CUIT/CUIL es obligatorio.")]
+            //[ StringLength(20, MinimumLength = 2)]
+            [DataType(DataType.Text)]
+            public int CUIT_CUIL { get; set; }
+
+        }
+
+        public class CambiarPasswordInputModel
+        {
+            [Required(ErrorMessage = "El campo contraseña anterior es obligatorio.")]
+            [DataType(DataType.Password)]
+            public string PasswordAnterior { get; set; }
+
+            [Required(ErrorMessage = "El campo contraseña nueva es obligatorio.")]
+            [DataType(DataType.Password)]
+            public string PasswordNueva { get; set; }
+
+            [Required(ErrorMessage = "El campo contraseña nueva es obligatorio.")]
+            [DataType(DataType.Password)]
+            public string PasswordNueva2 { get; set; }
 
         }
 

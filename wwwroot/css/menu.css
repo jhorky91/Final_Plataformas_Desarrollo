@@ -1,0 +1,42 @@
+﻿
+.userbtn-menu {
+    background-color: #28A745;
+    color: white;
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.user-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.user-content-menu {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 2;
+}
+
+.user-content-menu a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.user-content-menu a:hover {
+    background-color: #ddd;
+}
+
+.user-menu:hover .user-content-menu {
+    display: block;
+}
+
+.user-menu:hover .userbtn-menu {
+    background-color: #3e8e41;
+}

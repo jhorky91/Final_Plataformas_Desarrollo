@@ -26,14 +26,18 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         }
 
         // #######################################################################################
-        //                             <<------ VISTAS ------>>
+        //
+        //                          <<------ VISTAS ------>>
+        //
         //                                  INDEX / HOME
         //                                  CARRO
         //                                  MIS COMPRAS
+        //                                  MIS DATOS
         //                                  LISTADO DE PRODUCTOS
         //                                  DETALLE DE PRODUCTO
+        //
         // #######################################################################################
-        
+
         // #######################################################################################
         //
         //                                   INDEX / HOME
@@ -97,6 +101,32 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                 TempData["TituloMensaje"] = "Sesion Caducada";
                 TempData["Mensaje"]  = "Vuelva a iniciar sesion";
                 return RedirectToAction("Login","Home");
+            }
+
+        }
+
+        // #######################################################################################
+        //
+        //                            MIS DATOS
+        //
+        // #######################################################################################
+        public async Task<IActionResult> MisDatos()
+        {
+            try
+            {
+                int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
+                var usuario = await _context.usuarios
+                                        .Where(u => u.idUsuario == id_usr)
+                                        .FirstOrDefaultAsync();
+
+                ViewData["datosUsuario"] = usuario;
+                return View();
+            }
+            catch (Exception)
+            {
+                TempData["TituloMensaje"] = "Sesion Caducada";
+                TempData["Mensaje"] = "Vuelva a iniciar sesion";
+                return RedirectToAction("Login", "Home");
             }
 
         }
@@ -175,10 +205,15 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         }
 
         // #######################################################################################
+        //
+        //                             <--- METODOS DE CLIENTE --->
+        //
         //                                  AGREGAR AL CARRO
         //                                  MODIFICAR CARRO
-        //                                  QUITAR PRODUCTO DEL CARRO ------------------------------>  REVISAR
+        //                                  QUITAR PRODUCTO DEL CARRO 
         //                                  VACIAR CARRO
+        //                                  COMPRA
+        //
         // #######################################################################################
 
         // #######################################################################################
@@ -448,7 +483,103 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                 TempData["Mensaje"] = "Vuelva a iniciar sesion";
                 return RedirectToAction("Login", "Home");
             }
+        }
 
+        // #######################################################################################
+        //
+        //                          <--- METODOS PARA MODIFICAR DATOS DE LA CUENTA --->
+        //                                  
+        //                                  MODIFICAR DATOS PERSONALES
+        //                                  MODIFICAR CONTRASEÑA
+        //
+        // #######################################################################################
+
+        // #######################################################################################
+        //
+        //                                  MODIFICAR DATOS PERSONALES
+        //
+        // #######################################################################################
+
+        public async Task<IActionResult> ModificarDatos(FormulariosViewModel model)
+        {
+            try
+            {
+                int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
+                var usuario = await _context.usuarios
+                                        .Where(u => u.idUsuario == id_usr)
+                                        .FirstOrDefaultAsync();
+                if (usuario.nombre != model.ModificarDatosInput.Nombre)
+                {
+                    var sesion = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn"));
+                    sesion.name = model.ModificarDatosInput.Nombre;
+                    HttpContext.Session.SetString("SignIn", JsonConvert.SerializeObject(sesion));
+                }
+
+                usuario.nombre = model.ModificarDatosInput.Nombre;
+                usuario.apellido = model.ModificarDatosInput.Apellido;
+                usuario.mail = model.ModificarDatosInput.Email;
+                usuario.cuit_cuil = model.ModificarDatosInput.CUIT_CUIL;
+
+                _context.usuarios.Update(usuario);
+                await _context.SaveChangesAsync();
+
+                TempData["Mensaje"] = "Datos modificada";
+                return RedirectToAction("MisDatos");
+            }
+            catch (Exception)
+            {
+                TempData["TituloMensaje"] = "Sesion Caducada";
+                TempData["Mensaje"] = "Vuelva a iniciar sesion";
+                return RedirectToAction("Login", "Home");
+            }
+        }
+
+        // #######################################################################################
+        //
+        //                                  MODIFICAR CONTRASEÑA
+        //
+        // #######################################################################################
+
+        public async Task<IActionResult> ModificarPassword(FormulariosViewModel model)
+        {
+            try
+            {
+                int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
+                var usuario = await _context.usuarios
+                                        .Where(u => u.idUsuario == id_usr)
+                                        .FirstOrDefaultAsync();
+
+                if (usuario.password == model.ModificarPasswordInput.PasswordAnterior)
+                {
+                    if (model.ModificarPasswordInput.PasswordNueva == model.ModificarPasswordInput.PasswordNueva2)
+                    {
+                        usuario.password = model.ModificarPasswordInput.PasswordNueva;
+                        _context.usuarios.Update(usuario);
+                        await _context.SaveChangesAsync();
+
+                        TempData["Mensaje"] = "Contraseña modificada";
+                        return RedirectToAction("MisDatos");
+                    }
+                    else
+                    {
+                        TempData["Mensaje"] = "Error: Contraseñas nuevas no coinciden, deben ser iguales";
+                        TempData["Modal"] = "Contraseña";
+                        return RedirectToAction("MisDatos");
+                    }
+                }
+                else
+                {
+                    TempData["Mensaje"] = "Error: Contraseña antigua equivocada ";
+                    TempData["Modal"] = "Contraseña";
+                    return RedirectToAction("MisDatos");
+                }
+            }
+            catch (Exception)
+            {
+                TempData["TituloMensaje"] = "Sesion Caducada";
+                TempData["Mensaje"] = "Vuelva a iniciar sesion";
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

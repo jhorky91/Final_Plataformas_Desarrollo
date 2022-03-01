@@ -558,7 +558,7 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                             idProducto = 36,
                             cantidad = 150,
                             fechaCreacion = new DateTime(2021, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            idCategoria = 8,
+                            idCategoria = 7,
                             nombre = "Hidrolavadora",
                             precio = 7000m
                         },

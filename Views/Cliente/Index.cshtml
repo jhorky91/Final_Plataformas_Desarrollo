@@ -2,6 +2,7 @@
 
 @using Microsoft.AspNetCore.Http;
 @using Newtonsoft.Json;
+@using System.IO;
 
 @model IEnumerable<Final_Plataformas_De_Desarrollo.Models.Producto>;
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
@@ -52,18 +53,23 @@
         <div class="row justify-content-center">
             @foreach (var cate in cat)
             {
-                <div class="col-md-3 card mx-3 my-3" >
-                    <img src="~/images/categorias/cat-1.png" class="card-img-top w-100" alt="Imagen Categoria" />
+                <div class="col-md-3 card mx-3 my-3">
+                    
+                        <img src="~/images/categorias/@(cate.idCategoria.ToString()).png" class="card-img-top w-100" alt="Imagen Categoria" />
+                    
+                        @*<img src="~/images/categorias/cat-1.png" class="card-img-top w-100" alt="Imagen Categoria" />*@
+                    
+
                     <div class="card-body">
                         <h5 class="card-subtitle">@cate.nombre</h5>
-                            <a href="@Url.ActionLink("ListadoProductos", "Cliente", new
+                        <a href="@Url.ActionLink("ListadoProductos", "Cliente", new
                                {
                                    cat = cate.idCategoria,
                                    orderby = "",
                                    az = ""
                                })" class="btn btn-success">
-                                Ir a lista
-                            </a>
+                            Ir a lista
+                        </a>
                     </div>
                 </div>
 

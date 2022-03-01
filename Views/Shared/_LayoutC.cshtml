@@ -4,7 +4,6 @@
 @using Final_Plataformas_De_Desarrollo.Models;
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
 
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,6 +13,7 @@
     @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/menu.css" />
     <link rel="stylesheet" href="~/css/modalEmergente.css" />
 
 </head>
@@ -56,14 +56,28 @@
                         @*  CANTIDAD DE PRODUCTOS EN EL CARRO  *@
                         <label class="text-white" style="font-size:15px">
                             @(HttpContextAccessor.HttpContext.Session.GetString("CantProductos"))
+
                         </label>
                     </div>
 
-                    @*  CERRAR SESION  *@
-                    <div class=" my-auto">
-                        <a class="btn btn-success  " asp-area="" asp-controller="Home" asp-action="CerrarSesion">Logout</a>
-                    </div>
 
+
+
+                    @*  CERRAR SESION  *@
+             
+                    <div class="user-menu">
+                        <button class="userbtn-menu">
+                            <i class="fa-solid fa-user text-white" style="font-size:25px;"></i>
+                            @(JsonConvert.DeserializeObject<Account>(HttpContextAccessor.HttpContext.Session.GetString("SignIn")).name)
+                        </button>
+
+                        <div class="user-content-menu">
+                            <a asp-controller="Cliente" asp-action="Carro">Mi Carro</a>
+                            <a asp-controller="Cliente" asp-action="MisCompras">Mis Compras</a>
+                            <a asp-controller="Cliente" asp-action="MisDatos">Mi Datos</a>
+                            <a asp-controller="Home" asp-action="CerrarSesion">Logout</a>
+                        </div>
+                    </div>
                 }
 
             </div>
