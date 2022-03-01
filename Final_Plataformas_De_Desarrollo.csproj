@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\images\productos\**" />
+    <Content Remove="wwwroot\images\productos\**" />
+    <EmbeddedResource Remove="wwwroot\images\productos\**" />
+    <None Remove="wwwroot\images\productos\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Models\NewFile.txt" />
     <None Remove="Views\Cliente\NewFile.txt" />
   </ItemGroup>
@@ -21,7 +28,6 @@
   <ItemGroup>
     <Folder Include="wwwroot\images\categorias\" />
     <Folder Include="wwwroot\images\carrousel\" />
-    <Folder Include="wwwroot\images\productos\" />
   </ItemGroup>
 
 </Project>

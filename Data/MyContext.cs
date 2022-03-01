@@ -31,7 +31,7 @@ namespace Final_Plataformas_De_Desarrollo.Data
         {
             //optionbuilder es el objeto que permite setear opciones para la configuracion de la base de datos
             //usa SQL Server pasandole el connectionString
-            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-HP82AM9;Initial Catalog=FINALDBPlataformasDeDesarrollo;Integrated Security=True");
+            optionsBuilder.UseSqlServer(@"Data Source=PC-JHORKY;Initial Catalog=FINALDBPlataformasDeDesarrollo;Integrated Security=True");
             
         }
 

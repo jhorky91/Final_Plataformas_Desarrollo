@@ -10,12 +10,12 @@
         <div class="card my-5 mx-5">
             <div class="row no-gutters">
                 <div class="col-md-6">
-                    <img src="~/images/categorias/cat-1.png" class="img-fluid" alt="Alternate Text" />
+                    <img src="~/images/productos/@(prod.nombre).jpg" class="img-fluid" alt="Alternate Text" />
                 </div>
                 <div class="col-md-6">
                     <div class="card-body">
                         <h5 class="card-title">@prod.nombre</h5>
-                        <h6 class="card-subtitle text-danger">$@prod.precio</h6>
+                        <h6 class="card-subtitle text-danger">$@prod.precio.00</h6>
                         <table border="0">
                             <tr>
                                 <td>Categoria:</td>
@@ -52,10 +52,10 @@
                 <div class="col-lg-3 col-md-4 col-sm-6 my-4">
                     <div class="card">
                         <div class="card-header">
-                            <img src="~/images/categorias/cat-1.png" class="img-fluid" />
+                            <img src="~/images/productos/@(prodR.nombre).jpg" class="img-fluid" />
                             <div class="card-body">
                                 <h6 class="card-title">@prodR.nombre</h6>
-                                <span>@prodR.precio</span>
+                                <span>$@prodR.precio.00</span>
                                 <h6><a asp-controller="Cliente" asp-action="DetalleProducto" asp-route-id="@prodR.idProducto" class="btn btn-success">Ir a Detalle</a></h6>
                             </div>
                         </div>
