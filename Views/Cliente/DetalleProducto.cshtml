@@ -1,16 +1,27 @@
-﻿@{
+﻿@using System.IO;
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment IWebHostEnviroment;
+@{
     ViewData["Title"] = "Detalle Producto";
     var prod = ViewData["producto"] as Producto;
     var prodRel = ViewData["prodRela"] as List<Producto>;
     var cont = 0;
 }
 @model FormulariosViewModel;
+
 <div class="row">
     <div class="col-12 justify-content-center">
         <div class="card my-5 mx-5">
             <div class="row no-gutters">
                 <div class="col-md-6">
-                    <img src="~/images/productos/@(prod.nombre).jpg" class="img-fluid" alt="Alternate Text" />
+                    @if (File.Exists(IWebHostEnviroment.WebRootPath + "/images/productos/" + prod.nombre + ".jpg"))
+                    {
+                        <img src="~/images/productos/@(prod.nombre).jpg" class="img-fluid" alt="Imagen del producto" />
+                    }
+                    else
+                    {
+                        <img src="~/images/categorias/cat-1.png" class="img-fluid" alt="Imagen Generica" />
+
+                    }
                 </div>
                 <div class="col-md-6">
                     <div class="card-body">
@@ -52,7 +63,16 @@
                 <div class="col-lg-3 col-md-4 col-sm-6 my-4">
                     <div class="card">
                         <div class="card-header">
-                            <img src="~/images/productos/@(prodR.nombre).jpg" class="img-fluid" />
+
+                            @if (File.Exists(IWebHostEnviroment.WebRootPath + "/images/productos/" + prodR.nombre + ".jpg"))
+                            {
+                                <img src="~/images/productos/@(prodR.nombre).jpg"  class="img-fluid" alt="Imagen del producto" />
+                            }
+                            else
+                            {
+                                <img src="~/images/categorias/cat-1.png" class="img-fluid" alt="Imagen Generica" />
+                                
+                            }
                             <div class="card-body">
                                 <h6 class="card-title">@prodR.nombre</h6>
                                 <span>$@prodR.precio.00</span>

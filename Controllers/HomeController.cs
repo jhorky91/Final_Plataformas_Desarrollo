@@ -128,7 +128,10 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             u.intentos = 0;
             u.bloqueado = false;
 
+            Carro c = new Carro(u);
+
             _context.usuarios.Add(u);
+            _context.carros.Add(c);
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Login");

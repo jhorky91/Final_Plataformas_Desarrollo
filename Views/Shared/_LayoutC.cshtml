@@ -127,7 +127,7 @@
     @RenderSection("Scripts", required: false)
 
 
-    @if (HttpContextAccessor.HttpContext.Session.GetString("SignIn") == null && ViewData["Title"].ToString() != "Login")
+    @if (HttpContextAccessor.HttpContext.Session.GetString("SignIn") == null && ViewData["Title"].ToString() != "Login" )
     {
 
         @* MODAL SESION CADUCADA *@
