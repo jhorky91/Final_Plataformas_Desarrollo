@@ -136,12 +136,22 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         //                                   LISTADO DE PRODUCTOS
         //
         // #######################################################################################
-        public async Task<IActionResult> ListadoProductos(int cat, string orderby, string az)
+        public async Task<IActionResult> ListadoProductos(string query, int cat, string orderby, string az)
         {
             IEnumerable<Producto> productos = await _context.productos
                                                         .Include(p => p.cat)
                                                         .ToListAsync();
-
+            if (query != ""&& query != null) 
+            {
+                if (productos.Where(p => p.nombre.ToUpper().Contains(query.ToUpper())) != null)
+                {
+                    productos = productos.Where(p => p.nombre.ToUpper().Contains(query.ToUpper()));
+                }
+                else 
+                { 
+                
+                }
+            }
             if (cat != 0)
             {
                 productos = productos.Where(p => p.idCategoria == cat);

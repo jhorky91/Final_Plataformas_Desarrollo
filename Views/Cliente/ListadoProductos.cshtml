@@ -10,9 +10,30 @@
 <div class="row">
 
     <div class="col-2" style="background-color:#212121;">
-        <div style="position:fixed">
+            @* BUSCAR PRODUCTO POR NOMBRE *@
+            <h4 class="text-center text-success mt-2">Buscar</h4>
+            <form class="mt-2" asp-controller="Cliente" asp-action="ListadoProductos" method="get">
+                <p class="text-center">
+                    <input type="text" name="query" /><br />
+                    <input type="number" name="cat" value="@((String.IsNullOrEmpty(Context.Request.Query["cat"])) ? 0 : int.Parse(Context.Request.Query["cat"]))" hidden />
+                    <input type="text" name="orderby" value="@((String.IsNullOrEmpty(Context.Request.Query["orderby"])) ? "" : Context.Request.Query["orderby"].ToString())" hidden />
+                    <input type="text" name="az" value="@((String.IsNullOrEmpty(Context.Request.Query["az"])) ? "" : Context.Request.Query["az"].ToString())" hidden />
+
+                    <input class="btn btn-success mt-2" type="submit" value="Buscar" />
+                </p>
+            </form>
+            
             <h4 class="text-center text-success mt-2">Categorías</h4>
             <hr style="border-color:gray;" />
+
+            @* FILTROS
+                    POR CATEGORIA
+                    POR PRECIO
+                    POR NOMBRE
+                    ORDENADO DE FORMA ASCENDENTE
+                    ORDENADO DE FORMA DESCENDENTE
+            *@
+
             <ul>
                 @if (!String.IsNullOrEmpty(Context.Request.Query["cat"]))
                 {
@@ -21,6 +42,7 @@
                         <li class="text-danger">
                             @Html.ActionLink("Todos", "ListadoProductos", new
                        {
+                           query = (String.IsNullOrEmpty(Context.Request.Query["query"])) ? "" : Context.Request.Query["query"].ToString(),
                            cat = 0,
                            orderby = (String.IsNullOrEmpty(Context.Request.Query["orderby"])) ? "" : Context.Request.Query["orderby"].ToString(),
                            az = (String.IsNullOrEmpty(Context.Request.Query["az"])) ? "" : Context.Request.Query["az"].ToString()
@@ -39,8 +61,9 @@
                     <li class="text-danger">
                         @Html.ActionLink(categorias.nombre, "ListadoProductos", new
                    {
+                       query = (String.IsNullOrEmpty(Context.Request.Query["query"])) ? "" : Context.Request.Query["query"].ToString(),
                        cat = categorias.idCategoria,
-                       orderby = (String.IsNullOrEmpty(Context.Request.Query["orderby"])) ? "" : Context.Request.Query["orderby"].ToString(),
+                       orderby = (String.IsNullOrEmpty(Context.Request.Query["query"])) ? "" : Context.Request.Query["query"].ToString(),
                        az = (String.IsNullOrEmpty(Context.Request.Query["az"])) ? "" : Context.Request.Query["az"].ToString()
                    }, new
                         {
@@ -51,17 +74,13 @@
             </ul>
 
             <hr style="border-color:gray;" />
-            @* FILTROS
-                POR PRECIO
-                POR NOMBRE
-                ORDENADO DE FORMA ASCENDENTE
-                ORDENADO DE FORMA DESCENDENTE
-            *@
+
             <ul>
 
                 <li class="text-danger">
                     @Html.ActionLink("Precio", "ListadoProductos", new
                {
+                   query = (String.IsNullOrEmpty(Context.Request.Query["query"])) ? "" : Context.Request.Query["query"].ToString(),
                    cat = (String.IsNullOrEmpty(Context.Request.Query["cat"])) ? 0 : int.Parse(Context.Request.Query["cat"]),
                    orderby = "precio",
                    az = (String.IsNullOrEmpty(Context.Request.Query["az"])) ? "" : Context.Request.Query["az"].ToString()
@@ -73,6 +92,7 @@
                 <li class="text-danger">
                     @Html.ActionLink("Nombre", "ListadoProductos", new
                {
+                   query = (String.IsNullOrEmpty(Context.Request.Query["query"])) ? "" : Context.Request.Query["query"].ToString(),
                    cat = (String.IsNullOrEmpty(Context.Request.Query["cat"])) ? 0 : int.Parse(Context.Request.Query["cat"]),
                    orderby = "nombre",
                    az = (String.IsNullOrEmpty(Context.Request.Query["az"])) ? "" : Context.Request.Query["az"].ToString()
@@ -84,6 +104,7 @@
                 <li class="text-danger">
                     @Html.ActionLink("Ascendente", "ListadoProductos", new
                {
+                   query = (String.IsNullOrEmpty(Context.Request.Query["query"])) ? "" : Context.Request.Query["query"].ToString(),
                    cat = (String.IsNullOrEmpty(Context.Request.Query["cat"])) ? 0 : int.Parse(Context.Request.Query["cat"]),
                    orderby = (String.IsNullOrEmpty(Context.Request.Query["orderby"])) ? "" : Context.Request.Query["orderby"].ToString(),
                    az = "asc"
@@ -95,6 +116,7 @@
                 <li class="text-danger">
                     @Html.ActionLink("Descendente", "ListadoProductos", new
                {
+                   query = (String.IsNullOrEmpty(Context.Request.Query["query"])) ? "" : Context.Request.Query["query"].ToString(),
                    cat = (String.IsNullOrEmpty(Context.Request.Query["cat"])) ? 0 : int.Parse(Context.Request.Query["cat"]),
                    orderby = (String.IsNullOrEmpty(Context.Request.Query["orderby"])) ? "" : Context.Request.Query["orderby"].ToString(),
                    az = "desc"
@@ -111,6 +133,7 @@
                 <li class="text-danger">
                     @Html.ActionLink("Quitar Filtros", "ListadoProductos", new
                {
+                   query = "",
                    cat = 0,
                    orderby = "",
                    az = ""
@@ -120,11 +143,10 @@
                })
                 </li>
             </ul>
-        </div>
     </div>
     @* PRODUCTOS *@
-    <div class="col-10 mt-2">
-        <div class="row mx-2 my-2">
+    <div class="col-10 mt-2" >
+        <div class="row mx-2 my-2" >
             @foreach (var prod in Model)
             {
                 <div class="col-6">

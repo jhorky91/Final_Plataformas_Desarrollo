@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4 mx-auto">
-            <div class="card text-center mt-3">
+            <div class="card text-center mt-3" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);">
                 @*<div class="card-header">
                         <h3>Iniciar Sesión</h3>
                     </div>*@
@@ -28,10 +28,11 @@
                                 </span>
                             </div>
                             <button type="submit" class="btn btn-success btn-block">Iniciar Sesión</button>
-                            <div class="card-footer d-flex justify-content-center">
-                                ¿No creaste tu cuenta?
-                                <button type="button" class="text-danger nav-link mx-2" data-toggle="modal" data-target="#modalRegistrate"> Registrate </button>
+                            <div class="card-footer justify-content-center">
+                                <label>¿No creaste tu cuenta?</label><br />
+                                <a type="button" class="text-danger nav-link mx-2" data-toggle="modal" data-target="#modalRegistrate"> Registrate </a>
                             </div>
+                            
                         </form>
                     </section>
                     <label id="indexMessage" class="error">@Html.DisplayFor(lvm => lvm.ErrorMessage)</label>
@@ -95,10 +96,10 @@
                             </span>
                         </div>
                         <button type="submit" class="btn btn-success btn-block">Registrarse</button>
-                        <div class="card-footer d-flex justify-content-center">
-                            ¿Ya te registraste? <a class="nav-link text-danger" asp-area="" asp-controller="Home" asp-action="Login">
-                                Iniciar Sesión
-                            </a>
+
+                        <div class="card-footer justify-content-center text-center">
+                            <label>¿Ya te registraste?</label><br />
+                            <a type="button" class="text-danger nav-link mx-2 mb-0" data-dismiss="modal">Registrate</a>
                         </div>
                     </form>
                 </section>
