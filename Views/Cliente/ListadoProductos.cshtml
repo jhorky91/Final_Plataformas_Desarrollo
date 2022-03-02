@@ -10,11 +10,12 @@
 <div class="row">
 
     <div class="col-2" style="background-color:#212121;">
+
             @* BUSCAR PRODUCTO POR NOMBRE *@
-            <h4 class="text-center text-success mt-2">Buscar</h4>
+            @*<h4 class="text-center text-success mt-2">Filtros</h4>*@
             <form class="mt-2" asp-controller="Cliente" asp-action="ListadoProductos" method="get">
                 <p class="text-center">
-                    <input type="text" name="query" /><br />
+                    <input type="text" name="query" placeholder="Buscar" /><br />
                     <input type="number" name="cat" value="@((String.IsNullOrEmpty(Context.Request.Query["cat"])) ? 0 : int.Parse(Context.Request.Query["cat"]))" hidden />
                     <input type="text" name="orderby" value="@((String.IsNullOrEmpty(Context.Request.Query["orderby"])) ? "" : Context.Request.Query["orderby"].ToString())" hidden />
                     <input type="text" name="az" value="@((String.IsNullOrEmpty(Context.Request.Query["az"])) ? "" : Context.Request.Query["az"].ToString())" hidden />
@@ -22,7 +23,7 @@
                     <input class="btn btn-success mt-2" type="submit" value="Buscar" />
                 </p>
             </form>
-            
+            <hr style="border-color:gray;" />
             <h4 class="text-center text-success mt-2">Categorías</h4>
             <hr style="border-color:gray;" />
 
