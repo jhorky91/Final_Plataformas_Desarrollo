@@ -51,32 +51,36 @@
             </div>
         </div>
 
+        <h3 class="display-4">Nuestras Categorias </h3>
+
         <div class="row justify-content-center">
             @foreach (var cate in cat)
             {
-            <div class="col-md-3 card mx-3 my-3">
+                <div class="col-md-3 card border border-success rounded-circle mx-3 my-3" style="background-color: #d2ffa5;">
 
-                @if (File.Exists(IWebHostEnviroment.WebRootPath + "/images/categorias/" + cate.idCategoria.ToString() + ".png"))
-                {
-                    <img src="~/images/categorias/@(cate.idCategoria.ToString()).png" class="card-img-top w-100" alt="Imagen Categoria" />
-                }
-                else
-                {
-                    <img src="~/images/categorias/cat-1.png" class="card-img-top w-100" alt="Imagen Categoria Generica" />
-                }
 
-                <div class="card-body">
-                    <h5 class="card-subtitle">@cate.nombre</h5>
-                    <a href="@Url.ActionLink("ListadoProductos", "Cliente", new
+
+                    <div class="card-body">
+                        @if (File.Exists(IWebHostEnviroment.WebRootPath + "/images/categorias/" + cate.idCategoria.ToString() + ".png"))
+                        {
+                            <img src="~/images/categorias/@(cate.idCategoria.ToString()).png" class="w-100 p-3" alt="Imagen Categoria" />
+                        }
+                        else
+                        {
+                            <img src="~/images/categorias/cat-1.png" class="w-100" alt="Imagen Categoria Generica" />
+                        }
+                        <br />
+                        <h5 class="card-subtitle">@cate.nombre</h5><br />
+                        <a href="@Url.ActionLink("ListadoProductos", "Cliente", new
                                {
                                    cat = cate.idCategoria,
                                    orderby = "",
                                    az = ""
                                })" class="btn btn-success">
-                        Ir a lista
-                    </a>
+                            Ir a lista
+                        </a>
+                    </div>
                 </div>
-            </div>
 
 
             }

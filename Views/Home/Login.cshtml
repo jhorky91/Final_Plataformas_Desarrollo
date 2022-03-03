@@ -6,16 +6,17 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4 mx-auto">
-            <div class="card text-center mt-3" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);">
-                @*<div class="card-header">
+            <div class="card text-center mt-5" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);">
+                <div class="card-header bg-success">
                         <h3>Iniciar Sesión</h3>
-                    </div>*@
-                <img src="~/images/login.png" class="mx-auto w-25" />
-                <div class="card-body">
+                </div>
+                
+                <div class="card-body" style="background-color: #d2ffa5;">
+                    <img src="~/images/login.png" class="mx-auto w-25" />
                     <section>
                         <form asp-controller="Home" asp-action="IniciarSesion" method="post">
                             <div class="form-group">
-                                <input asp-for="LoginInput.DNI" class="form-control" placeholder="Ingese su Dni" autofocus />
+                                <input asp-for="LoginInput.DNI" class="form-control" placeholder="Ingrese su DNI" autofocus />
                                 <span asp-validation-for="LoginInput.DNI" class="text-danger"></span>
                             </div>
                             <div class="form-group">
@@ -27,12 +28,15 @@
                                     @Html.DisplayFor(lvm => lvm.ErrorMessage)
                                 </span>
                             </div>
-                            <button type="submit" class="btn btn-success btn-block">Iniciar Sesión</button>
-                            <div class="card-footer justify-content-center">
-                                <label>¿No creaste tu cuenta?</label><br />
-                                <a type="button" class="text-danger nav-link mx-2" data-toggle="modal" data-target="#modalRegistrate"> Registrate </a>
+                            <div class="form-group mx-5">
+                                <button type="submit" class="btn btn-success btn-block">Entrar</button>
                             </div>
                             
+                            <div class="card-footer justify-content-center">
+                                <label><b>¿No creaste tu cuenta?</b></label><br />
+                                <a href="#" type="button" class="text-danger nav-link mx-2" data-toggle="modal" data-target="#modalRegistrate"> <b>Registrate</b> </a>
+                            </div>
+
                         </form>
                     </section>
                     <label id="indexMessage" class="error">@Html.DisplayFor(lvm => lvm.ErrorMessage)</label>
@@ -50,17 +54,17 @@
 <div class="modal" id="modalRegistrate" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header justify-content-center">
-                <h5 class="modal-title  " id="modalDelCenteredLabel">Registrate</h5>
+            <div class="modal-header justify-content-center text-center bg-success">
+                <h5 class="modal-title" id="modalDelCenteredLabel">Formulario de Registro</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="background-color: #d2ffa5;">
                 <section>
                     <form asp-controller="Home" asp-action="Registrarse" method="post">
                         <div class="form-group">
-                            <input asp-for="RegisterInput.DNI" class="form-control" placeholder="Ingese su Dni" autofocus />
+                            <input asp-for="RegisterInput.DNI" class="form-control" placeholder="Ingese su DNI" autofocus />
                             <span asp-validation-for="RegisterInput.DNI" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -86,7 +90,7 @@
                         <div class="form-group">
                             <label class="form-check-label justify-content-start d-flex ml-4">
                                 <input class="form-check-input" asp-for="RegisterInput.esEmpresa" />
-                                Sos Empresa
+                                Soy Empresa
                             </label>
                             <span asp-validation-for="RegisterInput.esEmpresa" class="text-danger"></span>
                         </div>
@@ -95,11 +99,13 @@
                                 @Html.DisplayFor(lvm => lvm.ErrorMessage)
                             </span>
                         </div>
-                        <button type="submit" class="btn btn-success btn-block">Registrarse</button>
+                        <div class="form-group mx-5">
+                            <button type="submit" class="btn btn-success btn-block">Registrarse</button>
+                        </div>                       
 
                         <div class="card-footer justify-content-center text-center">
-                            <label>¿Ya te registraste?</label><br />
-                            <a type="button" class="text-danger nav-link mx-2 mb-0" data-dismiss="modal">Registrate</a>
+                            <label><b>¿Ya te registraste?</b></label><br />
+                            <a href="#" type="button" class="text-danger nav-link mx-2 mb-0" data-dismiss="modal"><b>Iniciar Sesión</b></a>
                         </div>
                     </form>
                 </section>

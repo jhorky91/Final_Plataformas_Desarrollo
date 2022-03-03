@@ -88,7 +88,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                     usuario.intentos += 1;
                     if (usuario.intentos < 3)
                     {
-                        TempData["Mensaje"] = "Error: ingresaste una contraseña incorrecta.";
+                        TempData["Mensaje"] = "Error: ngresaste una contraseña incorrecta.";
                     }
                     else
                     {
