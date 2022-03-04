@@ -4,147 +4,155 @@
 }
 @model Final_Plataformas_De_Desarrollo.Models.FormulariosViewModel;
 
-<div class="row justify-content-center">
-    <div class="col-8 ">
-        <div class="card my-5 mx-5">
-            <div class="no-gutters">
-                <div class="card-body">
-                    <h5 class="card-title">Datos del Usuario</h5>
+    <div class="row bg-primary py-5">
+        <div class="col-lg-12 text-center">
+            <div>
+                <h2>Mis Datos Personales</h2>
+            </div>
+        </div>
+    </div>
 
-                    <div class="row">
-                        <div class="col-6">
-                            
-                            <label style="font-weight:bold">DNI</label><br />
-                            <label style="font-weight:bold">Nombre</label><br />
-                            <label style="font-weight:bold">Apellido</label><br />
-                            <label style="font-weight:bold">Email</label><br />
-                            <label style="font-weight:bold">CUIT/CUIL</label><br />
+    <div class="row justify-content-center">
+        <div class="col-8 ">
+            <div class="card my-5 mx-5">
+                <div class="no-gutters">
+                    <div class="card-body">
+                        <h5 class="card-title">Datos del Usuario</h5>
+
+                        <div class="row">
+                            <div class="col-6">
+
+                                <label style="font-weight:bold">DNI</label><br />
+                                <label style="font-weight:bold">Nombre</label><br />
+                                <label style="font-weight:bold">Apellido</label><br />
+                                <label style="font-weight:bold">Email</label><br />
+                                <label style="font-weight:bold">CUIT/CUIL</label><br />
+                            </div>
+                            <div class="col-6">
+                                <label>@usuario.dni</label><br />
+                                <label>@usuario.nombre</label><br />
+                                <label>@usuario.apellido</label><br />
+                                <label>@usuario.mail</label><br />
+                                <label>@usuario.cuit_cuil</label><br />
+                            </div>
                         </div>
-                        <div class="col-6">
-                            <label>@usuario.dni</label><br />
-                            <label>@usuario.nombre</label><br />
-                            <label>@usuario.apellido</label><br />
-                            <label>@usuario.mail</label><br />
-                            <label>@usuario.cuit_cuil</label><br />
+                        <hr />
+                        <div class="row justify-content-center">
+                            <button type="button" class="btn btn-success mx-2" data-toggle="modal" data-target="#modalModDatos"> Modificar Datos </button>
+                            <button type="button" class="btn btn-success mx-2" data-toggle="modal" data-target="#modalModContra"> Cambiar Contraseña </button>
                         </div>
-                    </div>
-                    <hr />
-                    <div class="row justify-content-center">
-                        <button type="button" class="btn btn-success mx-2" data-toggle="modal" data-target="#modalModDatos"> Modificar Datos </button>
-                        <button type="button" class="btn btn-success mx-2" data-toggle="modal" data-target="#modalModContra"> Cambiar Contraseña </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-@* INICIO DEL MODAL MODIFICAR DATOS *@
+    @* INICIO DEL MODAL MODIFICAR DATOS *@
 
-<div class="modal" id="modalModDatos" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header justify-content-center">
-                <h5 class="modal-title  " id="modalDelCenteredLabel">Modificar Datos</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <section>
-                    <form asp-controller="Cliente" asp-action="ModificarDatos" method="post">
-                        <div class="form-group">
-                            <label asp-for="@Model.ModificarDatosInput.Nombre" class="control-label"></label>
-                            <input asp-for="@Model.ModificarDatosInput.Nombre" value="@usuario.nombre" class="form-control" />
-                            <span asp-validation-for="@Model.ModificarDatosInput.Nombre" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="@Model.ModificarDatosInput.Apellido" class="control-label"></label>
-                            <input asp-for="@Model.ModificarDatosInput.Apellido" value="@usuario.apellido" class="form-control" />
-                            <span asp-validation-for="@Model.ModificarDatosInput.Apellido" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="@Model.ModificarDatosInput.Email" class="control-label"></label>
-                            <input asp-for="@Model.ModificarDatosInput.Email" value="@usuario.mail" class="form-control" />
-                            <span asp-validation-for="@Model.ModificarDatosInput.Email" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="@Model.ModificarDatosInput.CUIT_CUIL" class="control-label"></label>
-                            <input asp-for="@Model.ModificarDatosInput.CUIT_CUIL" value="@usuario.cuit_cuil" class="form-control" />
-                            <span asp-validation-for="@Model.ModificarDatosInput.CUIT_CUIL" class="text-danger"></span>
-                        </div>
+    <div class="modal" id="modalModDatos" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <h5 class="modal-title  " id="modalDelCenteredLabel">Modificar Datos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <section>
+                        <form asp-controller="Cliente" asp-action="ModificarDatos" method="post">
+                            <div class="form-group">
+                                <label asp-for="@Model.ModificarDatosInput.Nombre" class="control-label"></label>
+                                <input asp-for="@Model.ModificarDatosInput.Nombre" value="@usuario.nombre" class="form-control" />
+                                <span asp-validation-for="@Model.ModificarDatosInput.Nombre" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.ModificarDatosInput.Apellido" class="control-label"></label>
+                                <input asp-for="@Model.ModificarDatosInput.Apellido" value="@usuario.apellido" class="form-control" />
+                                <span asp-validation-for="@Model.ModificarDatosInput.Apellido" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.ModificarDatosInput.Email" class="control-label"></label>
+                                <input asp-for="@Model.ModificarDatosInput.Email" value="@usuario.mail" class="form-control" />
+                                <span asp-validation-for="@Model.ModificarDatosInput.Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.ModificarDatosInput.CUIT_CUIL" class="control-label"></label>
+                                <input asp-for="@Model.ModificarDatosInput.CUIT_CUIL" value="@usuario.cuit_cuil" class="form-control" />
+                                <span asp-validation-for="@Model.ModificarDatosInput.CUIT_CUIL" class="text-danger"></span>
+                            </div>
 
-                        <div class="form-group">
-                            <span class="text-danger">
-                                @Html.DisplayFor(lvm => lvm.ErrorMessage)
-                            </span>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-success btn-block">Modificar</button>
-                        </div>
-                    </form>
-                </section>
-                <label id="indexMessage" class="error">@Html.DisplayFor(lvm => lvm.ErrorMessage)</label>
-            </div>
-        </div>
-    </div>
-</div>
-
-@* FIN DEL MODAL MODIFICAR DATOS *@
-
-
-@* INICIO DEL MODAL MODIFICAR CONTRASEÑA *@
-
-<div class="modal" id="modalModContra" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header justify-content-center">
-                <h5 class="modal-title  " id="modalDelCenteredLabel">Modificar Contraseña</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <section>
-                    <form asp-controller="Cliente" asp-action="ModificarPassword" method="post">
-                        <div class="form-group">
-                            <label asp-for="@Model.ModificarPasswordInput.PasswordAnterior" class="control-label"></label>
-                            <input asp-for="@Model.ModificarPasswordInput.PasswordAnterior" class="form-control" />
-                            <span asp-validation-for="@Model.ModificarPasswordInput.PasswordAnterior" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="@Model.ModificarPasswordInput.PasswordNueva" class="control-label"></label>
-                            <input asp-for="@Model.ModificarPasswordInput.PasswordNueva" class="form-control" />
-                            <span asp-validation-for="@Model.ModificarPasswordInput.PasswordNueva" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="@Model.ModificarPasswordInput.PasswordNueva2" class="control-label"></label>
-                            <input asp-for="@Model.ModificarPasswordInput.PasswordNueva2" class="form-control" />
-                            <span asp-validation-for="@Model.ModificarPasswordInput.PasswordNueva2" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <span class="text-danger">
-                                @Html.DisplayFor(lvm => lvm.ErrorMessage)
-                            </span>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-success btn-block">Modificar</button>
-                        </div>
-                    </form>
-                </section>
-                <label id="indexMessage" class="error">@Html.DisplayFor(lvm => lvm.ErrorMessage)</label>
+                            <div class="form-group">
+                                <span class="text-danger">
+                                    @Html.DisplayFor(lvm => lvm.ErrorMessage)
+                                </span>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success btn-block">Modificar</button>
+                            </div>
+                        </form>
+                    </section>
+                    <label id="indexMessage" class="error">@Html.DisplayFor(lvm => lvm.ErrorMessage)</label>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-@* FIN DEL MODAL MODIFICAR CONTRASEÑA *@
-
+    @* FIN DEL MODAL MODIFICAR DATOS *@
 
 
+    @* INICIO DEL MODAL MODIFICAR CONTRASEÑA *@
+
+    <div class="modal" id="modalModContra" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <h5 class="modal-title  " id="modalDelCenteredLabel">Modificar Contraseña</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <section>
+                        <form asp-controller="Cliente" asp-action="ModificarPassword" method="post">
+                            <div class="form-group">
+                                <label asp-for="@Model.ModificarPasswordInput.PasswordAnterior" class="control-label"></label>
+                                <input asp-for="@Model.ModificarPasswordInput.PasswordAnterior" class="form-control" />
+                                <span asp-validation-for="@Model.ModificarPasswordInput.PasswordAnterior" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.ModificarPasswordInput.PasswordNueva" class="control-label"></label>
+                                <input asp-for="@Model.ModificarPasswordInput.PasswordNueva" class="form-control" />
+                                <span asp-validation-for="@Model.ModificarPasswordInput.PasswordNueva" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.ModificarPasswordInput.PasswordNueva2" class="control-label"></label>
+                                <input asp-for="@Model.ModificarPasswordInput.PasswordNueva2" class="form-control" />
+                                <span asp-validation-for="@Model.ModificarPasswordInput.PasswordNueva2" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <span class="text-danger">
+                                    @Html.DisplayFor(lvm => lvm.ErrorMessage)
+                                </span>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success btn-block">Modificar</button>
+                            </div>
+                        </form>
+                    </section>
+                    <label id="indexMessage" class="error">@Html.DisplayFor(lvm => lvm.ErrorMessage)</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* FIN DEL MODAL MODIFICAR CONTRASEÑA *@
 
 
-@section Scripts{
-    @await Html.PartialAsync("_ValidationScriptsPartial")
-}
+
+
+
+    @section Scripts{
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+    }
