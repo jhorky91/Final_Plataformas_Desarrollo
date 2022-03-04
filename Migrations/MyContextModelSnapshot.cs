@@ -174,7 +174,7 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("total")
-                        .HasColumnType("decimal(8,2)");
+                        .HasColumnType("decimal(12,2)");
 
                     b.HasKey("idCompra");
 

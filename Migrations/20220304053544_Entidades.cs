@@ -92,7 +92,7 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                     idCompra = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     idUsuario = table.Column<int>(nullable: false),
-                    total = table.Column<decimal>(type: "decimal(8,2)", nullable: false),
+                    total = table.Column<decimal>(type: "decimal(12,2)", nullable: false),
                     fechaCreacion = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
                 constraints: table =>

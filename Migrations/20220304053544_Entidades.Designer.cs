@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Final_Plataformas_De_Desarrollo.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20220228234224_Entidades")]
+    [Migration("20220304053544_Entidades")]
     partial class Entidades
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -176,7 +176,7 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("total")
-                        .HasColumnType("decimal(8,2)");
+                        .HasColumnType("decimal(12,2)");
 
                     b.HasKey("idCompra");
 

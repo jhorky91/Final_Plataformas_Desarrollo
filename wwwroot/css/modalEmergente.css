@@ -18,10 +18,9 @@
 
 .modal-content-Emergente {
     position: relative;
-    margin: auto;
-    top: 0;
     background-color: #fefefe;
-    width: 50%;
+    width: 25%;
+    margin-inline: auto;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: slideIn;
     -webkit-animation-duration: 0.4s;
@@ -45,13 +44,13 @@
     }
 
 .modal-header-Emergente {
-    padding: 2px 16px;
+    padding: 8px 16px;
     background-color: orangered;
     color: white;
 }
 
 .modal-body-Emergente {
-    padding: 2px 16px;
+    padding: 8px 16px;
 }
 
 

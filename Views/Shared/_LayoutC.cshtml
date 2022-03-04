@@ -91,14 +91,15 @@
 
             @* MODAL *@
 
-            <div id="myModalEmergente" class="modal-Emergente " style="display:block">
-                <div class="modal-content-Emergente">
-                    <span class="closeEmergente">&times;</span>
+            <div id="myModalEmergente" class="modal-Emergente pt-5 " style="display:block">
+                <div class="modal-content-Emergente mt-5 text-center">
+
                     @if (TempData["TituloMensaje"] != null)
                     {
                         <div class="modal-header-Emergente">
 
                             <h2>@TempData["TituloMensaje"]</h2>
+                            <span class="closeEmergente"></span>
                         </div>
                     }
                     <div class="modal-body-Emergente">

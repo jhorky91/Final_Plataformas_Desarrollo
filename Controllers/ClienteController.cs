@@ -70,11 +70,11 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                 ViewData["Carro"] = carro.carroProducto;
                 return View();
             }
-            catch (Exception) 
+            catch (Exception)
             {
                 TempData["TituloMensaje"] = "Sesion Caducada";
-                TempData["Mensaje"]  = "Vuelva a iniciar sesion";
-                return RedirectToAction("Login","Home");
+                TempData["Mensaje"] = "Vuelva a iniciar sesion";
+                return RedirectToAction("Login", "Home");
             }
         }
 
@@ -85,8 +85,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         // #######################################################################################
         public async Task<IActionResult> MisCompras()
         {
-            try 
-            { 
+            try
+            {
                 int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
                 var compras = await _context.compras
                                     .Where(u => u.idUsuario == id_usr)
@@ -96,11 +96,11 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                                     .ToListAsync();
                 return View(compras);
             }
-            catch (Exception) 
+            catch (Exception)
             {
                 TempData["TituloMensaje"] = "Sesion Caducada";
-                TempData["Mensaje"]  = "Vuelva a iniciar sesion";
-                return RedirectToAction("Login","Home");
+                TempData["Mensaje"] = "Vuelva a iniciar sesion";
+                return RedirectToAction("Login", "Home");
             }
 
         }
@@ -141,15 +141,15 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             IEnumerable<Producto> productos = await _context.productos
                                                         .Include(p => p.cat)
                                                         .ToListAsync();
-            if (query != ""&& query != null) 
+            if (query != "" && query != null)
             {
                 if (productos.Where(p => p.nombre.ToUpper().Contains(query.ToUpper())) != null)
                 {
                     productos = productos.Where(p => p.nombre.ToUpper().Contains(query.ToUpper()));
                 }
-                else 
-                { 
-                
+                else
+                {
+
                 }
             }
             if (cat != 0)
@@ -210,7 +210,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
 
             ViewData["prodRela"] = ProdRelacionado;
             ViewData["producto"] = producto;
-            
+
             return View();
         }
 
@@ -234,8 +234,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         [HttpPost]
         public async Task<IActionResult> AgregarAlCarro(FormulariosViewModel model)
         {
-            try 
-            { 
+            try
+            {
                 int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
 
                 Carro carro = await _context.carros
@@ -277,16 +277,16 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
 
                 TempData["Mensaje"] = "Producto agregado exitosamente";
                 return RedirectToAction("Carro");
-                
+
             }
-            catch (Exception) 
+            catch (Exception)
             {
                 TempData["TituloMensaje"] = "Sesion Caducada";
-                TempData["Mensaje"]  = "Vuelva a iniciar sesion";
-                return RedirectToAction("Login","Home");
+                TempData["Mensaje"] = "Vuelva a iniciar sesion";
+                return RedirectToAction("Login", "Home");
             }
         }
-        
+
         // #######################################################################################
         //
         //                             MODIFICAR PRODUCTO DEL CARRO
@@ -295,7 +295,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         [HttpPost]
         public async Task<IActionResult> ModificarCarro(FormulariosViewModel model)
         {
-            try 
+            try
             {
                 int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
 
@@ -343,7 +343,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                 TempData["TituloMensaje"] = "Sesion Caducada";
                 TempData["Mensaje"] = "Vuelva a iniciar sesion";
                 return RedirectToAction("Login", "Home");
-            }            
+            }
         }
 
         //################################################################################# 
@@ -354,8 +354,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
 
         public async Task<IActionResult> QuitarProductoDelCarro(int ID)
         {
-            
-            try 
+
+            try
             {
                 int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
 
@@ -399,7 +399,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
 
         public async Task<IActionResult> VaciarCarro()
         {
-            try 
+            try
             {
                 int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
                 if (await _context.carros.Where(c => c.idUsuario == id_usr).FirstOrDefaultAsync() != null)
@@ -436,7 +436,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
 
         public async Task<IActionResult> Comprar()
         {
-            try 
+            try
             {
                 int id_usr = JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).id;
                 double total = 0;
@@ -452,20 +452,35 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                     if (carProd.producto.cantidad >= carProd.cantidad)
                     {
                         total += (carProd.cantidad * carProd.producto.precio);
+
                     }
                     else
                     {
+                        if (carProd.producto.cantidad == 0)
+                        {
+                            TempData["TituloMensaje"] = "No se pudo realizar la compra";
+                            TempData["Mensaje"] = "No hay stock para el producto "
+                                            + carProd.producto.nombre + ", ";
 
-                        TempData["Mensaje"] = "Error, no hay stock suficiente para el producto "
-                                            + carProd.producto.nombre +
-                                            ", modifique el carro en el producto antes de efectuar la compra.";
-                        
-                        return RedirectToAction("Carro");
+                            return RedirectToAction("Carro");
+
+                        }
+                        else
+                        {
+                            TempData["TituloMensaje"] = "No se pudo realizar la compra";
+                            TempData["Mensaje"] = "No hay stock suficiente para el producto "
+                                + carProd.producto.nombre
+                                + ", modifique la cantidad de dicho producto en el carro antes de efectuar la compra.";
+
+                            return RedirectToAction("Carro");
+                        }
+
                     }
                 }
 
                 Usuario user = await _context.usuarios
-                                            .Where(u => u.idUsuario == id_usr).FirstOrDefaultAsync();
+                                            .Where(u => u.idUsuario == id_usr)
+                                            .FirstOrDefaultAsync();
 
                 Compra aux = new Compra(user, total, DateTime.Now);
                 _context.compras.Add(aux);
@@ -476,6 +491,14 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                     int cant = cp.cantidad;
                     CompraProducto comp = new CompraProducto(aux, cp.producto, cant);
                     aux.compraProducto.Add(comp);
+
+                    Producto p = _context.productos
+                                    .Where(p => p.idProducto == cp.producto.idProducto)
+                                    .FirstOrDefault();
+
+                    p.cantidad -= cp.cantidad;
+                    _context.Update(p);
+
                 }
                 c.carroProducto = new List<CarroProducto>();
                 _context.carros.Update(c);
@@ -486,6 +509,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
 
                 TempData["Mensaje"] = "Compra efectuada exitosamente";
                 return RedirectToAction("Carro");
+
             }
             catch (Exception)
             {
