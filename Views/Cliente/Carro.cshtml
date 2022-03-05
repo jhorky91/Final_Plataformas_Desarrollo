@@ -11,7 +11,7 @@
 <div class="modal" id="modalVaciarCarro" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-danger text-white">
                 <h5 class="modal-title" id="modalDelCenteredLabel">¿Estas seguro que deseas vaciar el carro?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -23,7 +23,7 @@
                 </span>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-danger" asp-controller="Cliente" asp-action="VaciarCarro">Confirmar</a>
+                <a class="btn btn-success" asp-controller="Cliente" asp-action="VaciarCarro">Confirmar</a>
             </div>
         </div>
     </div>
@@ -34,7 +34,7 @@
 <div class="modal" id="modalComprar" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-danger text-white">
                 <h5 class="modal-title" id="modalDelCenteredLabel">¿Estas seguro que deseas efectuar la compra de los productos del carro?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -44,7 +44,7 @@
 
             </div>
             <div class="modal-footer">
-                <a class="btn btn-danger" asp-controller="Cliente" asp-action="Comprar">Confirmar</a>
+                <a class="btn btn-success" asp-controller="Cliente" asp-action="Comprar">Confirmar</a>
             </div>
         </div>
     </div>
@@ -118,7 +118,7 @@
                                 <div class="modal" id="@("modalMod"+carprod.producto.idProducto.ToString())" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
-                                            <div class="modal-header">
+                                            <div class="modal-header bg-danger text-white">
                                                 <h5 class="modal-title" id="modalDelCenteredLabel">@carprod.producto.nombre</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -169,7 +169,7 @@
                                 <div class="modal" id="@("modalDel"+carprod.producto.idProducto.ToString())" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
-                                            <div class="modal-header">
+                                            <div class="modal-header bg-danger text-white">
                                                 <h5 class="modal-title" id="modalDelCenteredLabel">¿Estas seguro que deseas eliminar el producto @carprod.producto.nombre ?</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -182,7 +182,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>*@
-                                                <a class="btn btn-danger" asp-controller="Cliente" asp-action="QuitarProductoDelCarro" asp-route-ID="@carprod.idProducto">Confirmar</a>
+                                                <a class="btn btn-success" asp-controller="Cliente" asp-action="QuitarProductoDelCarro" asp-route-ID="@carprod.idProducto">Confirmar</a>
                                             </div>
                                         </div>
                                     </div>

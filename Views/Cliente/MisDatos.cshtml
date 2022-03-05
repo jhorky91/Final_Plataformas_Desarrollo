@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <div class="row justify-content-center">
+    @*<div class="row justify-content-center">
         <div class="col-8 ">
             <div class="card my-5 mx-5">
                 <div class="no-gutters">
@@ -45,14 +45,32 @@
                 </div>
             </div>
         </div>
+    </div>*@
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 my-0 m-3 pt-3 bg-info shadow">
+            <img src="~/images/login.png" class="float-left rounded-circle mr-2 w-25" />
+            <h1>@(usuario.nombre + " " + usuario.apellido)</h1>
+            <h3>@usuario.mail</h3>
+            <h5 class="font-weight-bold float-left mr-2">DNI: </h5><h5>@usuario.dni</h5>
+            <h5 class="font-weight-bold float-left mr-2">CUIT / CUIL: </h5><h5>@usuario.cuit_cuil</h5>
+
+            <button type="button" class="btn btn-warning mx-2" data-toggle="modal" data-target="#modalModDatos"> Modificar Datos </button>
+            <button type="button" class="btn btn-danger mx-2" data-toggle="modal" data-target="#modalModContra"> Cambiar Contraseña </button>
+        </div>
     </div>
+
+</div>
+
 
     @* INICIO DEL MODAL MODIFICAR DATOS *@
 
     <div class="modal" id="modalModDatos" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header justify-content-center">
+                <div class="modal-header justify-content-center bg-danger text-white">
                     <h5 class="modal-title  " id="modalDelCenteredLabel">Modificar Datos</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -106,7 +124,7 @@
     <div class="modal" id="modalModContra" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header justify-content-center">
+                <div class="modal-header justify-content-center bg-danger text-white">
                     <h5 class="modal-title  " id="modalDelCenteredLabel">Modificar Contraseña</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
