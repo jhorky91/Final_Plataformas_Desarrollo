@@ -134,17 +134,17 @@
                     <section>
                         <form asp-controller="Cliente" asp-action="ModificarPassword" method="post">
                             <div class="form-group">
-                                <label asp-for="@Model.ModificarPasswordInput.PasswordAnterior" class="control-label"></label>
+                                <label  class="control-label">Contraseña anterior</label>
                                 <input asp-for="@Model.ModificarPasswordInput.PasswordAnterior" class="form-control" />
                                 <span asp-validation-for="@Model.ModificarPasswordInput.PasswordAnterior" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="@Model.ModificarPasswordInput.PasswordNueva" class="control-label"></label>
+                                <label class="control-label">Contraseña nueva</label>
                                 <input asp-for="@Model.ModificarPasswordInput.PasswordNueva" class="form-control" />
                                 <span asp-validation-for="@Model.ModificarPasswordInput.PasswordNueva" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="@Model.ModificarPasswordInput.PasswordNueva2" class="control-label"></label>
+                                <label  class="control-label">Repetir contraseña nueva</label>
                                 <input asp-for="@Model.ModificarPasswordInput.PasswordNueva2" class="form-control" />
                                 <span asp-validation-for="@Model.ModificarPasswordInput.PasswordNueva2" class="text-danger"></span>
                             </div>

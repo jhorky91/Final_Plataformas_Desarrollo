@@ -31,7 +31,7 @@ namespace Final_Plataformas_De_Desarrollo.Data
         {
             //optionbuilder es el objeto que permite setear opciones para la configuracion de la base de datos
             //usa SQL Server pasandole el connectionString
-            optionsBuilder.UseSqlServer(@"Data Source=PC-JHORKY;Initial Catalog=FINALDBPlataformasDeDesarrollo;Integrated Security=True");
+            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-HP82AM9;Initial Catalog=FINALDBPlataformasDeDesarrollo;Integrated Security=True");
             
         }
 
@@ -94,10 +94,8 @@ namespace Final_Plataformas_De_Desarrollo.Data
             modelBuilder.Entity<Carro>()
                 .HasOne(c => c.usuario)
                 .WithOne(u => u.miCarro)
-                .HasForeignKey<Carro>(c => c.idUsuario)
-                //.HasConstraintName("ForeignName_Usuario_Carro") //podemos dejarle el nombre por defecto quitando el string
-                .OnDelete(DeleteBehavior.Cascade);
-                ;
+                .HasForeignKey<Carro>(c => c.idUsuario);
+                
 
             //##############################################################
             //       PRODUCTO
@@ -130,9 +128,7 @@ namespace Final_Plataformas_De_Desarrollo.Data
             modelBuilder.Entity<Producto>()
                 .HasOne(P => P.cat)
                 .WithMany(C => C.productos)
-                .HasForeignKey(P => P.idCategoria)
-                .OnDelete(DeleteBehavior.Cascade);
-                
+                .HasForeignKey(P => P.idCategoria);
          
             //##############################################################
             //       CARRO PRODUCTO
@@ -206,8 +202,7 @@ namespace Final_Plataformas_De_Desarrollo.Data
             modelBuilder.Entity<Compra>()
                 .HasOne(Co => Co.usuario)
                 .WithMany(U => U.compras)
-                .HasForeignKey(Co => Co.idUsuario)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(Co => Co.idUsuario);
 
             //##############################################################
             //       COMPRA PRODUCTO
@@ -239,7 +234,7 @@ namespace Final_Plataformas_De_Desarrollo.Data
             //##############################################################
 
             modelBuilder.Entity<Categoria>().HasData(
-                new { idCategoria = 1, nombre = "Comida", fechaCreacion = new DateTime(2020, 01, 20, 12, 30, 00) },
+                new { idCategoria = 1, nombre = "SIN CATEGORIA", fechaCreacion = new DateTime(2020, 01, 20, 12, 30, 00) },
                 new { idCategoria = 2, nombre = "Bebida", fechaCreacion = new DateTime(2019, 09, 2, 09, 40, 00) },
                 new { idCategoria = 3, nombre = "Ropa", fechaCreacion = new DateTime(2021, 10, 21, 08, 10, 00) },
                 new { idCategoria = 4, nombre = "Articulos de limpieza", fechaCreacion = new DateTime(2021, 11, 22, 07, 58, 00) },
@@ -248,16 +243,17 @@ namespace Final_Plataformas_De_Desarrollo.Data
                 new { idCategoria = 7, nombre = "Herramientas", fechaCreacion = new DateTime(2021, 07, 30, 10, 20, 00) },
                 new { idCategoria = 8, nombre = "Electronica", fechaCreacion = new DateTime(2019, 05, 19, 10, 20, 00) },
                 new { idCategoria = 9, nombre = "Mascotas", fechaCreacion = new DateTime(2020, 04, 12, 15, 20, 00) },
-                new { idCategoria = 10, nombre = "Libreria", fechaCreacion = new DateTime(2020, 10, 20, 10, 20, 00) }
+                new { idCategoria = 10, nombre = "Libreria", fechaCreacion = new DateTime(2020, 10, 20, 10, 20, 00) },
+                new { idCategoria = 11, nombre = "Comida", fechaCreacion = new DateTime(2020, 01, 20, 12, 30, 00) }
                 );
             
             modelBuilder.Entity<Producto>().HasData(
                 new { idProducto = 1,  nombre = "Gaseosa", precio = 125.00, cantidad = 100, idCategoria = 2 , fechaCreacion = new DateTime(2020,12,20,10,20,00) },
                 new { idProducto = 2,  nombre = "Cerveza", precio = 120.00, cantidad = 50,  idCategoria = 2, fechaCreacion = new DateTime(2022,02,07,09,30,00) },
                 new { idProducto = 3,  nombre = "Agua",    precio = 78.00,  cantidad = 100, idCategoria = 2, fechaCreacion = new DateTime(2022,01,20,01,00,00) },
-                new { idProducto = 4,  nombre = "Papas",   precio = 250.00, cantidad = 100, idCategoria = 1, fechaCreacion = new DateTime(2019,02,01,03,00,00) },
-                new { idProducto = 5,  nombre = "Palitos", precio = 126.00, cantidad = 100, idCategoria = 1, fechaCreacion = new DateTime(2019,03,09,00,00,00) },
-                new { idProducto = 6,  nombre = "Chizitos", precio = 138.00, cantidad = 100, idCategoria = 1, fechaCreacion = new DateTime(2020,01,02,14,30,00) },
+                new { idProducto = 4,  nombre = "Papas",   precio = 250.00, cantidad = 100, idCategoria = 11, fechaCreacion = new DateTime(2019,02,01,03,00,00) },
+                new { idProducto = 5,  nombre = "Palitos", precio = 126.00, cantidad = 100, idCategoria = 11, fechaCreacion = new DateTime(2019,03,09,00,00,00) },
+                new { idProducto = 6,  nombre = "Chizitos", precio = 138.00, cantidad = 100, idCategoria = 11, fechaCreacion = new DateTime(2020,01,02,14,30,00) },
                 new { idProducto = 7,  nombre = "TV", precio = 80000.00, cantidad = 150, idCategoria = 8, fechaCreacion = new DateTime(2020,12,19,10,30,00) },
                 new { idProducto = 8,  nombre = "PC", precio = 60000.00, cantidad = 30, idCategoria = 6, fechaCreacion = new DateTime(2021,12,23,12,00,00) },
                 new { idProducto = 9,  nombre = "Pantalon Deportivo", precio = 6500.00, cantidad = 50, idCategoria = 3, fechaCreacion = new DateTime(2021,11,10,12,45,00) },
@@ -270,8 +266,8 @@ namespace Final_Plataformas_De_Desarrollo.Data
                 new { idProducto = 16, nombre = "Notebook", precio = 95000.00, cantidad = 20, idCategoria = 6, fechaCreacion = new DateTime(2021,07,28,04,30,00) },
                 new { idProducto = 17, nombre = "Leche", precio = 95.00, cantidad = 100, idCategoria = 2, fechaCreacion = new DateTime(2019,01,22,10,50,00) },
                 new { idProducto = 18, nombre = "Energizante", precio = 108.00, cantidad = 100, idCategoria = 2, fechaCreacion = new DateTime(2019,05,18,01,20,00) },
-                new { idProducto = 19, nombre = "Mani", precio = 121.00, cantidad = 100, idCategoria = 1, fechaCreacion = new DateTime(2020,08,11,04,30,00) },
-                new { idProducto = 20, nombre = "Nachos", precio = 241.00, cantidad = 100, idCategoria = 1, fechaCreacion = new DateTime(2020,01,19,01,00,00) },
+                new { idProducto = 19, nombre = "Mani", precio = 121.00, cantidad = 100, idCategoria = 11, fechaCreacion = new DateTime(2020,08,11,04,30,00) },
+                new { idProducto = 20, nombre = "Nachos", precio = 241.00, cantidad = 100, idCategoria = 11, fechaCreacion = new DateTime(2020,01,19,01,00,00) },
                 new { idProducto = 21, nombre = "Campera", precio = 6000.00, cantidad = 50, idCategoria = 3, fechaCreacion = new DateTime(2020,06,12,02,30,00) },
                 new { idProducto = 22, nombre = "Sweater", precio = 3000.00, cantidad = 50, idCategoria = 3, fechaCreacion = new DateTime(2020,08,16,03,00,00) },
                 new { idProducto = 23, nombre = "Jean", precio = 2000.00, cantidad = 50, idCategoria = 3, fechaCreacion = new DateTime(2019,10,10,03,40,00) },

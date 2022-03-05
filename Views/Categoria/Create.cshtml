@@ -5,34 +5,37 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Categoria</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+    <div class="col-md-10">
+
+        <h3>Crear Categoria</h3>
+        <hr style="border-color:gray;" />
+
+        <form asp-action="Create" style="width:50%">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="nombre" class="control-label"></label>
-                <input asp-for="nombre" class="form-control" />
+                <label class="control-label">Nombre</label>
+                <input asp-for="nombre" class="form-control" autofocus />
                 <span asp-validation-for="nombre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="fechaCreacion" class="control-label"></label>
+                <label class="control-label">Fecha de Creacion</label>
                 <input asp-for="fechaCreacion" class="form-control" />
                 <span asp-validation-for="fechaCreacion" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Crear" class="btn btn-success" />
             </div>
         </form>
+
+        <hr style="border-color:gray;" />
+        <div>
+            <a role="button" class="btn btn-danger" asp-action="Index">Volver a la lista</a>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

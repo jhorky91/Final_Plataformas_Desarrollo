@@ -5,47 +5,48 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Producto</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="nombre" class="control-label"></label>
-                <input asp-for="nombre" class="form-control" />
-                <span asp-validation-for="nombre" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="precio" class="control-label"></label>
-                <input asp-for="precio" class="form-control" />
-                <span asp-validation-for="precio" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="cantidad" class="control-label"></label>
-                <input asp-for="cantidad" class="form-control" />
-                <span asp-validation-for="cantidad" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="idCategoria" class="control-label"></label>
-                <select asp-for="idCategoria" class ="form-control" asp-items="ViewBag.idCategoria"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="fechaCreacion" class="control-label"></label>
-                <input asp-for="fechaCreacion" class="form-control" />
-                <span asp-validation-for="fechaCreacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+    <div class="col-md-12">
 
-<div>
-    <a asp-action="Index">Back to List</a>
+        <h3>Crear Producto</h3>
+        <hr style="border-color:gray;" />
+       
+            <form asp-action="Create" style="width:50%">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group row">
+                    <label class="control-label col-md-6">Nombre</label>
+                    <input asp-for="nombre" class="form-control col-md-6" autofocus />
+                    <span asp-validation-for="nombre" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-6">Precio</label>
+                    <input asp-for="precio" class="form-control col-md-6" />
+                    <span asp-validation-for="precio" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-6">Cantidad</label>
+                    <input asp-for="cantidad" class="form-control col-md-6" />
+                    <span asp-validation-for="cantidad" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-6">Categoria</label>
+                    <select asp-for="idCategoria" class="form-control col-md-6" asp-items="ViewBag.idCategoria"></select>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-6">Fecha de Creacion</label>
+                    <input asp-for="fechaCreacion" class="form-control col-md-6" />
+                    <span asp-validation-for="fechaCreacion" class="text-danger"></span>
+                </div>
+                <div class="form-group ">
+                    <input type="submit" value="Crear" class="btn btn-success" />
+                </div>
+            </form>
+        
+        <hr style="border-color:gray;" />
+        <div>
+            <a role="button" class="btn btn-danger"  asp-action="Index">Volver a la lista</a>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

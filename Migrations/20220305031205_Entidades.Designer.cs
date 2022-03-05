@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Final_Plataformas_De_Desarrollo.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20220304053544_Entidades")]
+    [Migration("20220305031205_Entidades")]
     partial class Entidades
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -104,7 +104,7 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                         {
                             idCategoria = 1,
                             fechaCreacion = new DateTime(2020, 1, 20, 12, 30, 0, 0, DateTimeKind.Unspecified),
-                            nombre = "Comida"
+                            nombre = "SIN CATEGORIA"
                         },
                         new
                         {
@@ -159,6 +159,12 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                             idCategoria = 10,
                             fechaCreacion = new DateTime(2020, 10, 20, 10, 20, 0, 0, DateTimeKind.Unspecified),
                             nombre = "Libreria"
+                        },
+                        new
+                        {
+                            idCategoria = 11,
+                            fechaCreacion = new DateTime(2020, 1, 20, 12, 30, 0, 0, DateTimeKind.Unspecified),
+                            nombre = "Comida"
                         });
                 });
 
@@ -272,7 +278,7 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                             idProducto = 4,
                             cantidad = 100,
                             fechaCreacion = new DateTime(2019, 2, 1, 3, 0, 0, 0, DateTimeKind.Unspecified),
-                            idCategoria = 1,
+                            idCategoria = 11,
                             nombre = "Papas",
                             precio = 250m
                         },
@@ -281,7 +287,7 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                             idProducto = 5,
                             cantidad = 100,
                             fechaCreacion = new DateTime(2019, 3, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            idCategoria = 1,
+                            idCategoria = 11,
                             nombre = "Palitos",
                             precio = 126m
                         },
@@ -290,7 +296,7 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                             idProducto = 6,
                             cantidad = 100,
                             fechaCreacion = new DateTime(2020, 1, 2, 14, 30, 0, 0, DateTimeKind.Unspecified),
-                            idCategoria = 1,
+                            idCategoria = 11,
                             nombre = "Chizitos",
                             precio = 138m
                         },
@@ -407,7 +413,7 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                             idProducto = 19,
                             cantidad = 100,
                             fechaCreacion = new DateTime(2020, 8, 11, 4, 30, 0, 0, DateTimeKind.Unspecified),
-                            idCategoria = 1,
+                            idCategoria = 11,
                             nombre = "Mani",
                             precio = 121m
                         },
@@ -416,7 +422,7 @@ namespace Final_Plataformas_De_Desarrollo.Migrations
                             idProducto = 20,
                             cantidad = 100,
                             fechaCreacion = new DateTime(2020, 1, 19, 1, 0, 0, 0, DateTimeKind.Unspecified),
-                            idCategoria = 1,
+                            idCategoria = 11,
                             nombre = "Nachos",
                             precio = 241m
                         },

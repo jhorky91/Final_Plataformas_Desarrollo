@@ -458,9 +458,13 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                     {
                         if (carProd.producto.cantidad == 0)
                         {
+                            c.carroProducto.Remove(carProd);
+                            _context.carros.Update(c);
+                            await _context.SaveChangesAsync();
+
                             TempData["TituloMensaje"] = "No se pudo realizar la compra";
                             TempData["Mensaje"] = "No hay stock para el producto "
-                                            + carProd.producto.nombre + ", ";
+                                            + carProd.producto.nombre + ", fue eliminado del carro.";
 
                             return RedirectToAction("Carro");
 

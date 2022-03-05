@@ -11,54 +11,55 @@
 
     <div class="col-2" style="background-color:#212121;">
 
-            @* BUSCAR PRODUCTO POR NOMBRE *@
-            @*<h4 class="text-center text-success mt-2">Filtros</h4>*@
-            <form class="mt-3" asp-controller="Cliente" asp-action="ListadoProductos" method="get">
-                <p class="text-center">
-                    <input class="w-75" type="text" name="query" placeholder="Ingrese Producto" /><br />
-                    <input type="number" name="cat" value="@((String.IsNullOrEmpty(Context.Request.Query["cat"])) ? 0 : int.Parse(Context.Request.Query["cat"]))" hidden />
-                    <input type="text" name="orderby" value="@((String.IsNullOrEmpty(Context.Request.Query["orderby"])) ? "" : Context.Request.Query["orderby"].ToString())" hidden />
-                    <input type="text" name="az" value="@((String.IsNullOrEmpty(Context.Request.Query["az"])) ? "" : Context.Request.Query["az"].ToString())" hidden />
+        @* BUSCAR PRODUCTO POR NOMBRE *@
+        @*<h4 class="text-center text-success mt-2">Filtros</h4>*@
+        <form class="mt-3" asp-controller="Cliente" asp-action="ListadoProductos" method="get">
+            <p class="text-center">
+                <input class="w-75" type="text" name="query" placeholder="Ingrese Producto" /><br />
+                <input type="number" name="cat" value="@((String.IsNullOrEmpty(Context.Request.Query["cat"])) ? 0 : int.Parse(Context.Request.Query["cat"]))" hidden />
+                <input type="text" name="orderby" value="@((String.IsNullOrEmpty(Context.Request.Query["orderby"])) ? "" : Context.Request.Query["orderby"].ToString())" hidden />
+                <input type="text" name="az" value="@((String.IsNullOrEmpty(Context.Request.Query["az"])) ? "" : Context.Request.Query["az"].ToString())" hidden />
 
-                    <input class="btn btn-success mt-2" type="submit" value="Buscar" />
-                </p>
-            </form>
-            <hr style="border-color:gray;" />
-            <h4 class="text-center text-success mt-2">Categorías</h4>
-            <hr style="border-color:gray;" />
+                <input class="btn btn-success mt-2" type="submit" value="Buscar" />
+            </p>
+        </form>
+        <hr style="border-color:gray;" />
+        <h4 class="text-center text-success mt-2">Categorías</h4>
+        <hr style="border-color:gray;" />
 
-            @* FILTROS
-                    POR CATEGORIA
-                    POR PRECIO
-                    POR NOMBRE
-                    ORDENADO DE FORMA ASCENDENTE
-                    ORDENADO DE FORMA DESCENDENTE
-            *@
+        @* FILTROS
+            POR CATEGORIA
+            POR PRECIO
+            POR NOMBRE
+            ORDENADO DE FORMA ASCENDENTE
+            ORDENADO DE FORMA DESCENDENTE
+        *@
 
-            <ul>
-                @if (!String.IsNullOrEmpty(Context.Request.Query["cat"]))
+        <ul>
+            @if (!String.IsNullOrEmpty(Context.Request.Query["cat"]))
+            {
+                if (int.Parse(Context.Request.Query["cat"]) != 0)
                 {
-                    if (int.Parse(Context.Request.Query["cat"]) != 0)
-                    {
-                        <li class="text-danger">
-                            @Html.ActionLink("Todos", "ListadoProductos", new
-                       {
-                           query = (String.IsNullOrEmpty(Context.Request.Query["query"])) ? "" : Context.Request.Query["query"].ToString(),
-                           cat = 0,
-                           orderby = (String.IsNullOrEmpty(Context.Request.Query["orderby"])) ? "" : Context.Request.Query["orderby"].ToString(),
-                           az = (String.IsNullOrEmpty(Context.Request.Query["az"])) ? "" : Context.Request.Query["az"].ToString()
-                       }, new
-                            {
-                           style = "color: white"
-                       })
-                        </li>
-                    }
+                    <li class="text-danger">
+                        @Html.ActionLink("Todos", "ListadoProductos", new
+                   {
+                       query = (String.IsNullOrEmpty(Context.Request.Query["query"])) ? "" : Context.Request.Query["query"].ToString(),
+                       cat = 0,
+                       orderby = (String.IsNullOrEmpty(Context.Request.Query["orderby"])) ? "" : Context.Request.Query["orderby"].ToString(),
+                       az = (String.IsNullOrEmpty(Context.Request.Query["az"])) ? "" : Context.Request.Query["az"].ToString()
+                   }, new
+                        {
+                       style = "color: white"
+                   })
+                    </li>
                 }
+            }
 
-                @foreach (var categorias in cat)
+            @foreach (var categorias in cat)
+            {
+                @* LISTA DE CATEGORIAS *@
+                if (categorias.idCategoria > 1)
                 {
-                    @* LISTA DE CATEGORIAS *@
-
                     <li class="text-danger">
                         @Html.ActionLink(categorias.nombre, "ListadoProductos", new
                    {
@@ -72,112 +73,118 @@
                    })
                     </li>
                 }
-            </ul>
 
-            <hr style="border-color:gray;" />
+            }
+        </ul>
 
-            <ul>
+        <hr style="border-color:gray;" />
 
-                <li class="text-danger">
-                    @Html.ActionLink("Precio", "ListadoProductos", new
-               {
-                   query = (String.IsNullOrEmpty(Context.Request.Query["query"])) ? "" : Context.Request.Query["query"].ToString(),
-                   cat = (String.IsNullOrEmpty(Context.Request.Query["cat"])) ? 0 : int.Parse(Context.Request.Query["cat"]),
-                   orderby = "precio",
-                   az = (String.IsNullOrEmpty(Context.Request.Query["az"])) ? "" : Context.Request.Query["az"].ToString()
-               }, new
-                    {
-                   style = "color: white"
-               })
-                </li>
-                <li class="text-danger">
-                    @Html.ActionLink("Nombre", "ListadoProductos", new
-               {
-                   query = (String.IsNullOrEmpty(Context.Request.Query["query"])) ? "" : Context.Request.Query["query"].ToString(),
-                   cat = (String.IsNullOrEmpty(Context.Request.Query["cat"])) ? 0 : int.Parse(Context.Request.Query["cat"]),
-                   orderby = "nombre",
-                   az = (String.IsNullOrEmpty(Context.Request.Query["az"])) ? "" : Context.Request.Query["az"].ToString()
-               }, new
-                    {
-                   style = "color: white"
-               })
-                </li>
-                <li class="text-danger">
-                    @Html.ActionLink("Ascendente", "ListadoProductos", new
-               {
-                   query = (String.IsNullOrEmpty(Context.Request.Query["query"])) ? "" : Context.Request.Query["query"].ToString(),
-                   cat = (String.IsNullOrEmpty(Context.Request.Query["cat"])) ? 0 : int.Parse(Context.Request.Query["cat"]),
-                   orderby = (String.IsNullOrEmpty(Context.Request.Query["orderby"])) ? "" : Context.Request.Query["orderby"].ToString(),
-                   az = "asc"
-               }, new
-                    {
-                   style = "color: white"
-               })
-                </li>
-                <li class="text-danger">
-                    @Html.ActionLink("Descendente", "ListadoProductos", new
-               {
-                   query = (String.IsNullOrEmpty(Context.Request.Query["query"])) ? "" : Context.Request.Query["query"].ToString(),
-                   cat = (String.IsNullOrEmpty(Context.Request.Query["cat"])) ? 0 : int.Parse(Context.Request.Query["cat"]),
-                   orderby = (String.IsNullOrEmpty(Context.Request.Query["orderby"])) ? "" : Context.Request.Query["orderby"].ToString(),
-                   az = "desc"
-               }, new
-                    {
-                   style = "color: white"
-               })
-                </li>
-            </ul>
-            <hr style="border-color:gray;" />
+        <ul>
 
-            @* QUITAR TODOS LOS FILTROS *@
-            <ul>
-                <li class="text-danger">
-                    @Html.ActionLink("Quitar Filtros", "ListadoProductos", new
-               {
-                   query = "",
-                   cat = 0,
-                   orderby = "",
-                   az = ""
-               }, new
-                    {
-                   style = "color: white"
-               })
-                </li>
-            </ul>
+            <li class="text-danger">
+                @Html.ActionLink("Precio", "ListadoProductos", new
+           {
+               query = (String.IsNullOrEmpty(Context.Request.Query["query"])) ? "" : Context.Request.Query["query"].ToString(),
+               cat = (String.IsNullOrEmpty(Context.Request.Query["cat"])) ? 0 : int.Parse(Context.Request.Query["cat"]),
+               orderby = "precio",
+               az = (String.IsNullOrEmpty(Context.Request.Query["az"])) ? "" : Context.Request.Query["az"].ToString()
+           }, new
+                {
+               style = "color: white"
+           })
+            </li>
+            <li class="text-danger">
+                @Html.ActionLink("Nombre", "ListadoProductos", new
+           {
+               query = (String.IsNullOrEmpty(Context.Request.Query["query"])) ? "" : Context.Request.Query["query"].ToString(),
+               cat = (String.IsNullOrEmpty(Context.Request.Query["cat"])) ? 0 : int.Parse(Context.Request.Query["cat"]),
+               orderby = "nombre",
+               az = (String.IsNullOrEmpty(Context.Request.Query["az"])) ? "" : Context.Request.Query["az"].ToString()
+           }, new
+                {
+               style = "color: white"
+           })
+            </li>
+            <li class="text-danger">
+                @Html.ActionLink("Ascendente", "ListadoProductos", new
+           {
+               query = (String.IsNullOrEmpty(Context.Request.Query["query"])) ? "" : Context.Request.Query["query"].ToString(),
+               cat = (String.IsNullOrEmpty(Context.Request.Query["cat"])) ? 0 : int.Parse(Context.Request.Query["cat"]),
+               orderby = (String.IsNullOrEmpty(Context.Request.Query["orderby"])) ? "" : Context.Request.Query["orderby"].ToString(),
+               az = "asc"
+           }, new
+                {
+               style = "color: white"
+           })
+            </li>
+            <li class="text-danger">
+                @Html.ActionLink("Descendente", "ListadoProductos", new
+           {
+               query = (String.IsNullOrEmpty(Context.Request.Query["query"])) ? "" : Context.Request.Query["query"].ToString(),
+               cat = (String.IsNullOrEmpty(Context.Request.Query["cat"])) ? 0 : int.Parse(Context.Request.Query["cat"]),
+               orderby = (String.IsNullOrEmpty(Context.Request.Query["orderby"])) ? "" : Context.Request.Query["orderby"].ToString(),
+               az = "desc"
+           }, new
+                {
+               style = "color: white"
+           })
+            </li>
+        </ul>
+        <hr style="border-color:gray;" />
+
+        @* QUITAR TODOS LOS FILTROS *@
+        <ul>
+            <li class="text-danger">
+                @Html.ActionLink("Quitar Filtros", "ListadoProductos", new
+           {
+               query = "",
+               cat = 0,
+               orderby = "",
+               az = ""
+           }, new
+                {
+               style = "color: white"
+           })
+            </li>
+        </ul>
     </div>
     @* PRODUCTOS *@
-    <div class="col-10 mt-2" >
-        <div class="row mx-2 my-2" >
+    <div class="col-10 mt-2">
+        <div class="row mx-2 my-2">
             @foreach (var prod in Model)
             {
-                <div class="col-6">
-                    <div class="card mb-3" style="max-width: 540px; background-color: #D2FFA5;">
-                        <div class="row no-gutters">
-                            <div class="col-md-6">
-                                @if (File.Exists(IWebHostEnviroment.WebRootPath + "/images/productos/" + prod.nombre + ".jpg"))
-                                {
-                                    <img src="~/images/productos/@(prod.nombre).jpg" class="img-fluid" alt="...">
-                                }
-                                else
-                                {
-                                    <img src="~/images/categorias/cat-1.png" class="img-fluid" alt="Imagen Generica" />
+                if (prod.cantidad != 0)
+                {
+                    <div class="col-6">
+                        <div class="card mb-3" style="max-width: 540px; background-color: #D2FFA5;">
+                            <div class="row no-gutters">
+                                <div class="col-md-6">
+                                    @if (File.Exists(IWebHostEnviroment.WebRootPath + "/images/productos/" + prod.nombre + ".jpg"))
+                                    {
+                                        <img src="~/images/productos/@(prod.nombre).jpg" class="img-fluid" alt="...">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/images/categorias/cat-1.png" class="img-fluid" alt="Imagen Generica" />
 
-                                }
-                                
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">@prod.nombre</h5>
-                                    <p class="card-text"><b class="text-danger">Precio:</b> $@prod.precio.00</p>
-                                    <p class="card-text"><b class="text-danger">Categoria:</b> @prod.cat.nombre</p>
-                                    <p class="card-text"><b class="text-danger">Stock:</b> @prod.cantidad unidades</p>
-                                    @*<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>*@
-                                    <a class="btn btn-success" asp-controller="Cliente" asp-action="DetalleProducto" asp-route-id="@prod.idProducto">Ir a Detalle</a>
+                                    }
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">@prod.nombre</h5>
+                                        <p class="card-text"><b class="text-danger">Precio:</b> $@prod.precio.00</p>
+                                        <p class="card-text"><b class="text-danger">Categoria:</b> @prod.cat.nombre</p>
+                                        <p class="card-text"><b class="text-danger">Stock:</b> @prod.cantidad unidades</p>
+                                        @*<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>*@
+                                        <a class="btn btn-success" asp-controller="Cliente" asp-action="DetalleProducto" asp-route-id="@prod.idProducto">Ir a Detalle</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                }
+
             }
         </div>
     </div>

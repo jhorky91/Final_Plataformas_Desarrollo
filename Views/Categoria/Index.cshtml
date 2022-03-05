@@ -34,12 +34,89 @@
                             @item.nombre
                         </td>
                         <td>
-                            @item.fechaCreacion.ToString("dd-MM-yyyy HH:mm:ss")
+                            @item.fechaCreacion.ToString("yyy-MM-dd")
                         </td>
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.idCategoria"><i class="fas fa-edit text-success"></i></a> |
-                            <a asp-action="Details" asp-route-id="@item.idCategoria"><i class="fas fa-eye text-success"></i></a> |
-                            <a asp-action="Delete" asp-route-id="@item.idCategoria"><i class="fas fa-trash-alt text-success"></i></a>
+                            @*<a asp-action="Details" asp-route-id="@item.idCategoria"><i class="fas fa-eye text-success"></i></a> |*@
+                            @* <a asp-action="Delete" asp-route-id="@item.idCategoria"><i class="fas fa-trash-alt text-success"></i></a>*@
+
+                            @* DETALLES CATEGORIA *@
+                            <a role="button" data-toggle="modal" data-target="@("#modalDetalle" + item.idCategoria.ToString())"> <i class="fas fa-eye text-success"></i> </a>|
+                            @* ELIMINAR CATEGORIA *@
+                            <a role="button" data-toggle="modal" data-target="@("#modalDel" + item.idCategoria.ToString())"> <i class="fas fa-trash-alt text-success"></i> </a>
+
+
+                            @* MODAL DETALLES CATEGORIA *@
+
+                            <div class="modal" id="@("modalDetalle" + item.idCategoria.ToString())" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-danger text-white">
+                                            <h5 class="modal-title text-center" id="modalDelCenteredLabel">Detalle de Categoria</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body align-content-center">
+                                            <div>
+                                                <hr style="border-color:gray;" />
+                                                <dl class="row ">
+                                                    <dt class="col-sm-6">
+                                                        Nombre
+                                                    </dt>
+                                                    <dd class="col-sm-6">
+                                                        @item.nombre
+                                                    </dd>
+                                                    <dt class="col-sm-6">
+                                                        Fecha de Creacion
+                                                    </dt>
+                                                    <dd class="col-sm-6">
+                                                        @item.fechaCreacion.ToString("yyyy-MM-dd")
+                                                    </dd>
+                                                </dl>
+                                                <hr style="border-color:gray;" />
+                                            </div>
+                                            <div>
+
+                                                <a role="button" class="btn btn-success text-dark" asp-action="Edit" asp-route-id="@item.idCategoria"><label class="text-bold">Editar</label></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            @* FIN DEL MODAL DETALLES CATEGORIA *@
+
+                            @* MODAL ELIMINAR CATEGORIA *@
+
+                            <div class="modal" id="@("modalDel" + item.idCategoria.ToString())" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-danger text-white">
+                                            <h5 class="modal-title" id="modalDelCenteredLabel">¿Estas seguro que deseas eliminar la categoria @item.nombre ?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <span>
+                                                Si le das confirmar, la categoria se eliminará .
+                                            </span>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a class="btn btn-danger" asp-action="Eliminar" asp-route-id="@item.idCategoria">Confirmar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @* FIN DEL MODAL ELIMINAR CATEGORIA *@
+
+
+
+
                         </td>
                     </tr>
                     }

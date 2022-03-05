@@ -135,11 +135,18 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         }
 
         // POST: Categoria/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Eliminar(int id)
         {
             var categoria = await _context.categorias.FindAsync(id);
+            
+            var productos = await _context.productos
+                                        .Where(p => p.idCategoria == id)
+                                        .ToListAsync();
+            foreach (Producto prod in productos) 
+            {
+                prod.idCategoria = 1; //le asignamos la categoria "SIN CATEGORIA"
+                _context.productos.Update(prod);
+            }
             _context.categorias.Remove(categoria);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

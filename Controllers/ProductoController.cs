@@ -142,10 +142,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             return View(producto);
         }
 
-        // POST: Producto/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        
+        public async Task<IActionResult> Eliminar(int id)
         {
             var producto = await _context.productos.FindAsync(id);
             _context.productos.Remove(producto);
