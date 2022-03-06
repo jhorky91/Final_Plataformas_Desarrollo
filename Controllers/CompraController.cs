@@ -77,6 +77,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                         throw;
                     }
                 }
+                
+                TempData["Mensaje"] = "Compra editada exitosamente";
                 return RedirectToAction(nameof(Index));
             }
             ViewData["idUsuario"] = new SelectList(_context.usuarios, "idUsuario", "nombre", compra.idUsuario);
@@ -87,6 +89,9 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             var compra = await _context.compras.FindAsync(id);
             _context.compras.Remove(compra);
             await _context.SaveChangesAsync();
+
+            
+            TempData["Mensaje"] = "Compra eliminada exitosamente";
             return RedirectToAction(nameof(Index));
         }
 

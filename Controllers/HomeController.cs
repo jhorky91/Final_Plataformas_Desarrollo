@@ -56,6 +56,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                         await _context.SaveChangesAsync();
 
                         HttpContext.Session.SetString("SignIn", JsonConvert.SerializeObject(a));
+                        TempData["Mensaje"] = "Bienvenido " + usuario.nombre + ".";
                         return RedirectToAction("Index", "Admin");
                     }
                     //CLIENTE
@@ -65,6 +66,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                         a.name = usuario.nombre;
                         a.id = usuario.idUsuario;
                         a.esAdmin = usuario.esAdmin;
+                        a.esEmpresa = usuario.esEmpresa;
                         a.signIn = true;
 
                         var carro = _context.carros
@@ -93,23 +95,22 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                 }
                 else
                 {
+                    if (!usuario.esAdmin) 
+                    {
+                        usuario.intentos += 1;
+                        if (usuario.intentos == 3)
+                        {
+                            usuario.intentos = 0;
+                            usuario.bloqueado = true;
+                            TempData["Mensaje"] = "Error: usuario bloqueado por exceso de intentos de inicio, contactece con un administrador para ser desbloqueado";
+                        }
 
-                    usuario.intentos += 1;
-                    if (usuario.intentos < 3)
-                    {
-                        TempData["Mensaje"] = "Error: ngresaste una contraseña incorrecta.";
+                        _context.usuarios.Update(usuario);
+                        await _context.SaveChangesAsync();
                     }
-                    else
-                    {
-                        usuario.intentos = 0;
-                        usuario.bloqueado = true;
-                        TempData["Mensaje"] = "Error: usuario bloqueado por exceso de intentos de inicio, contactece con un administrador para ser desbloqueado";
-                    }
+
+                    TempData["Mensaje"] = "Error: ingresaste una contraseña incorrecta.";
                     TempData["TituloMensaje"] = "Contraseña incorrecta";
-
-                    _context.usuarios.Update(usuario);
-                    await _context.SaveChangesAsync();
-
                     return RedirectToAction("Login");
                 }
             }

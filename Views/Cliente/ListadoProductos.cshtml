@@ -156,12 +156,12 @@
                 if (prod.cantidad != 0)
                 {
                     <div class="col-6">
-                        <div class="card mb-3" style="max-width: 540px; background-color: #D2FFA5;">
+                        <div class="card mb-3" style="max-width: 600px; background-color: #D2FFA5;">
                             <div class="row no-gutters">
-                                <div class="col-md-6">
-                                    @if (File.Exists(IWebHostEnviroment.WebRootPath + "/images/productos/" + prod.nombre + ".jpg"))
+                                <div class="col-md-5">
+                                    @if (File.Exists(IWebHostEnviroment.WebRootPath + "/images/productos/" + prod.idProducto + ".png"))
                                     {
-                                        <img src="~/images/productos/@(prod.nombre).jpg" class="img-fluid" alt="...">
+                                        <img src="~/images/productos/@(prod.idProducto).png" class="img-fluid" alt="...">
                                     }
                                     else
                                     {
@@ -170,13 +170,21 @@
                                     }
 
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-7">
                                     <div class="card-body">
                                         <h5 class="card-title text-center">@prod.nombre</h5>
-                                        <p class="card-text"><b class="text-danger">Precio:</b> $@prod.precio.00</p>
+                                        <dl class="row">
+                                            <dt class="col-md-5"><p class="card-text"><b class="text-danger">Precio:</b></p></dt>
+                                            <dd class="col-md-7"><p class="card-text">$@String.Format("{0:0,0.00}", prod.precio)</p></dd>
+                                            <dt class="col-md-5"><p class="card-text"><b class="text-danger">Categoria:</b></p></dt>
+                                            <dd class="col-md-7"><p class="card-text">@prod.cat.nombre</p></dd>
+                                            <dt class="col-md-5"><p class="card-text"><b class="text-danger">Stock:</b></p></dt>
+                                            <dd class="col-md-7"><p class="card-text">@prod.cantidad unidades</p></dd>
+                                        </dl>
+                                        @*<p class="card-text"><b class="text-danger">Precio:</b> $@prod.precio.00</p>
                                         <p class="card-text"><b class="text-danger">Categoria:</b> @prod.cat.nombre</p>
-                                        <p class="card-text"><b class="text-danger">Stock:</b> @prod.cantidad unidades</p>
-                                        @*<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>*@
+                                        <p class="card-text"><b class="text-danger">Stock:</b> @prod.cantidad unidades</p>*@
+
                                         <a class="btn btn-success" asp-controller="Cliente" asp-action="DetalleProducto" asp-route-id="@prod.idProducto">Ir a Detalle</a>
                                     </div>
                                 </div>

@@ -284,7 +284,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                 _context.SaveChanges();
 
                 TempData["Mensaje"] = "Producto agregado exitosamente";
-                return RedirectToAction("Carro");
+                //return RedirectToAction("Carro");
+                return RedirectToAction("DetalleProducto","Cliente",new {model.AgregarInput.ID });
 
             }
             catch (Exception)
@@ -493,6 +494,12 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                 Usuario user = await _context.usuarios
                                             .Where(u => u.idUsuario == id_usr)
                                             .FirstOrDefaultAsync();
+                
+                //DESCUENTO DEL 21% SI ES EMPRESA
+                if (JsonConvert.DeserializeObject<Account>(HttpContext.Session.GetString("SignIn")).esEmpresa) 
+                {
+                    total = total - (total * 0.21);
+                }
 
                 Compra aux = new Compra(user, total, DateTime.Now);
                 _context.compras.Add(aux);

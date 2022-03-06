@@ -45,6 +45,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             {
                 _context.Add(producto);
                 await _context.SaveChangesAsync();
+
+                TempData["Mensaje"] = "Producto creado exitosamente";
                 return RedirectToAction(nameof(Index));
             }
             ViewData["idCategoria"] = new SelectList(_context.categorias, "idCategoria", "nombre", producto.idCategoria);
@@ -98,6 +100,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                         throw;
                     }
                 }
+                
+                TempData["Mensaje"] = "Producto modificado exitosamente";
                 return RedirectToAction(nameof(Index));
             }
             ViewData["idCategoria"] = new SelectList(_context.categorias, "idCategoria", "nombre", producto.idCategoria);
@@ -109,6 +113,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             var producto = await _context.productos.FindAsync(id);
             _context.productos.Remove(producto);
             await _context.SaveChangesAsync();
+
+            TempData["Mensaje"] = "Producto eliminado exitosamente";
             return RedirectToAction(nameof(Index));
         }
 

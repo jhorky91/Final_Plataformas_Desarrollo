@@ -44,7 +44,7 @@
                                 @item.nombre
                             </td>
                             <td>
-                                $@item.precio
+                                $@String.Format("{0:0,0.00}", item.precio)
                             </td>
                             <td>
                                 @item.cantidad
@@ -88,7 +88,7 @@
                                                             Precio
                                                         </dt>
                                                         <dd class="col-sm-6">
-                                                            $@item.precio
+                                                            $@String.Format("{0:0,0.00}", item.precio)
                                                         </dd>
                                                         <dt class="col-sm-6">
                                                             Cantidad

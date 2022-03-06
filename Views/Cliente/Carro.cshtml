@@ -1,4 +1,8 @@
-﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment IWebHostEnviroment;
+﻿@using System.IO;
+@using Newtonsoft.Json;
+@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment IWebHostEnviroment;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
 @{
     ViewData["Title"] = "Mi Carro";
     var carro = ViewData["Carro"] as IEnumerable<CarroProducto>;
@@ -53,13 +57,13 @@
 
 
 
-        <div class="row bg-info py-5">
-            <div class="col-lg-12 text-center">
-                <div>
-                    <h2>Mi Carro</h2>
-                </div>
-            </div>
+<div class="row bg-info py-5">
+    <div class="col-lg-12 text-center">
+        <div>
+            <h2>Mi Carro</h2>
         </div>
+    </div>
+</div>
 
 
 
@@ -92,19 +96,27 @@
                                 <h5>@cont</h5>
                             </td>
                             <td style="vertical-align:middle;">
-                                <img src="~/images/productos/Papas.jpg" class="img-fluid" alt="">
+                                @if (File.Exists(IWebHostEnviroment.WebRootPath + "/images/productos/" + carprod.producto.idProducto + ".png"))
+                                {
+                                    <img src="~/images/productos/@(carprod.producto.idProducto).png" class="img-fluid" alt="...">
+                                }
+                                else
+                                {
+                                    <img src="~/images/categorias/cat-1.png" class="img-fluid" alt="Imagen Generica" />
+
+                                }
                             </td>
                             <td style="vertical-align:middle;">
                                 <h5>@carprod.producto.nombre</h5>
                             </td>
                             <td style="vertical-align:middle;">
-                                <h5>$@carprod.producto.precio</h5>
+                                <h5>$@String.Format("{0:0,0.00}", carprod.producto.precio)</h5>
                             </td>
                             <td style="vertical-align:middle;">
                                 <h5>@carprod.cantidad</h5>
                             </td>
                             <td style="vertical-align:middle;">
-                                <h5>$@subTotal</h5>
+                                <h5>$@String.Format("{0:0,0.00}", subTotal)</h5>
                             </td>
                             <td style="vertical-align:middle;">
                                 @* MODIFICAR PRODUCTO *@
@@ -196,19 +208,41 @@
                 }
             </table>
         </div>
-    </div>
-
-    <div class="container">
+    </div><div class="container">
         <hr />
         <div class="row justify-content-around mb-5">
             <button type="button" class="btn btn-danger align-self-center" data-toggle="modal" data-target="#modalVaciarCarro"> Vaciar el Carro </button>
 
             <div class="card bg-gray-light" style="width:500px;">
                 <h3 class="text-center mb-5">Importe a pagar</h3>
-                <div class="row justify-content-around">
-                    <h5 class="mr-3">Total</h5>
-                    <h5 class="text-danger">$@total</h5>
-                </div>
+
+                <dl class="row " align="center">
+                    @if (JsonConvert.DeserializeObject<Account>(HttpContextAccessor.HttpContext.Session.GetString("SignIn")).esEmpresa)
+                    {
+                        <dt class="col-sm-6">
+                            <h5>Descuento(21%)</h5>
+                        </dt>
+                        <dd class="col-sm-6 text-success">
+                            <h5>$@(String.Format("{0:0,0.00}", (total * 0.21)))</h5>
+                        </dd>
+                        <dt class="col-sm-6">
+                            <h5>Total</h5>
+                        </dt>
+                        <dd class="col-sm-6 text-danger">
+                            <h5>$@(String.Format("{0:0,0.00}", total - (total * 0.21)))</h5>
+                        </dd>
+                    }
+                    else
+                    {
+                        <dt class="col-sm-6">
+                            <h5>Total</h5>
+                        </dt>
+                        <dd class="col-sm-6 text-danger">
+                            <h5>$@String.Format("{0:0,0.00}", total)</h5>
+                        </dd>
+                    }
+
+                </dl>
             </div>
             <button type="button" class="btn btn-success align-self-center" data-toggle="modal" data-target="#modalComprar"> Comprar </button>
         </div>

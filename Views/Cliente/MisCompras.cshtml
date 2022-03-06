@@ -4,7 +4,11 @@
 }
 @model List<Final_Plataformas_De_Desarrollo.Models.Compra>;
 
-<div class="row bg-info py-5">
+@using System.IO;
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment IWebHostEnviroment;
+
+
+<div class="row py-5 bg-info">
     <div class="col-lg-12 text-center">
         <div>
             <h2>Mis Compras</h2>
@@ -12,90 +16,90 @@
     </div>
 </div>
 
-@if (Model.Count() >= 1)
-{
-    <div class="row">
-        <div class="col-md-12 mb-5 d-flex justify-content-center">
-            @* Tabla Carro *@
-            <table class="table table-xl-responsive-borderless w-75" cellspacing="0">
-                <thead class="thead-dark">
-                    <tr align="center">
-                        <th>Fecha</th>
-                        <th>Total</th>
-                        <th>Accion</th>
-                    </tr>
-                </thead>
-                @foreach (Compra com in Model)
-                {
-
-                    <tbody>
+    @if (Model.Count() >= 1)
+    {
+        <div class="row">
+            <div class="col-md-12 mb-5 d-flex justify-content-center">
+                @* Tabla Carro *@
+                <table class="table table-xl-responsive-borderless w-75" cellspacing="0">
+                    <thead class="thead-dark">
                         <tr align="center">
-                            <td>
-                                <h5>@com.fechaCreacion.ToString("yyyy-MM-dd")</h5>
-                            </td>
-                            <td>
-                                <h5>@com.total</h5>
-                            </td>
-                            <td>
+                            <th>Fecha</th>
+                            <th>Total</th>
+                            <th>Accion</th>
+                        </tr>
+                    </thead>
+                    @foreach (Compra com in Model)
+                    {
 
-                                @* MODIFICAR PRODUCTO *@
-                                <button type="button" class="btn btn-success " data-toggle="modal" data-target="@("#modalDetalle" + com.idCompra.ToString())"> <i class="fas fa-edit text-white"></i> </button>
+                        <tbody>
+                            <tr align="center">
+                                <td>
+                                    <h5>@com.fechaCreacion.ToString("yyyy-MM-dd")</h5>
+                                </td>
+                                <td>
+                                    <h5>$@String.Format("{0:0,0.00}", com.total)</h5>
+                                </td>
+                                <td>
 
-                                @* MODAL MODIFICAR PRODUCTO DEL CARRO *@
+                                    @* MODIFICAR PRODUCTO *@
+                                    <button type="button" class="btn btn-success " data-toggle="modal" data-target="@("#modalDetalle" + com.idCompra.ToString())"> <i class="fas fa-eye text-white"></i> </button>
 
-                                <div class="modal" id="@("modalDetalle"+com.idCompra.ToString())" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header bg-danger text-white">
-                                                <h5 class="modal-title" id="modalDelCenteredLabel">@com.fechaCreacion.ToString("yyyy-MM-dd")</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <table>
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Producto</th>
-                                                            <th>Precio</th>
-                                                            <th>Cantidad</th>
-                                                            <th>Total</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach (CompraProducto cp in com.compraProducto)
-                                                        {
-                                                            <tr>
-                                                                <td>@cp.producto.nombre</td>
-                                                                <td>@cp.producto.precio</td>
-                                                                <td>@cp.cantidad</td>
-                                                                <td>@(cp.producto.precio * cp.cantidad)</td>
+                                    @* MODAL MODIFICAR PRODUCTO DEL CARRO *@
+
+                                    <div class="modal" id="@("modalDetalle"+com.idCompra.ToString())" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header bg-danger text-white">
+                                                    <h5 class="modal-title" id="modalDelCenteredLabel">@("Fecha de compra: "+com.fechaCreacion.ToString("yyyy-MM-dd"))</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <table class="table table-bordeles">
+                                                        <thead>
+                                                            <tr align="center">
+                                                                <th>Producto</th>
+                                                                <th>Precio</th>
+                                                                <th>Cantidad</th>
+                                                                <th>Total</th>
                                                             </tr>
-                                                        }
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (CompraProducto cp in com.compraProducto)
+                                                            {
+                                                                <tr align="center">
+                                                                    <td>@cp.producto.nombre</td>
+                                                                    <td>$@String.Format("{0:0,0.00}", cp.producto.precio)</td>
+                                                                    <td>@cp.cantidad</td>
+                                                                    <td>$@(String.Format("{0:0,0.00}", (cp.producto.precio * cp.cantidad)) )</td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
 
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                @* FIN DEL MODAL MODIFICAR PRODUCTO DEL CARRO *@
+                                    @* FIN DEL MODAL MODIFICAR PRODUCTO DEL CARRO *@
 
-                            </td>
-                        </tr>
-                    </tbody>
-                }
-            </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
         </div>
-    </div>
 
-}
-else
-{
-    <div class="row justify-content-center my-5">
-        <h5>No se encontraron compras registradas</h5>
-    </div>
-    <hr />
-}
+    }
+    else
+    {
+        <div class="row justify-content-center my-5">
+            <h5>No se encontraron compras registradas</h5>
+        </div>
+        <hr />
+    }
 

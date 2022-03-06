@@ -1,7 +1,7 @@
 ﻿
 @using Microsoft.AspNetCore.Http;
-@using Newtonsoft.Json;
 @using Final_Plataformas_De_Desarrollo.Models;
+@using Newtonsoft.Json;
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
 
 <!DOCTYPE html>
@@ -22,12 +22,8 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar bg-dark box-shadow">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Cliente" asp-action="Index">Logo</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
+                <img src="~/images/logo.png" class="float-left d-flex" style="width:60px"/>
+                
                 @if (HttpContextAccessor.HttpContext.Session.GetString("SignIn") != null)
                 {
 
@@ -64,7 +60,7 @@
 
 
                     @*  CERRAR SESION  *@
-             
+
                     <div class="user-menu">
                         <button class="btn btn-success userbtn-menu">
                             <i class="fa-solid fa-user text-white" style="font-size:25px;"></i>
@@ -116,7 +112,7 @@
 
     <footer class="footer text-white bg-dark">
         <div class="container">
-            &copy; 2022 - Final_Plataformas_De_Desarrollo - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - Final_Plataformas_De_Desarrollo 
         </div>
     </footer>
 
@@ -128,7 +124,7 @@
     @RenderSection("Scripts", required: false)
 
 
-    @if (HttpContextAccessor.HttpContext.Session.GetString("SignIn") == null && ViewData["Title"].ToString() != "Login" )
+    @if (HttpContextAccessor.HttpContext.Session.GetString("SignIn") == null && ViewData["Title"].ToString() != "Login")
     {
 
         @* MODAL SESION CADUCADA *@

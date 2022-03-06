@@ -42,6 +42,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             {
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
+                
+                TempData["Mensaje"] = "Usuario creado exitosamente";
                 return RedirectToAction(nameof(Index));
             }
             return View(usuario);
@@ -93,6 +95,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                         throw;
                     }
                 }
+                
+                TempData["Mensaje"] = "Usuario editado exitosamente";
                 return RedirectToAction(nameof(Index));
             }
             return View(usuario);
@@ -103,6 +107,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             var usuario = await _context.usuarios.FindAsync(id);
             _context.usuarios.Remove(usuario);
             await _context.SaveChangesAsync();
+
+            TempData["Mensaje"] = "Usuario eliminado exitosamente";
             return RedirectToAction(nameof(Index));
         }
 

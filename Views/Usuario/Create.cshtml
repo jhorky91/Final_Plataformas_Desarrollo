@@ -44,22 +44,28 @@
             </div>
             <div class="form-group row">
                 <label class="control-label col-md-6">Es Admin</label>
-                <input role="checkbox" class="align-self-center col-md-6" asp-for="esAdmin" />
+                <div class="col-md-6 d-flex justify-content-center  custom-switch custom-switch-off-danger custom-switch-on-success" style="transform:scale(1.5)">
+                    <input type="checkbox" class="custom-control-input " id="customSwitch1" asp-for="esAdmin">
+                    <label class="custom-control-label " for="customSwitch1"></label>
+                </div>
             </div>
             <div class="form-group row">
                 <label class="control-label col-md-6">Es Empresa</label>
-                <input role="checkbox" class="align-self-center col-md-6" asp-for="esEmpresa" />
+                <div class="col-md-6 d-flex justify-content-center  custom-switch custom-switch-off-danger custom-switch-on-success" style="transform:scale(1.5)">
+                    <input type="checkbox" class="custom-control-input " id="customSwitch2" asp-for="esEmpresa">
+                    <label class="custom-control-label " for="customSwitch2"></label>
+                </div>
             </div>
-            <div class="form-group row">
-                <input asp-for="intentos" class="form-control col-md-6" value="0" hidden/>                
-            </div>
-            <div class="form-group row">
-                <input role="checkbox" class="align-self-center col-md-6" asp-for="bloqueado" value="false" hidden/>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Crear" class="btn btn-warning" />
-            </div>
-        </form>
+                <div class="form-group row">
+                    <input asp-for="intentos" class="form-control col-md-6" value="0" hidden />
+                </div>
+                <div class="form-group row">
+                    <input role="checkbox" class="align-self-center col-md-6" asp-for="bloqueado" value="false" hidden />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Crear" class="btn btn-warning" />
+                </div>
+</form>
 
         <hr style="border-color:gray;" />
         <div>

@@ -8,14 +8,22 @@
 }
 @model FormulariosViewModel;
 
+    <div class="row bg-info py-5">
+        <div class="col-lg-12 text-center">
+            <div>
+                <h2>Detalle del Producto</h2>
+            </div>
+        </div>
+    </div>
+
 <div class="row">
     <div class="col-12 justify-content-center">
         <div class="card my-5 mx-5">
             <div class="row no-gutters">
-                <div class="col-md-6">
-                    @if (File.Exists(IWebHostEnviroment.WebRootPath + "/images/productos/" + prod.nombre + ".jpg"))
+                <div class="col-md-6 d-flex justify-content-center">
+                    @if (File.Exists(IWebHostEnviroment.WebRootPath + "/images/productos/" + prod.idProducto + ".png"))
                     {
-                        <img src="~/images/productos/@(prod.nombre).jpg" class="img-fluid" alt="Imagen del producto" />
+                        <img src="~/images/productos/@(prod.idProducto).png" class="img-fluid" alt="Imagen del producto" />
                     }
                     else
                     {
@@ -25,18 +33,22 @@
                 </div>
                 <div class="col-md-6">
                     <div class="card-body">
-                        <h5 class="card-title">@prod.nombre</h5>
-                        <h6 class="card-subtitle text-danger">$@prod.precio.00</h6>
-                        <table border="0">
-                            <tr>
-                                <td>Categoria:</td>
-                                <td>@prod.cat.nombre</td>
-                            </tr>
-                            <tr>
-                                <td>Cantidad en Stock:</td>
-                                <td>@prod.cantidad unidades</td>
-                            </tr>
-                        </table>
+                        <h3 class="font-weight-bold mb-3">@prod.nombre</h3>
+                        <div class="w-25 mb-3">
+                            <i class="fa fa-star text-warning"></i>
+                            <i class="fa fa-star text-warning"></i>
+                            <i class="fa fa-star text-warning"></i>
+                            <i class="fa fa-star text-warning"></i>
+                            <i class="fa fa-star text-warning"></i>
+                        </div>
+                        <h3 class="text-danger mb-3">$@String.Format("{0:0,0.00}", prod.precio)</h3>
+                        <dl class="row mb-3">
+                            <dt class="col-md-5"><p class="h5"><b class="font-weight-bold">Categoría:</b></p></dt>
+                            <dd class="col-md-7"><p class="h5">@prod.cat.nombre</p></dd>
+                            <dt class="col-md-5"><p class="h5"><b class="font-weight-bold">Cantidad en Stock:</b></p></dt>
+                            <dd class="col-md-7"><p class="h5">@prod.cantidad unidades</p></dd>
+                        </dl>
+
                         <button type="button" class="btn btn-success " data-toggle="modal" data-target="#modalAdd"> Agregar al Carro </button>
                     </div>
                 </div>
@@ -64,9 +76,9 @@
                     <div class="card">
                         <div class="card-header">
 
-                            @if (File.Exists(IWebHostEnviroment.WebRootPath + "/images/productos/" + prodR.nombre + ".jpg"))
+                            @if (File.Exists(IWebHostEnviroment.WebRootPath + "/images/productos/" + prodR.idProducto + ".png"))
                             {
-                                <img src="~/images/productos/@(prodR.nombre).jpg"  class="img-fluid" alt="Imagen del producto" />
+                                <img src="~/images/productos/@(prodR.idProducto).png"  class="img-fluid" alt="Imagen del producto" />
                             }
                             else
                             {
@@ -75,7 +87,7 @@
                             }
                             <div class="card-body">
                                 <h6 class="card-title">@prodR.nombre</h6>
-                                <span>$@prodR.precio.00</span>
+                                <span>$@String.Format("{0:0,0.00}", prodR.precio)</span>
                                 <h6><a asp-controller="Cliente" asp-action="DetalleProducto" asp-route-id="@prodR.idProducto" class="btn btn-success">Ir a Detalle</a></h6>
                             </div>
                         </div>

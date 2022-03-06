@@ -63,8 +63,7 @@
                                         </div>
                                         <div class="modal-body align-content-center">
                                             <div>
-                                                <hr style="border-color:gray;" />
-                                                <table class="table table-xl-responsive w-75" cellspacing="0">
+                                                <table class="table table-xl-responsive" cellspacing="0">
                                                     <thead>
                                                         <tr align="center">
                                                             <th>
@@ -91,13 +90,13 @@
                                                                     @carprod.producto.nombre
                                                                 </td>
                                                                 <td>
-                                                                    @carprod.producto.precio
+                                                                    $@String.Format("{0:0,0.00}", carprod.producto.precio)
                                                                 </td>
                                                                 <td>
                                                                     @carprod.cantidad
                                                                 </td>
                                                                 <td>
-                                                                    @subtotal
+                                                                    $@String.Format("{0:0,0.00}", subtotal)
                                                                 </td>
                                                             </tr>
                                                         }
@@ -110,7 +109,7 @@
                                                         Total:
                                                     </dt>
                                                     <dd class="col-sm-6">
-                                                        @total
+                                                        $@String.Format("{0:0,0.00}", total)
                                                     </dd>
                                                 </dl>
                                                 <hr style="border-color:gray;" />

@@ -42,6 +42,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             {
                 _context.Add(categoria);
                 await _context.SaveChangesAsync();
+                
+                TempData["Mensaje"] = "Categoria creada exitosamente";
                 return RedirectToAction(nameof(Index));
             }
             return View(categoria);
@@ -93,6 +95,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                         throw;
                     }
                 }
+                
+                TempData["Mensaje"] = "Categoria modificada exitosamente";
                 return RedirectToAction(nameof(Index));
             }
             return View(categoria);
@@ -114,6 +118,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
 
             _context.categorias.Remove(categoria);
             await _context.SaveChangesAsync();
+            
+            TempData["Mensaje"] = "Categoria eliminada exitosamente";
             return RedirectToAction(nameof(Index));
         }
 

@@ -40,7 +40,7 @@
                             @item.idUsuario
                         </td>
                         <td>
-                            $@item.total
+                            $@String.Format("{0:0,0.00}", item.total)
                         </td>
                         <td>
 
@@ -62,7 +62,7 @@
                                         </div>
                                         <div class="modal-body align-content-center">
                                             <div>
-                                                <hr style="border-color:gray;" />
+                                                
                                                 <table class="table table-xl-responsive " cellspacing="0">
                                                     <thead>
                                                         <tr align="center">
@@ -90,13 +90,13 @@
                                                                     @compprod.producto.nombre
                                                                 </td>
                                                                 <td>
-                                                                    $@compprod.producto.precio
+                                                                    $@String.Format("{0:0,0.00}", compprod.producto.precio)
                                                                 </td>
                                                                 <td>
                                                                     @compprod.cantidad
                                                                 </td>
                                                                 <td>
-                                                                    $@subtotal
+                                                                    $@String.Format("{0:0,0.00}", subtotal)
                                                                 </td>
                                                             </tr>
                                                         }
@@ -109,7 +109,7 @@
                                                         Total:
                                                     </dt>
                                                     <dd class="col-sm-6">
-                                                        $@total
+                                                        $@String.Format("{0:0,0.00}", total)
                                                     </dd>
                                                 </dl>
                                                 <hr style="border-color:gray;" />
