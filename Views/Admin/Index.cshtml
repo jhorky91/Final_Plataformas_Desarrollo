@@ -1,6 +1,6 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutA.cshtml";
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Home Admin";
 }
 @model IEnumerable<Final_Plataformas_De_Desarrollo.Models.Carro>
 
@@ -14,7 +14,7 @@
                 <span class="info-box-icon bg-info elevation-1"><i class="fa-solid fa-cart-arrow-down"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Carros</span>
-                    <span class="info-box-number">18</span>
+                    <span class="info-box-number"> @ViewData["Carros"]</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -25,7 +25,7 @@
                 <span class="info-box-icon bg-success elevation-1"><i class="fa-solid fa-cart-shopping"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Compras</span>
-                    <span class="info-box-number">20</span>
+                    <span class="info-box-number">@ViewData["Compras"]</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -36,7 +36,7 @@
                 <span class="info-box-icon bg-danger elevation-1"><i class="fa-solid fa-boxes-stacked"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Productos</span>
-                    <span class="info-box-number">15</span>
+                    <span class="info-box-number"> @ViewData["Productos"]</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -47,7 +47,7 @@
                 <span class="info-box-icon bg-warning elevation-1"><i class="fa-solid fa-users"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Usuarios</span>
-                    <span class="info-box-number">10</span>
+                    <span class="info-box-number">@ViewData["Usuarios"]</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>

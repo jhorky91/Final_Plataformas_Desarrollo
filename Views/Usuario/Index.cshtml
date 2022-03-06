@@ -2,19 +2,19 @@
 
 @{
     Layout = "~/Views/Shared/_LayoutA.cshtml";
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Usuarios";
 }
 
 <h1>Usuarios</h1>
 
-<a class="btn btn-success"  asp-action="Create">Nuevo Usuario</a>
+<a class="btn btn-warning"  asp-action="Create">Nuevo Usuario</a>
 
 <div class="card-body">
     <div class="table-responsive">
         <div style="overflow-x:auto;">
             <table class="table table-xl-responsive-borderless" id="tablajson" width="100%" cellspacing="0">
                 <thead>
-                    <tr>
+                    <tr align="center">
                         <th>
                             DNI
                         </th>
@@ -44,7 +44,7 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
+                        <tr align="center">
                             <td>
                                 @Html.DisplayFor(modelItem => item.dni)
                             </td>
@@ -55,21 +55,152 @@
                                 @Html.DisplayFor(modelItem => item.apellido)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.esAdmin)
+                                <div class="d-flex justify-content-center  custom-switch custom-switch-off-danger custom-switch-on-success">
+                                    <input type="checkbox" class="custom-control-input " id="customSwitch1" asp-for="@item.esAdmin" disabled>
+                                    <label class="custom-control-label " for="customSwitch1"></label>
+                                </div>
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.esEmpresa)
+                                <div class="d-flex justify-content-center  custom-switch custom-switch-off-danger custom-switch-on-success">
+                                    <input type="checkbox" class="custom-control-input " id="customSwitch2" asp-for="@item.esEmpresa" disabled>
+                                    <label class="custom-control-label " for="customSwitch2"></label>
+                                </div>
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.intentos)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.bloqueado)
+                                <div class="d-flex justify-content-center  custom-switch custom-switch-off-danger custom-switch-on-success" >
+                                    <input type="checkbox" class="custom-control-input " id="customSwitch3"  asp-for="@item.bloqueado" disabled>
+                                    <label class="custom-control-label " for="customSwitch3"></label>
+                                </div>
                             </td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@item.idUsuario"><i class="fas fa-edit text-success"></i></a> |
-                                <a asp-action="Details" asp-route-id="@item.idUsuario"><i class="fas fa-eye text-success"></i></a> |
-                                <a asp-action="Delete" asp-route-id="@item.idUsuario"><i class="fas fa-trash-alt text-success"></i></a>
+
+                                @* DETALLES USUARIO *@
+                                <a role="button" data-toggle="modal" data-target="@("#modalDetalle" + item.idUsuario.ToString())"> <i class="fas fa-eye text-warning"></i> </a>|
+                                @* ELIMINAR USUARIO *@
+                                <a role="button" data-toggle="modal" data-target="@("#modalDel" + item.idUsuario.ToString())"> <i class="fas fa-trash-alt text-warning"></i> </a>
+
+
+                                @* MODAL DETALLES USUARIO *@
+
+                                <div class="modal" id="@("modalDetalle" + item.idUsuario.ToString())" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-danger text-white">
+                                                <h5 class="modal-title text-center" id="modalDelCenteredLabel">Detalles del Usuario</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body align-content-center">
+                                                <div>
+                                                    <hr style="border-color:gray;" />
+
+                                                    <dl class="row " align="left">
+                                                        <dt class="col-sm-6">
+                                                            DNI
+                                                        </dt>
+                                                        <dd class="col-sm-6">
+                                                            @item.dni
+                                                        </dd>
+                                                        <dt class="col-sm-6">
+                                                            Nombre
+                                                        </dt>
+                                                        <dd class="col-sm-6">
+                                                            @item.nombre
+                                                        </dd>
+                                                        <dt class="col-sm-6">
+                                                            Apellido
+                                                        </dt>
+                                                        <dd class="col-sm-6">
+                                                            @item.apellido
+                                                        </dd>
+                                                        <dt class="col-sm-6">
+                                                            Email
+                                                        </dt>
+                                                        <dd class="col-sm-6">
+                                                            @item.mail
+                                                        </dd>
+                                                        <dt class="col-sm-6">
+                                                            CUIT-CUIL
+                                                        </dt>
+                                                        <dd class="col-sm-6">
+                                                            @item.cuit_cuil
+                                                        </dd>
+                                                        <dt class="col-sm-6">
+                                                            Es Admin
+                                                        </dt>
+                                                        <dd class="col-sm-6">
+                                                            <div class="custom-switch custom-switch-off-danger custom-switch-on-success">
+                                                                <input type="checkbox" class="custom-control-input " id="customSwitch1" asp-for="@item.esAdmin" disabled>
+                                                                <label class="custom-control-label " for="customSwitch1"></label>
+                                                            </div>
+                                                        </dd>
+                                                        <dt class="col-sm-6">
+                                                            Es Empresa
+                                                        </dt>
+                                                        <dd class="col-sm-6">
+                                                            <div class="custom-switch custom-switch-off-danger custom-switch-on-success">
+                                                                <input type="checkbox" class="custom-control-input " id="customSwitch2" asp-for="@item.esEmpresa" disabled>
+                                                                <label class="custom-control-label " for="customSwitch2"></label>
+                                                            </div>
+                                                        </dd>
+                                                        <dt class="col-sm-6">
+                                                            Intentos de inicio
+                                                        </dt>
+                                                        <dd class="col-sm-6">
+                                                            @item.intentos
+                                                        </dd>
+                                                        <dt class="col-sm-6">
+                                                            Bloqueado
+                                                        </dt>
+                                                        <dd class="col-sm-6">
+                                                            <div class="custom-switch custom-switch-off-danger custom-switch-on-success">
+                                                                <input type="checkbox" class="custom-control-input " id="customSwitch3" asp-for="@item.bloqueado" disabled>
+                                                                <label class="custom-control-label " for="customSwitch3"></label>
+                                                            </div>
+                                                        </dd>
+                                                    </dl>
+                                                    <hr style="border-color:gray;" />
+                                                </div>
+                                                <div>
+                                                    <a role="button" class="btn btn-warning" asp-action="Edit" asp-route-id="@item.idUsuario"><label class="text-bold">Editar</label></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                @* FIN DEL MODAL DETALLES USUARIO *@
+
+                                @* MODAL ELIMINAR USUARIO *@
+
+                                <div class="modal" id="@("modalDel" + item.idUsuario.ToString())" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-danger text-white">
+                                                <h5 class="modal-title" id="modalDelCenteredLabel">¿Estas seguro que deseas eliminar el usuario @item.nombre ?</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <span>
+                                                    Si le das confirmar, el usuario se eliminará .
+                                                </span>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a class="btn btn-warning" asp-action="Eliminar" asp-route-id="@item.idUsuario">Confirmar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @* FIN DEL MODAL ELIMINAR USUARIO *@
+
                             </td>
                         </tr>
                     }

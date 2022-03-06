@@ -25,25 +25,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             return View(await _context.categorias.ToListAsync());
         }
 
-        // GET: Categoria/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var categoria = await _context.categorias
-                .FirstOrDefaultAsync(m => m.idCategoria == id);
-            if (categoria == null)
-            {
-                return NotFound();
-            }
-
-            return View(categoria);
-        }
-
-        // GET: Categoria/Create
+       // GET: Categoria/Create
         public IActionResult Create()
         {
             return View();
@@ -116,25 +98,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             return View(categoria);
         }
 
-        // GET: Categoria/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var categoria = await _context.categorias
-                .FirstOrDefaultAsync(m => m.idCategoria == id);
-            if (categoria == null)
-            {
-                return NotFound();
-            }
-
-            return View(categoria);
-        }
-
-        // POST: Categoria/Delete/5
+       
         public async Task<IActionResult> Eliminar(int id)
         {
             var categoria = await _context.categorias.FindAsync(id);
@@ -147,6 +111,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                 prod.idCategoria = 1; //le asignamos la categoria "SIN CATEGORIA"
                 _context.productos.Update(prod);
             }
+
             _context.categorias.Remove(categoria);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

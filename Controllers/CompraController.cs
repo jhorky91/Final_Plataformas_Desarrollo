@@ -22,30 +22,13 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         // GET: Compra
         public async Task<IActionResult> Index()
         {
-            var myContext = _context.compras.Include(c => c.usuario);
+            var myContext = _context.compras
+                                .Include(c => c.compraProducto)
+                                .ThenInclude(cp => cp.producto);
             return View(await myContext.ToListAsync());
         }
 
-        // GET: Compra/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var compra = await _context.compras
-                .Include(c => c.usuario)
-                .FirstOrDefaultAsync(m => m.idCompra == id);
-            if (compra == null)
-            {
-                return NotFound();
-            }
-
-            return View(compra);
-        }
-
-
+        
         // GET: Compra/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -79,6 +62,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             {
                 try
                 {
+                    compra.fechaCreacion = DateTime.Now;
                     _context.Update(compra);
                     await _context.SaveChangesAsync();
                 }
@@ -98,30 +82,7 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             ViewData["idUsuario"] = new SelectList(_context.usuarios, "idUsuario", "nombre", compra.idUsuario);
             return View(compra);
         }
-
-        // GET: Compra/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var compra = await _context.compras
-                .Include(c => c.usuario)
-                .FirstOrDefaultAsync(m => m.idCompra == id);
-            if (compra == null)
-            {
-                return NotFound();
-            }
-
-            return View(compra);
-        }
-
-        // POST: Compra/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Eliminar(int id)
         {
             var compra = await _context.compras.FindAsync(id);
             _context.compras.Remove(compra);

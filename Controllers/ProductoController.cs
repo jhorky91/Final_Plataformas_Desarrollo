@@ -26,25 +26,6 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             return View(await myContext.ToListAsync());
         }
 
-        // GET: Producto/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var producto = await _context.productos
-                .Include(p => p.cat)
-                .FirstOrDefaultAsync(m => m.idProducto == id);
-            if (producto == null)
-            {
-                return NotFound();
-            }
-
-            return View(producto);
-        }
-
         // GET: Producto/Create
         public IActionResult Create()
         {
@@ -123,26 +104,6 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             return View(producto);
         }
 
-        // GET: Producto/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var producto = await _context.productos
-                .Include(p => p.cat)
-                .FirstOrDefaultAsync(m => m.idProducto == id);
-            if (producto == null)
-            {
-                return NotFound();
-            }
-
-            return View(producto);
-        }
-
-        
         public async Task<IActionResult> Eliminar(int id)
         {
             var producto = await _context.productos.FindAsync(id);

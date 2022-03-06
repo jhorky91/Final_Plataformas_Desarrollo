@@ -25,24 +25,6 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             return View(await _context.usuarios.ToListAsync());
         }
 
-        // GET: Usuario/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var usuario = await _context.usuarios
-                .FirstOrDefaultAsync(m => m.idUsuario == id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-
-            return View(usuario);
-        }
-
         // GET: Usuario/Create
         public IActionResult Create()
         {
@@ -115,29 +97,8 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
             }
             return View(usuario);
         }
-
-        // GET: Usuario/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var usuario = await _context.usuarios
-                .FirstOrDefaultAsync(m => m.idUsuario == id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-
-            return View(usuario);
-        }
-
-        // POST: Usuario/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        
+        public async Task<IActionResult> Eliminar(int id)
         {
             var usuario = await _context.usuarios.FindAsync(id);
             _context.usuarios.Remove(usuario);

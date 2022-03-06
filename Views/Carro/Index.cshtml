@@ -2,36 +2,129 @@
 
 @{
     Layout = "~/Views/Shared/_LayoutA.cshtml";
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Carros";
+    double total = 0;
+    double subtotal = 0;
 }
 
 <h1>Carros</h1>
 
 <div class="card-body">
-    <div class="table-responsive">
+    <div class="">
         <div style="overflow-x:auto;">
-            <table class="table table-xl-responsive-borderless" id="tablajson" width="100%" cellspacing="0">
+            <table class="table table-xl-responsive-borderless w-75" id="tablajson"  cellspacing="0">
                 <thead>
-                    <tr>
+                    <tr align="center">
                         <th>
                             Usuario
                         </th>
                         <th>
-                            Acciones
+                            Cant. de Productos
+                        </th>
+                        <th>
+                            Accion
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
-                    <tr>
+                        total = 0;
+                    <tr align="center">
                         <td>
-                            @Html.DisplayFor(modelItem => item.usuario.nombre)
+                            @item.idUsuario
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.idCarro"><i class="fas fa-edit text-success"></i></a> |
-                            <a asp-action="Details" asp-route-id="@item.idCarro"><i class="fas fa-eye text-success"></i></a> |
-                            <a asp-action="Delete" asp-route-id="@item.idCarro"><i class="fas fa-trash-alt text-success"></i></a>
+                            @item.carroProducto.Count()
+                        </td>
+                        <td>
+                            @if (item.carroProducto.Count() != 0)
+                            {
+                                @* DETALLES DEL CARRO *@
+                                <a role="button" data-toggle="modal" data-target="@("#modalDetalle" + item.idCarro.ToString())"> <i class="fas fa-eye text-warning"></i> </a>
+                            }
+                            else
+                            {
+                                @* DESHABILITADO *@
+                                <abbr title="Carro Vacio" ><a data-toggle="" data-target=""><i class="fas fa-eye text-danger" ></i> </a></abbr>
+                            }
+
+
+                            @* MODAL DETALLES DEL CARRO *@
+
+                            <div class="modal" id="@("modalDetalle" + item.idCarro.ToString())" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-danger text-white">
+                                            <h5 class="modal-title text-center" id="modalDelCenteredLabel">Detalles del Carro</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body align-content-center">
+                                            <div>
+                                                <hr style="border-color:gray;" />
+                                                <table class="table table-xl-responsive w-75" cellspacing="0">
+                                                    <thead>
+                                                        <tr align="center">
+                                                            <th>
+                                                                Producto
+                                                            </th>
+                                                            <th>
+                                                                Precio
+                                                            </th>
+                                                            <th>
+                                                                Cantidad
+                                                            </th>
+                                                            <th>
+                                                                Subtotal
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (CarroProducto carprod in item.carroProducto)
+                                                        {
+                                                            subtotal = (carprod.producto.precio * carprod.cantidad);
+                                                            total += subtotal;
+                                                            <tr align="center">
+                                                                <td>
+                                                                    @carprod.producto.nombre
+                                                                </td>
+                                                                <td>
+                                                                    @carprod.producto.precio
+                                                                </td>
+                                                                <td>
+                                                                    @carprod.cantidad
+                                                                </td>
+                                                                <td>
+                                                                    @subtotal
+                                                                </td>
+                                                            </tr>
+                                                        }
+
+                                                    </tbody>
+                                                </table>
+                                                <hr style="border-color:gray;" />
+                                                <dl class="row ">
+                                                    <dt class="col-sm-6">
+                                                        Total:
+                                                    </dt>
+                                                    <dd class="col-sm-6">
+                                                        @total
+                                                    </dd>
+                                                </dl>
+                                                <hr style="border-color:gray;" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            @* FIN DEL MODAL DETALLES DEL CARRO *@
+
+
                         </td>
                     </tr>
                     }

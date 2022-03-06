@@ -2,77 +2,91 @@
 
 @{
     Layout = "~/Views/Shared/_LayoutA.cshtml";
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Usuario";
 }
 
-<h1>Edit</h1>
-
-<h4>Usuario</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+    <div class="col-md-12">
+
+        <h3>Modificar Usuario</h3>
+        <hr style="border-color:gray;" />
+
+        <form asp-action="Edit" style="width:50%">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="idUsuario" />
-            <div class="form-group">
-                <label asp-for="dni" class="control-label"></label>
-                <input asp-for="dni" class="form-control" />
+            <div class="form-group row">
+                <label class="control-label col-md-6">DNI</label>
+                <input asp-for="dni" class="form-control col-md-6" autofocus />
                 <span asp-validation-for="dni" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="nombre" class="control-label"></label>
-                <input asp-for="nombre" class="form-control" />
+            <div class="form-group row">
+                <label class="control-label col-md-6">Nombre</label>
+                <input asp-for="nombre" class="form-control col-md-6" autofocus />
                 <span asp-validation-for="nombre" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="apellido" class="control-label"></label>
-                <input asp-for="apellido" class="form-control" />
+            <div class="form-group row">
+                <label class="control-label col-md-6">Apellido</label>
+                <input asp-for="apellido" class="form-control col-md-6" />
                 <span asp-validation-for="apellido" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="mail" class="control-label"></label>
-                <input asp-for="mail" class="form-control" />
+            <div class="form-group row">
+                <label class="control-label col-md-6">Email</label>
+                <input asp-for="mail" class="form-control col-md-6" />
                 <span asp-validation-for="mail" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="password" class="control-label"></label>
-                <input asp-for="password" class="form-control" />
+            <div class="form-group row">
+                <label class="control-label col-md-6">Contraseña</label>
+                <input asp-for="password" class="form-control col-md-6" />
                 <span asp-validation-for="password" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="cuit_cuil" class="control-label"></label>
-                <input asp-for="cuit_cuil" class="form-control" />
+            <div class="form-group row">
+                <label class="control-label col-md-6">CUIT-CUIL</label>
+                <input asp-for="cuit_cuil" class="form-control col-md-6" />
                 <span asp-validation-for="cuit_cuil" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="esAdmin" /> @Html.DisplayNameFor(model => model.esAdmin)
-                </label>
+
+            <div class="form-group row">
+                <label class="control-label col-md-6">Es Admin</label>
+                <div class="col-md-6 d-flex justify-content-center  custom-switch custom-switch-off-danger custom-switch-on-success" style="transform:scale(1.5)">
+                    <input type="checkbox" class="custom-control-input " id="customSwitch1" asp-for="esAdmin">
+                    <label class="custom-control-label " for="customSwitch1"></label>
+                </div>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="esEmpresa" /> @Html.DisplayNameFor(model => model.esEmpresa)
-                </label>
+
+            <div class="form-group row">
+                <label class="control-label col-md-6">Es Empresa</label>
+                <div class="col-md-6 d-flex justify-content-center  custom-switch custom-switch-off-danger custom-switch-on-success" style="transform:scale(1.5)">
+                    <input type="checkbox" class="custom-control-input " id="customSwitch2" asp-for="esEmpresa" >
+                    <label class="custom-control-label " for="customSwitch2"></label>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="intentos" class="control-label"></label>
-                <input asp-for="intentos" class="form-control" />
+
+            <div class="form-group row">
+                <label class="control-label col-md-6">Intentos</label>
+                <input asp-for="intentos" class="form-control col-md-6" />
                 <span asp-validation-for="intentos" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="bloqueado" /> @Html.DisplayNameFor(model => model.bloqueado)
-                </label>
+
+            <div class="form-group row">
+                <label class="control-label col-md-6">Bloqueado</label>
+
+                <div class="col-md-6 d-flex justify-content-center  custom-switch custom-switch-off-danger custom-switch-on-success" style="transform:scale(1.5)" >
+                    <input type="checkbox" class="custom-control-input " id="customSwitch3"  asp-for="bloqueado" >
+                    <label class="custom-control-label " for="customSwitch3"></label>
+                </div>
+
             </div>
+            
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Guardar" class="btn btn-warning" />
             </div>
         </form>
-    </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+        <hr style="border-color:gray;" />
+        <div>
+            <a role="button" class="btn btn-danger" asp-action="Index">Volver a la lista</a>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

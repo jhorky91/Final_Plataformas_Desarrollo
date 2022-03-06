@@ -243,10 +243,18 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                                         .Include(c => c.carroProducto)
                                         .ThenInclude(cp => cp.producto)
                                         .FirstOrDefaultAsync();
+                if (carro == null) 
+                {
+                    Carro carr = new Carro(await _context.usuarios.FirstOrDefaultAsync(u => u.idUsuario == id_usr));
+                    _context.carros.Add(carr);
+                    await _context.SaveChangesAsync();
+
+                    carro = carr;
+                }
+
 
                 Producto prod = await _context.productos
-                                        .Where(p => p.idProducto == model.AgregarInput.ID)
-                                        .FirstOrDefaultAsync();
+                                        .FirstOrDefaultAsync(p => p.idProducto == model.AgregarInput.ID);
 
                 //SI EL PRODUCTO YA EXISTE EN EL CARRO, SE AGREGA SOLO LA CANTIDAD
                 if (carro.carroProducto.Exists(cp => cp.producto == prod))

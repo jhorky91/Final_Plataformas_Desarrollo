@@ -76,7 +76,16 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
                         _context.usuarios.Update(usuario);
                         await _context.SaveChangesAsync();
 
-                        HttpContext.Session.SetString("CantProductos", carro.carroProducto.Count().ToString());
+                        if (carro != null)
+                        {
+                            HttpContext.Session.SetString("CantProductos", carro.carroProducto.Count().ToString());
+                        }
+                        else 
+                        {
+                            HttpContext.Session.SetString("CantProductos", 0.ToString());
+                        }
+                        
+
                         HttpContext.Session.SetString("SignIn", JsonConvert.SerializeObject(a));
                         TempData["Mensaje"] = "Bienvenido "+usuario.nombre+".";
                         return RedirectToAction("Index", "Cliente");

@@ -2,17 +2,19 @@
 
 @{
     Layout = "~/Views/Shared/_LayoutA.cshtml";
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Compras";
+    double subtotal = 0;
+    double total = 0;
 }
 
 <h1>Compras</h1>
 
 <div class="card-body">
-    <div class="table-responsive">
+    <div class="">
         <div style="overflow-x:auto;">
-            <table class="table table-xl-responsive-borderless" id="tablajson" width="100%" cellspacing="0">
+            <table class="table table-xl-responsive-borderless w-75" id="tablajson" cellspacing="0">
                 <thead>
-                    <tr>
+                    <tr align="center">
                         <th>
                             Fecha
                         </th>
@@ -30,20 +32,122 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                    <tr>
+                    <tr align="center">
                         <td>
-                            @item.fechaCreacion.ToString("dd-MM-yyyy HH:mm:ss")
+                            @item.fechaCreacion.ToString("yyyy-MM-dd")
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.usuario.nombre)
+                            @item.idUsuario
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.total)
+                            $@item.total
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.idCompra"><i class="fas fa-edit text-success"></i></a> |
-                            <a asp-action="Details" asp-route-id="@item.idCompra"><i class="fas fa-eye text-success"></i></a> |
-                            <a asp-action="Delete" asp-route-id="@item.idCompra"><i class="fas fa-trash-alt text-success"></i></a>
+
+                            @* DETALLES DE LA COMPRA *@
+                            <a role="button" data-toggle="modal" data-target="@("#modalDetalle" + item.idCompra.ToString())"> <i class="fas fa-eye text-warning"></i> </a>|
+                            @* ELIMINAR COMPRA *@
+                            <a role="button" data-toggle="modal" data-target="@("#modalDel" + item.idCompra.ToString())"> <i class="fas fa-trash-alt text-warning"></i> </a>
+
+                            @* MODAL DETALLES DE LA COMPRA *@
+
+                            <div class="modal" id="@("modalDetalle" + item.idCompra.ToString())" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-danger text-white">
+                                            <h5 class="modal-title text-center" id="modalDelCenteredLabel">Detalles de la Compra</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body align-content-center">
+                                            <div>
+                                                <hr style="border-color:gray;" />
+                                                <table class="table table-xl-responsive " cellspacing="0">
+                                                    <thead>
+                                                        <tr align="center">
+                                                            <th>
+                                                                Producto
+                                                            </th>
+                                                            <th>
+                                                                Precio
+                                                            </th>
+                                                            <th>
+                                                                Cantidad
+                                                            </th>
+                                                            <th>
+                                                                Subtotal
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (CompraProducto compprod in item.compraProducto)
+                                                        {
+                                                            subtotal = (compprod.producto.precio * compprod.cantidad);
+                                                            total += subtotal;
+                                                            <tr align="center">
+                                                                <td>
+                                                                    @compprod.producto.nombre
+                                                                </td>
+                                                                <td>
+                                                                    $@compprod.producto.precio
+                                                                </td>
+                                                                <td>
+                                                                    @compprod.cantidad
+                                                                </td>
+                                                                <td>
+                                                                    $@subtotal
+                                                                </td>
+                                                            </tr>
+                                                        }
+
+                                                    </tbody>
+                                                </table>
+                                                <hr style="border-color:gray;" />
+                                                <dl class="row ">
+                                                    <dt class="col-sm-6">
+                                                        Total:
+                                                    </dt>
+                                                    <dd class="col-sm-6">
+                                                        $@total
+                                                    </dd>
+                                                </dl>
+                                                <hr style="border-color:gray;" />
+                                            </div>
+                                            <div>
+                                                <a role="button" class="btn btn-warning" asp-action="Edit" asp-route-id="@item.idCompra"><label class="text-bold">Editar</label></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @* FIN DEL MODAL DETALLES DE LA COMPRA *@
+
+                            @* MODAL ELIMINAR COMPRA *@
+
+                            <div class="modal" id="@("modalDel" + item.idCompra.ToString())" tabindex="-1" role="dialog" aria-labelledby="modalDelCenteredLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-danger text-white">
+                                            <h5 class="modal-title" id="modalDelCenteredLabel">¿Estas seguro que deseas eliminar la compra?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <span>
+                                                Si le das confirmar, la compra se eliminará.
+                                            </span>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a class="btn btn-warning" asp-action="Eliminar" asp-route-id="@item.idCompra">Confirmar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @* FIN DEL MODAL ELIMINAR COMPRA *@
+
                         </td>
                     </tr>
                     }

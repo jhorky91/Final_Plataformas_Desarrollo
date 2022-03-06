@@ -31,8 +31,12 @@ namespace Final_Plataformas_De_Desarrollo.Controllers
         //                                  COMPRA
         // #######################################################################################
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            ViewData["Carros"] =    await _context.carros.CountAsync();
+            ViewData["Compras"] =   await _context.compras.CountAsync();
+            ViewData["Productos"] = await _context.productos.CountAsync();
+            ViewData["Usuarios"] =  await _context.usuarios.CountAsync();
             return View();
         }
         public IActionResult Producto()

@@ -2,12 +2,12 @@
 
 @{
     Layout = "~/Views/Shared/_LayoutA.cshtml";
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Productos";
 }
 
 <h1>Productos</h1>
 
-<a class="btn btn-success" asp-action="Create">Nuevo Producto</a>
+<a class="btn btn-warning" asp-action="Create">Nuevo Producto</a>
 
 
 <div class="card-body">
@@ -15,7 +15,7 @@
         <div style="overflow-x:auto;">
             <table class="table table-xl-responsive-borderless" id="tablajson" width="100%" cellspacing="0">
                 <thead>
-                    <tr>
+                    <tr align="center">
                         <th>
                             Nombre
                         </th>
@@ -39,7 +39,7 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
+                        <tr align="center">
                             <td>
                                 @item.nombre
                             </td>
@@ -56,12 +56,11 @@
                                 @item.fechaCreacion.ToString("yyyy-MM-dd")
                             </td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@item.idProducto"><i class="fas fa-edit text-success"></i></a> |
 
                                 @* DETALLES PRODUCTO *@
-                                <a role="button" data-toggle="modal" data-target="@("#modalDetalle" + item.idProducto.ToString())"> <i class="fas fa-eye text-success"></i> </a>|
+                                <a role="button" data-toggle="modal" data-target="@("#modalDetalle" + item.idProducto.ToString())"> <i class="fas fa-eye text-warning"></i> </a>|
                                 @* ELIMINAR PRODUCTO *@
-                                <a role="button" data-toggle="modal" data-target="@("#modalDel" + item.idProducto.ToString())"> <i class="fas fa-trash-alt text-success"></i> </a>
+                                <a role="button" data-toggle="modal" data-target="@("#modalDel" + item.idProducto.ToString())"> <i class="fas fa-trash-alt text-warning"></i> </a>
 
 
                                 @* MODAL DETALLES PRODUCTO *@
@@ -78,7 +77,7 @@
                                             <div class="modal-body align-content-center">
                                                 <div>
                                                     <hr style="border-color:gray;" />
-                                                    <dl class="row ">
+                                                    <dl class="row " align="left">
                                                         <dt class="col-sm-6">
                                                             Nombre
                                                         </dt>
@@ -114,7 +113,7 @@
                                                 </div>
                                                 <div>
 
-                                                    <a role="button" class="btn btn-success text-dark" asp-action="Edit" asp-route-id="@item.idProducto"><label class="text-bold">Editar</label></a>
+                                                    <a role="button" class="btn btn-warning" asp-action="Edit" asp-route-id="@item.idProducto"><label class="text-bold">Editar</label></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -142,7 +141,7 @@
                                                 </span>
                                             </div>
                                             <div class="modal-footer">
-                                                <a class="btn btn-danger" asp-action="Eliminar" asp-route-id="@item.idProducto">Confirmar</a>
+                                                <a class="btn btn-warning" asp-action="Eliminar" asp-route-id="@item.idProducto">Confirmar</a>
                                             </div>
                                         </div>
                                     </div>
